@@ -33,8 +33,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         templateUrl: 'templates/login.html'
       })
 
-      .state('playlist', {
-        url: '/playlist',
+      .state('home', {
+        url: '/home',
         templateUrl: 'templates/playlist.html',
         controller: 'ListCtrl'
       })
