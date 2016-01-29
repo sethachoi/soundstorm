@@ -32,6 +32,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         url: '/login',
         templateUrl: 'templates/login.html'
       })
+
+      .state('playlist', {
+        url: '/playlist',
+        templateUrl: 'templates/playlist.html',
+        controller: 'ListCtrl'
+      })
+
+
+
     // setup an abstract state for the tabs directive
     .state('tab', {
       url: "/tab",
@@ -50,7 +59,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-
+    .state('tab.search', {
+      url: '/search',
+      views: {
+        'tab-search': {
+          templateUrl: 'templates/tab-search.html',
+          controller: 'SearchCtrl'
+        }
+      }
+    })
     .state('tab.friends', {
       url: '/friends',
       views: {
