@@ -73,7 +73,7 @@ angular.module('starter.controllers', [])
 
         $scope.stopinterval = $interval(function() {
             $scope.progressval = $scope.progressval + 1;
-            if( $scope.progressval >= 1000 ) {
+            if( $scope.progressval >= 300 ) {
                 $interval.cancel($scope.stopinterval);
                 $state.go('second');
                 return;
@@ -82,4 +82,9 @@ angular.module('starter.controllers', [])
     }
 
     startprogress();
+
+
+    $scope.MathFloor = function(num){
+        return Math.floor(num)
+    }
 });

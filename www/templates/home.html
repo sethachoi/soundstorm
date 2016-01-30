@@ -61,7 +61,7 @@ Cancel
 
         <div class="item" href="#">
             <progress id="progressbar" max="300" value="{{ progressval }}"> </progress>
-            <p>{{progressval/60 | number:0 }}:{{progressval%60<10?'0'+progressval%60:progressval%60}} / 5:00</p>
+            <p>{{ MathFloor(progressval/60) }}:{{progressval%60<10?'0'+progressval%60:progressval%60}} / 5:00</p>
 
         </div>
         <!-- <hr> -->
