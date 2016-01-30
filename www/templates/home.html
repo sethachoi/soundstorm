@@ -1,0 +1,115 @@
+
+<ion-view title="Home">
+
+    <ion-nav-bar>
+        <ion-nav-title></ion-nav-title>
+
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        </ion-nav-buttons>
+
+        <ion-nav-buttons side="right">
+            <button class="button button-clear button-positive" ng-click="titleToggler = !titleToggler">Add Song</button>
+        </ion-nav-buttons>
+
+    </ion-nav-bar>
+
+
+
+    <!-- <ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+    <button class="button button-icon ion-navicon"></button>
+</ion-nav-buttons>
+<ion-nav-buttons side="right">
+<button class="button button-icon ion-search"></button>
+<button class="button button-icon ion-ios-email"></button>
+<button class="button button-icon ion-ios-person"></button>
+</ion-nav-buttons>
+<h1 class="title"> Main Nav bar</h1>
+</ion-nav-bar> -->
+<!-- <ion-header-bar class="bar-balanced bar-subheader">
+<label class="item-input-wrapper">
+<i class="icon ion-ios-search placeholder-icon"></i>
+<input type="search" placeholder="Search">
+</label>
+<button class="button button-clear">
+Cancel
+</button>
+</ion-header-bar> -->
+
+<!-- <div class="bar bar-header item-input-inset">
+<label class="item-input-wrapper">
+<i class="icon ion-ios-search placeholder-icon"></i>
+<input type="search" placeholder="Search">
+</label>
+<button class="button button-clear">
+Cancel
+</button>
+</div> -->
+
+<ion-content class="">
+    <div class="list list-borderless">
+
+        <div class="item item-thumbnail-left" href="#">
+            <img src="http://placehold.it/200x200">
+            <h2>Core</h2>
+            <p>RL Grime</p>
+            <p>Lorem ipsum dolor sit amet,</p>
+            <p> consectetur adipiscing elit</p>
+
+        </div>
+
+        <div class="item" href="#">
+            <progress id="progressbar" max="300" value="{{ progressval }}"> </progress>
+            <p>{{progressval/60 | number:0 }}:{{progressval%60<10?'0'+progressval%60:progressval%60}} / 5:00</p>
+
+        </div>
+        <!-- <hr> -->
+        <div class="item item-icon-left" href="#">
+            <i class="icon ion-star"></i>
+            Favorited
+            <span class="badge badge-positive">0</span>
+        </div>
+        <!-- <a class="item item-icon-left" href="#">
+        <i class="icon ion-eye"></i>
+        Views
+        <span class="badge badge-dark">12</span>
+    </a> -->
+    <div class="item item-icon-left" href="#">
+        <i class="icon ion-sad-outline"></i>
+        Votes to Skip
+        <span class="badge badge-assertive">7/10</span>
+    </div>
+    <hr>
+
+    <div class="item " href="#">
+        <h2>Next in Queue</h2>
+
+        <h3>Pretty Hate Machine</h3>
+        <p>Nine Inch Nails<p>
+
+    </div>
+
+</div>
+
+
+
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+    <!-- <a class="tab-item">
+    <i class="icon ion-pause"></i>
+    Pause/Play
+</a> -->
+<a class="tab-item">
+    <i class="icon ion-star"></i>
+    Favorites
+</a>
+<a class="tab-item">
+    <i class="icon ion-sad-outline"></i>
+    Vote to Skip
+</a>
+</div>
+
+</ion-view>
