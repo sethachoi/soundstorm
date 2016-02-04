@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.services'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -30,12 +30,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     $stateProvider
     .state('login', {
         url: '/login',
-        templateUrl: 'templates/login.html'
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginCtrl'
     })
 
     .state('playlist', {
         url: '/playlist',
-        templateUrl: 'templates/playlist.html',
+        templateUrl: 'app/templates/playlist.html',
         controller: 'ListCtrl'
     })
 
@@ -44,14 +45,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     // Menu
     .state('menu', {
         url: '/menu',
-        templateUrl: 'templates/menu.html',
+        templateUrl: 'app/templates/menu.html',
         abstract: true,
     })
     .state('menu.home', {
         url: '/home',
         views: {
             'menuContent': {
-                templateUrl: 'templates/home.html',
+                templateUrl: 'app/home/home.html',
                 controller: 'HomeCtrl'
             }
         }
@@ -64,7 +65,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('tab', {
         url: "/tab",
         abstract: true,
-        templateUrl: "templates/tabs.html"
+        templateUrl: "app/templates/tabs.html"
     })
 
     // Each tab has its own nav history stack:
@@ -73,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         url: '/dash',
         views: {
             'tab-dash': {
-                templateUrl: 'templates/tab-dash.html',
+                templateUrl: 'app/templates/tab-dash.html',
                 controller: 'DashCtrl'
             }
         }
@@ -82,7 +83,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         url: '/search',
         views: {
             'tab-search': {
-                templateUrl: 'templates/tab-search.html',
+                templateUrl: 'app/templates/tab-search.html',
                 controller: 'SearchCtrl'
             }
         }
@@ -91,7 +92,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         url: '/friends',
         views: {
             'tab-friends': {
-                templateUrl: 'templates/tab-friends.html',
+                templateUrl: 'app/templates/tab-friends.html',
                 controller: 'FriendsCtrl'
             }
         }
@@ -100,7 +101,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         url: '/friend/:friendId',
         views: {
             'tab-friends': {
-                templateUrl: 'templates/friend-detail.html',
+                templateUrl: 'app/templates/friend-detail.html',
                 controller: 'FriendDetailCtrl'
             }
         }
@@ -110,7 +111,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         url: '/account',
         views: {
             'tab-account': {
-                templateUrl: 'templates/tab-account.html',
+                templateUrl: 'app/templates/tab-account.html',
                 controller: 'AccountCtrl'
             }
         }
