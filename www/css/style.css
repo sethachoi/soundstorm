@@ -1,1 +1,8 @@
 /* Empty. Add your own CSS if you like */
+@media (min-width:700px) and (orientation: landscape){
+	#loginBlock {
+		width: 40%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
