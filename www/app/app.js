@@ -30,7 +30,7 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     $stateProvider
 
     .state('splash', {
-        url: '/splash',
+        url: '/',
         templateUrl: 'app/splash/splash.html',
         controller: 'SplashCtrl'
     })
@@ -52,14 +52,15 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     // Menu
     .state('menu', {
         url: '/menu',
-        templateUrl: 'app/templates/menu.html',
-        abstract: true,
+        templateUrl: 'app/menu/menu.html',
+        controller: 'MenuCtrl',
+        abstract: true
     })
     .state('menu.home', {
         url: '/home',
         views: {
             'menuContent': {
-                templateUrl: 'app/home/home.html',
+                templateUrl: 'app/menu/home/home.html',
                 controller: 'HomeCtrl'
             }
         }
@@ -125,6 +126,6 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/menu/home');
+    $urlRouterProvider.otherwise('/');
 
 });

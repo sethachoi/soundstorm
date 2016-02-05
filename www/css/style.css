@@ -6,3 +6,8 @@
 		margin-right: auto;
 	}
 }
+
+.ss-img-responsive {
+	max-width: 100%;
+	height: auto;
+}
