@@ -28,6 +28,13 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     // Set up the various states which the app can be in.
     // Each state's controller can be found in controllers.js
     $stateProvider
+
+    .state('splash', {
+        url: '/splash',
+        templateUrl: 'app/splash/splash.html',
+        controller: 'SplashCtrl'
+    })
+
     .state('login', {
         url: '/login',
         templateUrl: 'app/login/login.html',
