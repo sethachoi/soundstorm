@@ -1,4 +1,4 @@
-ionic-heroku-button
+SoundStorm
 ===================
 
 A one-click Ionic app template for Heroku
