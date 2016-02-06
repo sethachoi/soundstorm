@@ -35,6 +35,12 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'SplashCtrl'
     })
 
+    .state('channel', {
+        url: '/channel',
+        templateUrl: 'app/channel/channel.html',
+        controller: 'ChannelCtrl'
+    })
+
     .state('login', {
         url: '/login',
         templateUrl: 'app/login/login.html',
