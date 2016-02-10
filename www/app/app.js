@@ -41,17 +41,18 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'LoginCtrl'
     })
 
+        .state('callback', {
+            url: '/callback',
+            templateUrl: 'app/login/callback.html',
+            controller: 'CallCtrl'
+        })
+
     .state('playlist', {
         url: '/playlist',
         templateUrl: 'app/templates/playlist.html',
         controller: 'ListCtrl'
     })
 
-    .state('callback', {
-        url: '/callback',
-        templateUrl: 'app/callback/callback.html',
-        controller: 'callCtrl'
-    })
 
 
     // Menu
@@ -133,4 +134,12 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/');
 
+})
+.run(function($rootScope, $location, $state, Auth) {
+
+
+    $rootScope.$on( '$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+console.log(toState.name)
+
+    });
 });

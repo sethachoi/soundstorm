@@ -23,4 +23,24 @@ angular.module('soundstorm.services', [])
       return friends[friendId];
     }
   }
+})
+.factory('Auth', function() {
+    console.log('Auth factory starting...');
+
+    var options = {
+        client_id: 'faab6ae127bf4488159edae36a9699a0',
+        redirect_uri: 'http://localhost:5000/callback.html'
+    };
+
+    SC.initialize(options);
+
+  return {
+    initialize: function(opts) {
+        options = {
+              oauth_token: opts.oauth_token || null
+        };
+        
+        SC.initialize(options);
+    }
+  }
 });
