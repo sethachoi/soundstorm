@@ -3,11 +3,10 @@ angular.module('soundstorm.services', [])
 
 .factory('Auth', function($log, $location, ENV) {
     console.log('Auth factory starting...');
-    var baseUrl = $location.protocol() + "://" + $location.host() + ":" + $location.port();
 
     var options = {
         client_id: ENV.SOUNDCLOUD_CLIENT_ID,
-        redirect_uri: baseUrl + '/callback.html'
+        redirect_uri: ENV.SOUNDCLOUD_CALLBACK_URL
     };
 
     SC.initialize(options);

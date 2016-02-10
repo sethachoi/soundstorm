@@ -3,7 +3,8 @@ app = express();
 var fs = require('fs');
 
 var envData = {
-    SOUNDCLOUD_CLIENT_ID: process.env.SOUNDCLOUD_CLIENT_ID || 'cdf0a6cde22cb7171c0f2f8f1718dedd'
+    SOUNDCLOUD_CLIENT_ID: process.env.SOUNDCLOUD_CLIENT_ID || 'cdf0a6cde22cb7171c0f2f8f1718dedd',
+    SOUNDCLOUD_CALLBACK_URL: process.env.SOUNDCLOUD_CALLBACK_URL || 'http://localhost:5000/callback.html'
 };
 fs.writeFile('./www/config.js',"var config =" + JSON.stringify(envData, null, 4), function(err) {
     if(err) {
