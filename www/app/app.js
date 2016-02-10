@@ -6,8 +6,10 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.services'])
+.constant('ENV', window.config)
+.run(function($ionicPlatform, $rootScope, $location, $state, ENV, Auth) {
+    console.log(ENV)
 
-.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -135,11 +137,3 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     $urlRouterProvider.otherwise('/');
 
 })
-.run(function($rootScope, $location, $state, Auth) {
-
-
-    $rootScope.$on( '$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
-console.log(toState.name)
-
-    });
-});

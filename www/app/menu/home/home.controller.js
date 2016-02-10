@@ -49,7 +49,6 @@ angular.module('soundstorm')
 
     $scope.usersTotal = 4;
 
-    startprogress();
 
 
 
