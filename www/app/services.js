@@ -24,12 +24,13 @@ angular.module('soundstorm.services', [])
     }
   }
 })
-.factory('Auth', function() {
+.factory('Auth', function($log, $location) {
     console.log('Auth factory starting...');
+    var baseUrl = $location.protocol() + "://" + $location.host() + ":" + $location.port();
 
     var options = {
-        client_id: 'faab6ae127bf4488159edae36a9699a0',
-        redirect_uri: 'http://localhost:5000/callback.html'
+        client_id: 'cdf0a6cde22cb7171c0f2f8f1718dedd',
+        redirect_uri: baseUrl + '/callback.html'
     };
 
     SC.initialize(options);
@@ -39,8 +40,9 @@ angular.module('soundstorm.services', [])
         options = {
               oauth_token: opts.oauth_token || null
         };
-        
-        SC.initialize(options);
+
+        window.opener.SC.initialize(options);
+        window.opener.inviteCallback();
     }
   }
 });

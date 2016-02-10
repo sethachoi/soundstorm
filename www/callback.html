@@ -8,7 +8,7 @@
     window.onload = function(){
         var re = /\?.*/;
         url = window.location.href;
-        results = re.exec(url);    
+        results = re.exec(url);
         window.location.href = "/#/callback"+results[0];
     }
 
