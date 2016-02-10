@@ -18,6 +18,16 @@
 <!-- cordova script (this will be a 404 during development) -->
 <script src="cordova.js"></script>
 
+<!-- soundcloud api -->
+<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+    <!-- init SC -->
+<script>
+        SC.initialize({
+            client_id: 'cdf0a6cde22cb7171c0f2f8f1718dedd',
+            redirect_uri: '<a href="http://localhost:5000/#/callback">http://localhost:5000/#/callback</a>'
+        });
+</script>
+
 <!-- your app's js -->
 <script src="app/app.js"></script>
 <script src="app/controllers.js"></script>

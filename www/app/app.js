@@ -47,6 +47,11 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'ListCtrl'
     })
 
+    .state('callback', {
+        url: '/callback',
+        templateUrl: 'app/callback/callback.html',
+        controller: 'callCtrl'
+    })
 
 
     // Menu
