@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <b style="text-align: center;">This popup should automatically close in a few seconds</b>
+    <script>
+    window.onload = function(){
+        var re = /\?.*/;
+        url = window.location.href;
+        results = re.exec(url);
+        window.location.href = "/#/callback"+results[0];
+    }
+
+
+
+    </script>
+</body>
+</html>
