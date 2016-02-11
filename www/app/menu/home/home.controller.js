@@ -1,6 +1,6 @@
 angular.module('soundstorm')
 
-.controller('HomeCtrl', function($scope, $interval, $timeout) {
+.controller('HomeCtrl', function($scope, $interval, $timeout, $state) {
     // <img src="http://placehold.it/200x200">
     // <h2>Core</h2>
     // <p>RL Grime</p>

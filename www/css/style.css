@@ -21,3 +21,38 @@
 	max-width: 100%;
 	height: auto;
 }
+
+.ss-splash-title {
+	padding-top: 40%;
+	padding-bottom: 20%;
+}
+
+
+.line-center{
+
+	margin:0;padding:0 20px;
+	background:#fff;
+	display:inline-block;
+}
+.ss-splash-or {
+	padding-top: 20px;
+	padding-left: 25%;
+	padding-right: 25%;
+}
+
+.ss-splash-or > div{
+	text-align:center;
+	position:relative;
+	z-index:2;
+
+}
+
+.ss-splash-or div::after {
+	content:"";
+	position:absolute;
+	top:50%;
+	left:0;
+	right:0;
+	border-top:solid 1px grey;
+	z-index:-1;
+}
