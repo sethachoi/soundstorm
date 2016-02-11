@@ -1,0 +1,21 @@
+{
+  "name": "soundstorm",
+  "version": "0.0.1",
+  "homepage": "https://github.com/sethachoi/soundstorm",
+  "authors": [
+    "alex gian <alexhgian@gmail.com>"
+  ],
+  "description": "SoundStorm change the way you share music",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ng-walkthrough": "~0.4.1",
+    "ionic": "~1.2.4"
+  }
+}
