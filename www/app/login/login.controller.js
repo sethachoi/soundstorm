@@ -5,7 +5,7 @@ angular.module('soundstorm')
          SC.get('/me')
          .then(function(data){
              console.log('inviteCallback() Auth success!');
-              $state.go('menu.home');
+              $state.go('hostRoom');
          })
          .catch(function(data){
               console.log('inviteCallback() Auth failed!')

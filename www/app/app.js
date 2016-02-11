@@ -53,6 +53,17 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'ListCtrl'
     })
 
+    .state('hostRoom', {
+        url: '/hostRoom',
+        templateUrl: 'app/hostRoom/hostRoom.html',
+        controller: 'hostCtrl'
+    })
+
+    .state('joinRoom', {
+        url: '/joinRoom',
+        templateUrl: 'app/joinRoom/joinRoom.html',
+        controller: 'joinCtrl'
+    })
 
 
     // Menu
