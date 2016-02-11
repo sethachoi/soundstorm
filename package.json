@@ -4,10 +4,11 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "bower": "^1.7.7",
     "express": "~4.4.3"
-},
-"scripts": {
-"start": "node server.js",
-"postinstall": "bower install"
-}
+  },
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "bower install"
+  }
 }
