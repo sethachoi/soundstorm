@@ -8,8 +8,7 @@
             <div class="row">
             <div class="col text-center">
                 <h3>To access your playlists and like tracks,<h3>
-                <a href="#/menu/home"><img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"></a>
-                
+                <a href="#" id="sclogin" ng-click="scLogin()"><img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"></a>
                 
                 <div class="list list-inset" id="loginBlock">
                     <h3>Or continue as Guest to just join in on the fun!</h3>
@@ -20,6 +19,7 @@
                         Submit
                     </button>
                 </div>
+                <p>Hello your name is <span id="username"></span></p>
             </div>
             </div>
         </form>
