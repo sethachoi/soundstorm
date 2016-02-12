@@ -1,7 +1,7 @@
 
 <ion-view title="Home">
 
-    <ion-nav-bar class="bar-dark">
+    <ion-nav-bar>
         <ion-nav-title></ion-nav-title>
 
         <ion-nav-buttons side="left">
@@ -9,7 +9,7 @@
         </ion-nav-buttons>
 
         <ion-nav-buttons side="right">
-            <button class="button button-clear " ng-click="titleToggler = !titleToggler">Add Song</button>
+            <button class="button button-clear button-positive" ng-click="titleToggler = !titleToggler">Add Song</button>
         </ion-nav-buttons>
 
     </ion-nav-bar>
@@ -63,20 +63,22 @@ Cancel
 
         </div>
         <!-- <hr> -->
-
-        <div class="item" href="#">
-            Favorites <span class="badge badge-positive pull-right">{{currentSong.totalFavorited}}</span>
+        <div class="item item-icon-left" href="#">
+            <i ng-hide="currentSong.favorited" class="icon ion-ios-star-outline"></i>
+            <i ng-show="currentSong.favorited" class="icon ion-ios-star"></i>
+            Favorited
+            <span class="badge badge-positive">{{currentSong.totalFavorited}}</span>
         </div>
-        <div class="item" href="#">
-            Skips <span class="badge badge-assertive">{{votesSkipped}}/{{usersTotal}}</span>
-        </div>
-
         <!-- <a class="item item-icon-left" href="#">
         <i class="icon ion-eye"></i>
         Views
         <span class="badge badge-dark">12</span>
     </a> -->
-
+    <div class="item item-icon-left" href="#">
+        <i class="icon ion-sad-outline"></i>
+        Voted to Skip
+        <span class="badge badge-assertive">{{votesSkipped}}/{{usersTotal}}</span>
+    </div>
     <hr>
 
     <div class="item " href="#">
@@ -94,7 +96,7 @@ Cancel
 
 </ion-content>
 
-<div class="tabs tabs-icon-top tabs-dark">
+<div class="tabs tabs-icon-top">
     <!-- <a class="tab-item">
     <i class="icon ion-pause"></i>
     Pause/Play
@@ -110,7 +112,7 @@ Cancel
     </div>
 </a>
 <a class="tab-item" ng-click="voteSkip()">
-    <i class="icon ion-ios-skipforward-outline"></i>
+    <i class="icon ion-sad-outline"></i>
     Vote to Skip
 </a>
 </div>

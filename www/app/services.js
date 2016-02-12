@@ -1,24 +1,26 @@
 angular.module('soundstorm.services', [])
 
+/**
+ * A simple example service that returns some data.
+ */
+.factory('Friends', function() {
+  // Might use a resource here that returns a JSON array
 
-.factory('Auth', function($log, $location, ENV) {
-    console.log('Auth factory starting...');
-
-    var options = {
-        client_id: ENV.SOUNDCLOUD_CLIENT_ID,
-        redirect_uri: ENV.SOUNDCLOUD_CALLBACK_URL
-    };
-
-    SC.initialize(options);
+  // Some fake testing data
+  var friends = [
+    { id: 0, name: 'Scruff McGruff' },
+    { id: 1, name: 'G.I. Joe' },
+    { id: 2, name: 'Miss Frizzle' },
+    { id: 3, name: 'Ash Ketchum' }
+  ];
 
   return {
-    initialize: function(opts) {
-        options = {
-              oauth_token: opts.oauth_token || null
-        };
-
-        window.opener.SC.initialize(options);
-        window.opener.inviteCallback();
+    all: function() {
+      return friends;
+    },
+    get: function(friendId) {
+      // Simple index lookup
+      return friends[friendId];
     }
   }
 });

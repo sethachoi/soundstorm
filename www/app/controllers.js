@@ -17,6 +17,8 @@ angular.module('soundstorm.controllers', [])
 })
 
 
+
+
 .controller('ListCtrl', function($scope) {
 
 
@@ -49,5 +51,3 @@ angular.module('soundstorm.controllers', [])
 })
 .controller('MenuCtrl', function($scope) {
 })
-
-
