@@ -14,25 +14,28 @@
     </ion-side-menu-content>
 
     <ion-side-menu side="left">
-        <header class="bar bar-header bar-stable">
-            <h1 class="title">SoundStorm</h1>
+        <header class="bar bar-header">
+            <h1 class="ss-sidebar-header title">SoundStorm</h1>
         </header>
         <ion-content class="has-header">
             <ion-list>
-                <ion-item menu-close href="#/menu/playlist">
-                    Playlists
+                <ion-item class="">
+                        <span class="ss-sidebar-username">Hello, {{username}}</span>
                 </ion-item>
-                <ion-item menu-close href="#/menu/playlist">
-                    Favorites
+                <ion-item class="item-icon-left" menu-close href="#/menu/playlist">
+                    <i class="icon ion-ios-list-outline"></i> Playlists
                 </ion-item>
-                <ion-item menu-close ng-click="logout()">
-                    Settings
+                <ion-item class="item-icon-left" menu-close href="#/menu/playlist">
+                    <i class="icon ion-ios-star"></i> Favorites
                 </ion-item>
-                <ion-item menu-close ng-click="logout()">
-                    Logout
+                <ion-item class="item-icon-left" menu-close ng-click="logout()">
+                    <i class="icon ion-settings"></i> Settings
                 </ion-item>
-                <ion-item menu-close ng-click="logout()">
-                    Help
+                <ion-item class="item-icon-left" menu-close ng-click="logout()">
+                    <i class="icon ion-android-exit"></i> Logout
+                </ion-item>
+                <ion-item class="item-icon-left" menu-close ng-click="logout()">
+                    <i class="icon ion-help"></i> Help
                 </ion-item>
             </ion-list>
         </ion-content>

@@ -5,27 +5,27 @@
     <ion-content class="padding has-header">
         <!-- <h1>Login</h1> -->
 
-        <form action="#/hostRoom">
 
-            <div class="row">
+
+        <div class="row">
             <div class="col text-center">
-                <h3>To access your playlists and like tracks,<h3>
+                <!-- <p>To access your playlists and like tracks,<p>
 
-                <a href="#" id="sclogin" ng-click="scLogin()"><img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"></a>
+                <a href="#" id="sclogin" ng-click="scLogin()"><img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"></a> -->
 
 
                 <div class="list list-inset" id="loginBlock">
-                    <h3>Or continue as Guest to just join in on the fun!</h3>
+                    <p>Or continue as Guest to just join in on the fun!</p>
                     <label class="item item-input">
                         <input type="text" placeholder="Guest Name">
                     </label>
-                    <button class="button button-block button-positive">
+                    <button class="button button-block button-positive" ng-click="guestLogin()">
                         Submit
                     </button>
                 </div>
-                <p>Hello your name is <span id="username"></span></p>
+                <!-- <p>Hello your name is <span id="username"></span></p> -->
             </div>
-            </div>
-        </form>
+        </div>
+
     </ion-content>
 </ion-view>

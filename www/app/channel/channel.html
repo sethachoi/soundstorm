@@ -4,20 +4,21 @@
     </div>
     <ion-content class="padding has-header">
         <!-- <h1>Channel</h1> -->
-        <form action="#/menu/home">
-        <div class="row row-center">
-              <div class="col">
+        <form >
+            <div class="row row-center">
+                <div class="col">
+                    <p>What would you like to do?</p>
+                    <button class="button button-block button-balanced" ng-click="hostButton()">
+                        Host Channel
+                    </button>
 
-                <button class="button button-block button-stable">
-                  Host Channel
-                </button>
+                    <button class="button button-block button-positive" disabled>
+                        Join Channel
+                    </button>
 
-                <button class="button button-block button-positive">
-                  Join Channel
-                </button>
-
-              </div>
+                </div>
             </div>
+            <pre>{{data}}</pre>
         </form>
     </ion-content>
 </ion-view>

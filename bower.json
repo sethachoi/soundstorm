@@ -16,6 +16,8 @@
   ],
   "dependencies": {
     "ng-walkthrough": "~0.4.1",
-    "ionic": "~1.2.4"
+    "ionic": "~1.2.4",
+    "soundcloud-audio": "^0.1.7",
+    "angularfire": "^1.1.3"
   }
 }
