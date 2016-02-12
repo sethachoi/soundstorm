@@ -3,6 +3,7 @@ var express = require('express'),
 
 app.use(express.static('www'));
 
+
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -10,8 +11,12 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-// API Routes
-// app.get('/blah', routeHandler);
+// app.set('view engine', 'ejs');
+// app.set('views', __dirname + '/views');
+
+// app.get('/callback', function(req, res) {
+//     res.render('callback', {})
+// });
 
 app.set('port', process.env.PORT || 5000);
 

@@ -35,11 +35,23 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'SplashCtrl'
     })
 
+    .state('channel', {
+        url: '/channel',
+        templateUrl: 'app/channel/channel.html',
+        controller: 'ChannelCtrl'
+    })
+
     .state('login', {
         url: '/login',
         templateUrl: 'app/login/login.html',
         controller: 'LoginCtrl'
     })
+
+        .state('callback', {
+            url: '/callback',
+            templateUrl: 'app/login/callback.html',
+            controller: 'CallCtrl'
+        })
 
     .state('playlist', {
         url: '/playlist',
@@ -47,6 +59,17 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'ListCtrl'
     })
 
+    .state('hostRoom', {
+        url: '/hostRoom',
+        templateUrl: 'app/hostRoom/hostRoom.html',
+        controller: 'hostCtrl'
+    })
+
+    .state('joinRoom', {
+        url: '/joinRoom',
+        templateUrl: 'app/joinRoom/joinRoom.html',
+        controller: 'joinCtrl'
+    })
 
 
     // Menu
@@ -128,4 +151,12 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/');
 
+})
+.run(function($rootScope, $location, $state, Auth) {
+
+
+    $rootScope.$on( '$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+console.log(toState.name)
+
+    });
 });

@@ -5,6 +5,16 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
+	#hostCodeBlock {
+		width: 40%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#joinCodeBlock {
+		width: 40%;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 .ss-img-responsive {
