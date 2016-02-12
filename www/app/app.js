@@ -62,13 +62,13 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     .state('hostRoom', {
         url: '/hostRoom',
         templateUrl: 'app/hostRoom/hostRoom.html',
-        controller: 'hostCtrl'
+        controller: 'HostCtrl'
     })
 
     .state('joinRoom', {
         url: '/joinRoom',
         templateUrl: 'app/joinRoom/joinRoom.html',
-        controller: 'joinCtrl'
+        controller: 'JoinCtrl'
     })
 
 
