@@ -1,5 +1,18 @@
 var express = require('express'),
-    app = express();
+app = express();
+var fs = require('fs');
+
+var envData = {
+    SOUNDCLOUD_CLIENT_ID: process.env.SOUNDCLOUD_CLIENT_ID || 'cdf0a6cde22cb7171c0f2f8f1718dedd',
+    SOUNDCLOUD_CALLBACK_URL: process.env.SOUNDCLOUD_CALLBACK_URL || 'http://localhost:5000/callback.html'
+};
+fs.writeFile('./www/config.js',"var config =" + JSON.stringify(envData, null, 4), function(err) {
+    if(err) {
+        console.log(err);
+    } else {
+        console.log("JSON saved");
+    }
+});
 
 app.use(express.static('www'));
 
@@ -16,6 +29,11 @@ app.all('*', function(req, res, next) {
 
 // app.get('/callback', function(req, res) {
 //     res.render('callback', {})
+// });
+// app.get('/env',function(req, res){
+//     res.send({
+//         SOUNDCLOUD_CLIENT_ID: process.env.SOUNDCLOUD_CLIENT_ID || 'cdf0a6cde22cb7171c0f2f8f1718dedd'
+//      })
 // });
 
 app.set('port', process.env.PORT || 5000);
