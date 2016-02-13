@@ -73,6 +73,18 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'JoinCtrl'
     })
 
+    .state('about', {
+        url: '/about',
+        templateUrl: 'app/about/about.html',
+        controller: 'AboutCtrl'
+    })
+
+    .state('team', {
+        url: '/team',
+        templateUrl: 'app/about/team.html',
+        controller: 'TeamCtrl'
+    })
+
 
     // Menu
     .state('menu', {
