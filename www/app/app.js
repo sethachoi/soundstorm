@@ -84,11 +84,13 @@ angular.module('soundstorm', [
         controller: 'CallCtrl'
     })
 
+/*
     .state('playlist', {
         url: '/playlist',
         templateUrl: 'app/templates/playlist.html',
         controller: 'ListCtrl'
     })
+*/
 
     .state('hostRoom', {
         url: '/hostRoom',
