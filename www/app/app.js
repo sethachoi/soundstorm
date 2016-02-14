@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.services'])
+angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.services', 'firebase'])
 .constant('ENV', window.config)
 .run(function($ionicPlatform, $rootScope, $location, $state, ENV, Auth) {
     console.log(ENV)
