@@ -1,7 +1,15 @@
 <ion-view title="Login">
-    <div class="bar bar-header bar-dark">
-        <h1 class="title">Login</h1>
-    </div>
+
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-buttons side="left">
+            <a class="button button-icon icon ion-android-arrow-back" href="/#/"></a>
+        </ion-nav-buttons>
+
+        <ion-nav-title>Login</ion-nav-title>
+    </ion-nav-bar>
+
+
+
     <ion-content class="padding has-header">
         <!-- <h1>Login</h1> -->
 
@@ -9,23 +17,23 @@
 
         <div class="row">
             <div class="col text-center">
-                <!-- <p>To access your playlists and like tracks,<p>
+                <p>To access your playlists and like tracks,<p>
 
-                <a href="#" id="sclogin" ng-click="scLogin()"><img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"></a> -->
+                    <a href="#" id="sclogin" class="ss-oauth-button disabled"><img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"></a>
 
 
-                <div class="list list-inset" id="loginBlock">
-                    <p>Or continue as Guest to just join in on the fun!</p>
-                    <label class="item item-input">
-                        <input type="text" placeholder="Guest Name">
-                    </label>
-                    <button class="button button-block button-positive" ng-click="guestLogin()">
-                        Submit
-                    </button>
+                    <div class="list list-inset" id="loginBlock">
+                        <p>Or continue as Guest to just join in on the fun!</p>
+                        <label class="item item-input">
+                            <input type="text" placeholder="Guest Name">
+                        </label>
+                        <button class="button button-block button-positive" ng-click="guestLogin()">
+                            Submit
+                        </button>
+                    </div>
+                    <!-- <p>Hello your name is <span id="username"></span></p> -->
                 </div>
-                <!-- <p>Hello your name is <span id="username"></span></p> -->
             </div>
-        </div>
 
-    </ion-content>
-</ion-view>
+        </ion-content>
+    </ion-view>

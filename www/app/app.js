@@ -49,11 +49,11 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'LoginCtrl'
     })
 
-        .state('callback', {
-            url: '/callback',
-            templateUrl: 'app/login/callback.html',
-            controller: 'CallCtrl'
-        })
+    .state('callback', {
+        url: '/callback',
+        templateUrl: 'app/login/callback.html',
+        controller: 'CallCtrl'
+    })
 
     .state('playlist', {
         url: '/playlist',
@@ -73,17 +73,7 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'JoinCtrl'
     })
 
-    .state('about', {
-        url: '/about',
-        templateUrl: 'app/about/about.html',
-        controller: 'AboutCtrl'
-    })
 
-    .state('team', {
-        url: '/team',
-        templateUrl: 'app/about/team.html',
-        controller: 'TeamCtrl'
-    })
 
 
     // Menu
@@ -103,7 +93,26 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         }
     })
 
-
+    .state('menu.about', {
+        url: '/about',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/menu/about/about.html',
+                controller: 'AboutCtrl'
+            }
+        }
+    })
+    
+    //
+    // .state('menu.about', {
+    //     url: '/team',
+    //     views: {
+    //         'menuContent': {
+    //             templateUrl: 'app/menu/about/team.html',
+    //             controller: 'TeamCtrl'
+    //         }
+    //     }
+    // })
 
 
     // setup an abstract state for the tabs directive
