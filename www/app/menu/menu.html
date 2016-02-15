@@ -1,40 +1,87 @@
 <ion-side-menus>
 
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-stable nav-title-slide-ios7">
-            <ion-nav-bar>
-                <ion-nav-buttons side="left">
-                    <!-- Toggle left side menu -->
-                    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-                </ion-nav-buttons>
-            </ion-nav-bar>
-            <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
-        </ion-nav-bar>
-        <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
-    </ion-side-menu-content>
+        <ion-nav-bar class="bar-dark nav-title-slide-ios7">
 
-    <ion-side-menu side="left">
-        <header class="bar bar-header bar-stable">
-            <h1 class="title">SoundStorm</h1>
-        </header>
-        <ion-content class="has-header">
-            <ion-list>
-                <ion-item menu-close href="#/menu/playlist">
-                    Playlists
-                </ion-item>
-                <ion-item menu-close href="#/menu/playlist">
-                    Favorites
-                </ion-item>
-                <ion-item menu-close ng-click="logout()">
-                    Settings
-                </ion-item>
-                <ion-item menu-close ng-click="logout()">
-                    Logout
-                </ion-item>
-                <ion-item menu-close ng-click="logout()">
-                    Help
-                </ion-item>
-            </ion-list>
-        </ion-content>
-    </ion-side-menu>
+            <!-- <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        </ion-nav-buttons> -->
+
+        <!-- <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button> -->
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+</ion-side-menu-content>
+
+<ion-side-menu side="left">
+    <header class="bar bar-header">
+        <h1 class="ss-sidebar-header title">Hello, {{username}}</h1>
+    </header>
+    <ion-content class="has-header">
+        <ion-list>
+            <!-- <ion-item class="ss-sidebar-username">
+            <span>Hello, {{username}}</span>
+        </ion-item> -->
+        <ion-item class="item-icon-left" href="#/menu/home" menu-close >
+            <i class="icon ion-home"></i> Home
+        </ion-item>
+        <ion-item class="item-icon-left">
+            <i class="icon ion-ios-list-outline"></i> Playlist
+        </ion-item>
+        <ion-item class="item-icon-left">
+            <i class="icon ion-ios-star"></i> Favorites
+        </ion-item>
+
+
+        <ion-item class="item-icon-left">
+            <i class="icon ion-settings"></i> Settings
+        </ion-item>
+        <ion-item class="item-icon-left">
+            <i class="icon ion-help"></i> Help
+        </ion-item>
+        <ion-item class="item-icon-left" menu-close href="#/menu/about">
+            <i class="icon ion-information-circled"></i> About
+        </ion-item>
+        <ion-item class="item-divider ss-item-empty "></ion-item>
+        <ion-item class="item-icon-left" menu-close ng-click="logout()">
+            <i class="icon ion-android-exit"></i> Logout
+        </ion-item>
+
+
+
+    </ion-list>
+</ion-content>
+</ion-side-menu>
+
+
+<!-- User Side Menu -->
+<ion-side-menu side="right">
+    <header class="bar bar-header">
+        <h1 class="ss-sidebar-header title">Current Users</h1>
+    </header>
+    <ion-content class="has-header">
+        <ion-list>
+            <ion-item class="item-avatar">
+                <img src="img/Alex.jpg">
+                <h2>Alex Gian</h2>
+                <p>Playlists: 23 Favorites: 45</p>
+            </ion-item>
+        </ion-list>
+        <ion-list>
+            <ion-item class="item-avatar">
+                <img src="img/Seth.jpg">
+                <h2>Seth Choi</h2>
+                <p>Playlists: 59 Favorites: 300</p>
+            </ion-item>
+        </ion-list>
+        <ion-list>
+            <ion-item class="item-avatar">
+                <img src="img/Israel.jpg">
+                <h2>Israel Cruz</h2>
+                <p>Playlists: 15 Favorites: 40</p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-side-menu>
+
+
 </ion-side-menus>

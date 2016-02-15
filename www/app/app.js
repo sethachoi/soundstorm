@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.services'])
+angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.services', 'firebase'])
 .constant('ENV', window.config)
 .run(function($ionicPlatform, $rootScope, $location, $state, ENV, Auth) {
     console.log(ENV)
@@ -49,11 +49,11 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         controller: 'LoginCtrl'
     })
 
-        .state('callback', {
-            url: '/callback',
-            templateUrl: 'app/login/callback.html',
-            controller: 'CallCtrl'
-        })
+    .state('callback', {
+        url: '/callback',
+        templateUrl: 'app/login/callback.html',
+        controller: 'CallCtrl'
+    })
 
     .state('playlist', {
         url: '/playlist',
@@ -74,6 +74,8 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
     })
 
 
+
+
     // Menu
     .state('menu', {
         url: '/menu',
@@ -91,7 +93,26 @@ angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.ser
         }
     })
 
-
+    .state('menu.about', {
+        url: '/about',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/menu/about/about.html',
+                controller: 'AboutCtrl'
+            }
+        }
+    })
+    
+    //
+    // .state('menu.about', {
+    //     url: '/team',
+    //     views: {
+    //         'menuContent': {
+    //             templateUrl: 'app/menu/about/team.html',
+    //             controller: 'TeamCtrl'
+    //         }
+    //     }
+    // })
 
 
     // setup an abstract state for the tabs directive
