@@ -21,9 +21,26 @@
 	color: white;
 	background-color: #f50;
 }
-.ss-sidebar-username {
+
+.ss-oauth-button.disabled {
+  opacity: 0.50;
+  cursor: not-allowed;
+}
+
+.ss-item-empty {
+	min-height: 0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.ss-item-divider, .ss-sidebar-username {
+	border-bottom-width: 3px;
+}
+
+.ss-sidebar-username > span {
 	padding-left: 10px;
 }
+
+
 
 .ss-sidebar-header {
 	background-color: #f50;
