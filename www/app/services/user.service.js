@@ -1,5 +1,5 @@
 angular.module('soundstorm')
-.factory('SSUser', function($log, $location, $cookies, ENV) {
+.factory('User', function($log, $location, $cookies, ENV) {
     var username = "Anonymous";
 
     return {
