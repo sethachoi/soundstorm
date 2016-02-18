@@ -21,12 +21,12 @@ angular.module('soundstorm')
             currentPlayer = player;
             player.play();
             player.setVolume(0.1);
-            registerPlayerListeners(player);
+            registerListener(player);
             cb(player);
         });
     }
 
-    function registerPlayerListeners(player){
+    function registerListener(player){
         player.on('time', function(data){
             timeListenerCallback(currentPlayer.currentTime());
         })
