@@ -1,5 +1,9 @@
 angular.module('soundstorm.controllers', [])
+.controller("FireCtrl", function($scope, $firebaseObject) {
+    var ref = new FireBase("https://soundstorm.firebaseio.com/");
 
+    $scope.data = $firebaseObject(ref);
+})
 .controller('DashCtrl', function($scope) {
 })
 .controller('SearchCtrl', function($scope) {

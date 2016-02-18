@@ -21,4 +21,4 @@ angular.module('soundstorm.services', [])
         window.opener.inviteCallback();
     }
   }
-});
+})

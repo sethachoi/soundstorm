@@ -31,6 +31,6 @@ angular.module('soundstorm')
 
     $scope.guestLogin = function(name){
         User.setUsername(name);
-        $state.go('channel')
+        $state.go('channel');
     }
 })

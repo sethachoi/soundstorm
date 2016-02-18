@@ -1,16 +1,14 @@
 angular.module('soundstorm')
-.controller('ChannelCtrl', function($scope, $firebaseObject, $state) {
+.controller('ChannelCtrl', function($scope, $firebaseObject, $state, Room) {
     console.log('ChannelCtrl started...');
 
-
-        var ref = new Firebase("https://soundstorm.firebaseio.com/rooms");
-
         $scope.hostButton = function(){
+        	var num = Math.random().toString(36).substr(2, 6);
+        	var str = num.toUpperCase();
+        	Room.createRoom(str);
+
             $state.go('menu.home');
-            // ref.set({
-            //     'name':'wo'
-            // })
         };
 
 
-})
+});
