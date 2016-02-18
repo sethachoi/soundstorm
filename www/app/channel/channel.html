@@ -12,11 +12,11 @@
             <div class="row row-center">
                 <div class="col">
                     <p>What would you like to do?</p>
-                    <button class="button button-block button-balanced" ng-click="hostButton()">
+                    <button id="hostButton" class="button button-block button-balanced" ng-click="hostButton()">
                         Host Channel
                     </button>
 
-                    <button class="button button-block button-positive" disabled>
+                    <button id="joinButton" class="button button-block button-positive" disabled>
                         Join Channel
                     </button>
 
@@ -25,4 +25,36 @@
             <pre>{{data}}</pre>
         </form>
     </ion-content>
+
+    <div class="tabs tabs-icon-top tabs-dark">
+
+
+        <a class="tab-item" ng-click="help1=true;">
+            <i class="icon ion-help"></i>
+            Help Me
+        </a>
+    </div>
 </ion-view>
+
+<walkthrough
+is-round=false
+walkthrough-type="transparency"
+focus-element-id="hostButton"
+icon=""
+ force-caption-location="BOTTOM"
+main-caption="Host Channel allows you to create a room where you can enjoy music with others."
+is-active="help1"
+use-button=true
+on-walkthrough-hide="help2=true;">
+</walkthrough>
+
+<walkthrough
+is-round=false
+walkthrough-type="transparency"
+focus-element-id="joinButton"
+icon=""
+ force-caption-location="BOTTOM"
+main-caption="Join Channel allows you to join a existing room someone else created. (Currently not available)"
+is-active="help2"
+use-button=true>
+</walkthrough>
