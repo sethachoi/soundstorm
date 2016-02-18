@@ -1,4 +1,4 @@
 angular.module('soundstorm')
-.controller('SplashCtrl', function($scope) {
-    console.log('SplashCtrl started...');
+.controller('SplashCtrl', function($scope, NameGenerator) {
+    console.log('SplashCtrl started: ', NameGenerator());
 })
