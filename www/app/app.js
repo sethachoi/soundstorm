@@ -5,16 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('soundstorm', [
-    'ionic',
-    'soundstorm.controllers',
-    'soundstorm.services',
-    'firebase',
-    'ngCookies',
-    'jett.ionic.filter.bar',
-    'ng-walkthrough',
-    'ngProgress'
-])
+angular.module('soundstorm', ['ionic', 'soundstorm.controllers', 'soundstorm.services', 'firebase'])
 .constant('ENV', window.config)
 .run(function($ionicPlatform, $rootScope, $location, $state, ENV, Auth) {
     console.log(ENV)
@@ -32,26 +23,7 @@ angular.module('soundstorm', [
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicFilterBarConfigProvider) {
-
-    /*
-     * ionicFilterBarConfigProvider settings
-     */
-
-    // $ionicFilterBarConfigProvider.theme('calm');
-    // $ionicFilterBarConfigProvider.clear('ion-close');
-    // $ionicFilterBarConfigProvider.search('ion-search');
-    // $ionicFilterBarConfigProvider.backdrop(false);
-    // $ionicFilterBarConfigProvider.transition('horizontal');
-    // $ionicFilterBarConfigProvider.placeholder('Filter');
-    // $ionicFilterBarConfigProvider.close('ion-android-close')
-
-
-
-
-
-
-
+.config(function($stateProvider, $urlRouterProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -120,6 +92,7 @@ angular.module('soundstorm', [
             }
         }
     })
+
     .state('menu.about', {
         url: '/about',
         views: {
@@ -129,15 +102,18 @@ angular.module('soundstorm', [
             }
         }
     })
-    .state('menu.team', {
-        url: '/team',
-        views: {
-            'menuContent': {
-                templateUrl: 'app/menu/about/team.html',
-                controller: 'TeamCtrl'
-            }
-        }
-    })
+    
+    //
+    // .state('menu.about', {
+    //     url: '/team',
+    //     views: {
+    //         'menuContent': {
+    //             templateUrl: 'app/menu/about/team.html',
+    //             controller: 'TeamCtrl'
+    //         }
+    //     }
+    // })
+
 
     // setup an abstract state for the tabs directive
     .state('tab', {

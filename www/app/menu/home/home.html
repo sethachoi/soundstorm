@@ -2,16 +2,16 @@
 <ion-view title="">
 
 
-    <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-    </ion-nav-buttons>
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        </ion-nav-buttons>
 
-    <ion-nav-title>{{homeTitle}}</ion-nav-title>
+        <ion-nav-title>{{homeTitle}}</ion-nav-title>
 
-    <ion-nav-buttons side="right">
-        <button id="searchbutton" style="margin-right: 16px;" class="button button-clear icon ion-search" ng-click="showFilterBar()"></button>
-        <button id="peoplebutton" menu-toggle="right" class="button button-clear icon ion-ios-people"></button>
-    </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button style="margin-right: 16px;" class="button button-clear icon ion-search"></button>
+            <button menu-toggle="right" class="button button-clear icon ion-ios-people"></button>
+        </ion-nav-buttons>
 
 
 
@@ -47,43 +47,43 @@ Cancel
 </div> -->
 
 <ion-content class="ss-home-content">
-    <section id="ss-help-player-info">
-        <div class="item item-thumbnail-left" href="#">
-            <img src={{currentSong.preview}}>
-            <h2 style="white-space: normal;">{{currentSong.title}}</h2>
-            <p>{{currentSong.author}}</p>
-            <!-- <p>{{currentSong.description}}</p> -->
-        </div>
-        <div id="ss-progress-bar"></div>
-        <!-- <div class="row ss-player" href="#">
-            <progress id="progressbar" max="{{MathFloor(totalTime)}}" value="{{ MathFloor(progressval) }}"> </progress>
 
-        </div> -->
-    </section>
+    <div class="item item-thumbnail-left" href="#">
+        <img src={{currentSong.preview}}>
+        <h2 style="white-space: normal;">{{currentSong.title}}</h2>
+        <p>{{currentSong.author}}</p>
+        <!-- <p>{{currentSong.description}}</p> -->
+    </div>
+
+    <div class="row ss-player" href="#">
+        <progress id="progressbar" max="{{MathFloor(totalTime)}}" value="{{ MathFloor(progressval) }}"> </progress>
+        <span>{{ MathFloor(progressval/60) }}:{{progressval%60<10?'0'+progressval%60:progressval%60}} / {{MathFloor(totalTime/60)}}:{{totalTime%60<10?'0'+totalTime%60:totalTime%60}}</span>
+    </div>
+    <div class="row">
+
+    </div>
 
 
-    <section id="ss-help-player-stats" class="row ss-info" >
-        <div class="col col-33" style="padding-top:0"><span class="ss-player-time">{{ progressval | date: 'mm:ss': 'UTC' }} / {{ totalTime | date: 'mm:ss': 'UTC' }}</span></div>
-        <div class="col"><i class="icon ion-star"><span>{{currentSong.totalFavorited}}</span></i></div>
-        <div class="col"><i class="ion-ios-skipforward-outline"><span>{{votesSkipped}}/{{usersTotal}}</span></i></div>
-        <div class="col"><i class="ion-ios-people"><span>1</span></i></div>
-    </section>
+    <div class="row ss-info" >
+        <div class="col">Favorites  <span class="badge badge-positive">{{currentSong.totalFavorited}}</span></div>
+        <div class="col">Skips <span class="badge badge-assertive">{{votesSkipped}}/{{usersTotal}}</span></div>
+    </div>
 
-    <section id="ss-help-playlist">
-        <div class="row ss-upcoming-title">
-            <h5>Upcoming</h5>
-        </div>
+    <div class="row ss-upcoming-title">
+        <h5>Upcoming</h5>
+    </div>
 
-        <div class="ss-upcoming-list list">
-            <div class="item">Daft Punk - Harder, Better, Faster, Stronger</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-        </div>
-    </section>
+    <div class="ss-upcoming-list list">
+        <div class="item">Daft Punk - Harder, Better, Faster, Stronger</div>
+        <div class="item">Lorem Ipsong</div>
+        <div class="item">Lorem Ipsong</div>
+        <div class="item">Lorem Ipsong</div>
+        <div class="item">Lorem Ipsong</div>
+        <div class="item">Lorem Ipsong</div>
+        <div class="item">Lorem Ipsong</div>
+    </div>
+
+
 
 
 
@@ -91,42 +91,42 @@ Cancel
 
 </ion-content>
 
-<div id="ss-help-control" class="tabs tabs-icon-top tabs-dark">
-    <a class="tab-item" ng-click="toggleSound()">
-        <div ng-show="soundToggle">
-            <i class="icon ion-volume-mute"></i>
-            Mute
-        </div>
-        <div ng-show="!soundToggle">
+<div class="tabs tabs-icon-top tabs-dark">
+<a class="tab-item" ng-click="mute()">
+    <div ng-show="soundToggle">
+        <i class="icon ion-volume-mute"></i>
+        Mute
+    </div>
+    <div ng-show="!soundToggle">
             <i class="icon ion-volume-medium"></i>
-            Unmute
-        </div>
-    </a>
-    <a class="tab-item" ng-click="play()">
-        <div id="playbutton" ng-hide="isPlaying">
-            <i class="icon ion-play"></i>
-            Play
-        </div>
-        <div ng-show="isPlaying">
-            <i class="icon ion-pause"></i>
-            Pause
-        </div>
-    </a>
-    <a class="tab-item" ng-click="addFavorite()">
-        <div ng-hide="currentSong.favorited">
-            <i class="icon ion-ios-star-outline"></i>
-            Add to Favorite
-        </div>
-        <div ng-show="currentSong.favorited">
-            <i class="icon ion-ios-star"></i>
-            Remove from Favorite
-        </div>
-    </a>
+        Unmute
+    </div>
+</a>
+<a class="tab-item" ng-click="play()">
+    <div ng-hide="isPlaying">
+        <i class="icon ion-play"></i>
+        Play
+    </div>
+    <div ng-show="isPlaying">
+        <i class="icon ion-pause"></i>
+        Pause
+    </div>
+</a>
+<a class="tab-item" ng-click="addFavorite()">
+    <div ng-hide="currentSong.favorited">
+        <i class="icon ion-ios-star-outline"></i>
+        Add to Favorite
+    </div>
+    <div ng-show="currentSong.favorited">
+        <i class="icon ion-ios-star"></i>
+        Remove from Favorite
+    </div>
+</a>
 
-    <a class="tab-item" ng-click="voteSkip()">
-        <i class="icon ion-ios-skipforward-outline"></i>
-        Vote to Skip
-    </a>
+<a class="tab-item" ng-click="voteSkip()">
+    <i class="icon ion-ios-skipforward-outline"></i>
+    Vote to Skip
+</a>
 </div>
 
 </ion-view>

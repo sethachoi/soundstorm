@@ -13,38 +13,36 @@
 </ion-side-menu-content>
 
 <ion-side-menu side="left">
-
-
-
-
-    <ion-content class="">
-        <ion-list class="ss-sidebar">
-            <ion-item class="item ss-sidebar-info">
-                Hello, {{username}}
-                <p>Room ID: <span>cool-cobra-56</span></p>
-            </ion-item>
+    <header class="bar bar-header">
+        <h1 class="ss-sidebar-header title">Hello, {{username}}</h1>
+    </header>
+    <ion-content class="has-header">
+        <ion-list>
+            <!-- <ion-item class="ss-sidebar-username">
+            <span>Hello, {{username}}</span>
+        </ion-item> -->
         <ion-item class="item-icon-left" href="#/menu/home" menu-close >
             <i class="icon ion-home"></i> Home
         </ion-item>
-        <ion-item id="helphplaylist" class="item-icon-left ss-button disabled">
+        <ion-item class="item-icon-left">
             <i class="icon ion-ios-list-outline"></i> Playlist
         </ion-item>
-        <ion-item id="helphfavorites" class="item-icon-left ss-button disabled">
+        <ion-item class="item-icon-left">
             <i class="icon ion-ios-star"></i> Favorites
         </ion-item>
 
 
-        <ion-item id="helphsettings" class="item-icon-left ss-button disabled">
+        <ion-item class="item-icon-left">
             <i class="icon ion-settings"></i> Settings
         </ion-item>
-        <ion-item class="item-icon-left ss-button" menu-close ng-click="help()">
+        <ion-item class="item-icon-left">
             <i class="icon ion-help"></i> Help
         </ion-item>
         <ion-item class="item-icon-left" menu-close href="#/menu/about">
             <i class="icon ion-information-circled"></i> About
         </ion-item>
         <ion-item class="item-divider ss-item-empty "></ion-item>
-        <ion-item id="helphlogout" class="item-icon-left" menu-close ng-click="logout()">
+        <ion-item class="item-icon-left" menu-close ng-click="logout()">
             <i class="icon ion-android-exit"></i> Logout
         </ion-item>
 
@@ -62,166 +60,28 @@
     </header>
     <ion-content class="has-header">
         <ion-list>
-            <ion-item id="currentuser" class="item-avatar">
+            <ion-item class="item-avatar">
                 <img src="img/Alex.jpg">
                 <h2>Alex Gian</h2>
                 <p>Playlists: 23 Favorites: 45</p>
             </ion-item>
-
-
+        </ion-list>
+        <ion-list>
             <ion-item class="item-avatar">
                 <img src="img/Seth.jpg">
                 <h2>Seth Choi</h2>
                 <p>Playlists: 59 Favorites: 300</p>
             </ion-item>
-
+        </ion-list>
+        <ion-list>
             <ion-item class="item-avatar">
                 <img src="img/Israel.jpg">
                 <h2>Israel Cruz</h2>
                 <p>Playlists: 15 Favorites: 40</p>
             </ion-item>
-
-            <ion-item class="item-avatar">
-                <img src="img/lorem-iperson.jpg">
-                <h2>Lorem Iperson</h2>
-                <p>Playlists: 99 Favorites: 99</p>
-            </ion-item>
         </ion-list>
     </ion-content>
 </ion-side-menu>
+
+
 </ion-side-menus>
-
-
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="searchbutton"
-icon=""
- force-caption-location="BOTTOM"
-main-caption="Search for a song to add to the playlist."
-is-active="helpHomeSearch"
-use-button=true
-on-walkthrough-hide="helpHomePeople=true;">
-</walkthrough>
-
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="peoplebutton"
-icon="swipe_left"
-icon-padding-left="-100"
-icon-padding-top="100"
- force-caption-location="BOTTOM"
-main-caption="Tap or swipe left to access current users."
-is-active="helpHomePeople"
-use-button=true
-on-walkthrough-hide="getHelpHomeCurrentUser();">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="currentuser"
-icon=""
- force-caption-location="BOTTOM"
-main-caption="A user that has joined the channel. If they are logged in it will display the number of their playlists and favorites."
-is-active="helpHomeCurrentUser"
-use-button=true
-on-walkthrough-hide="toggleLeftHelp()">
-</walkthrough>
-
-
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="helphplaylist"
-icon=""
- force-caption-location="BOTTOM"
-main-caption="This allows you to manage your song playlist. It allows you to add, reorder, or delete songs. (Currently not implemented)"
-is-active="helpHPlaylist"
-use-button=true
-on-walkthrough-hide="helpHFavorites=true;">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="helphfavorites"
-icon=""
- force-caption-location="BOTTOM"
-main-caption="The list of songs that you've favorited. (Currently not implemented)"
-is-active="helpHFavorites"
-use-button=true
-on-walkthrough-hide="helpHSettings=true">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="helphsettings"
-icon=""
- force-caption-location="BOTTOM"
-main-caption="Access your channel's settings. (Currently not implemented)"
-is-active="helpHSettings"
-use-button=true
-on-walkthrough-hide="helpHLogout=true">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="helphlogout"
-icon=""
-main-caption="Tap this to logout which makes us sad :("
-is-active="helpHLogout"
-use-button=true
-on-walkthrough-hide="helpHPlayerInfo=true;">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="ss-help-player-info"
-icon=""
-main-caption="Displays the current playing song information."
-is-active="ssHPlayerInfo"
-use-button=true
-force-caption-location="BOTTOM"
-on-walkthrough-hide="helpHPlayerStats=true;">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="ss-help-player-stats"
-icon=""
-main-caption="Displays how many user favorited the current song and how many people voted to skip."
-is-active="helpHPlayerStats"
-use-button=true
-on-walkthrough-hide="helpHPlayerPlaylist=true;">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="ss-help-playlist"
-icon=""
-main-caption="The a preview playlist of upcoming songs."
-is-active="helpHPlayerPlaylist"
-use-button=true
-on-walkthrough-hide="helpHControl=true;">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="ss-help-control"
-icon=""
-main-caption="The controls for the player. Hosts have two extra controls allowing them to play/pause or mute/unmute"
-is-active="helpHControl"
-use-button=true
-on-walkthrough-hide="">
-</walkthrough>

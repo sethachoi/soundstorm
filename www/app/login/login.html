@@ -19,15 +19,15 @@
             <div class="col text-center">
                 <p>To access your playlists and like tracks,<p>
 
-                    <a href="#" id="sclogin" class="ss-button disabled"><img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"></a>
+                    <a href="#" id="sclogin" class="ss-oauth-button disabled"><img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"></a>
 
 
                     <div class="list list-inset" id="loginBlock">
                         <p>Or continue as Guest to just join in on the fun!</p>
                         <label class="item item-input">
-                            <input type="text" placeholder="Guest Name" ng-model="guestName">
+                            <input type="text" placeholder="Guest Name">
                         </label>
-                        <button class="button button-block button-positive" ng-click="guestLogin(guestName)">
+                        <button class="button button-block button-positive" ng-click="guestLogin()">
                             Submit
                         </button>
                     </div>
@@ -36,6 +36,4 @@
             </div>
 
         </ion-content>
-
-
     </ion-view>
