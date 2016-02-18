@@ -1,9 +1,9 @@
 angular.module('soundstorm')
 
-.controller('MenuCtrl', function($scope, $interval, $state, $ionicSideMenuDelegate, SSUser) {
+.controller('MenuCtrl', function($scope, $interval, $state, $ionicSideMenuDelegate, User) {
     console.log('MenuCtrl')
 
-    var user = SSUser.getUser();
+    var user = User.getUser();
 
     $scope.username = user.username;
 

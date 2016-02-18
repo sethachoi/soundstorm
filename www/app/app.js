@@ -13,7 +13,8 @@ angular.module('soundstorm', [
     'ngCookies',
     'jett.ionic.filter.bar',
     'ng-walkthrough',
-    'ngProgress'
+    'ngProgress',
+    'underscore'
 ])
 .constant('ENV', window.config)
 .run(function($ionicPlatform, $rootScope, $location, $state, ENV, Auth) {
