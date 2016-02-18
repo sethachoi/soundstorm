@@ -1,6 +1,5 @@
 angular.module('soundstorm')
-.controller('LoginCtrl', function($scope, $window, $state, ENV, SSUser) {
-
+.controller('LoginCtrl', function($scope, $window, $state, ENV) {
     // function testConnection(){
     //     SC.get('/me')
     //     .then(function(data){
@@ -29,8 +28,7 @@ angular.module('soundstorm')
     //     });
     // }
 
-    $scope.guestLogin = function(name){
-        SSUser.setUsername(name);
+    $scope.guestLogin = function(){
         $state.go('channel')
     }
 })

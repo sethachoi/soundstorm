@@ -6,15 +6,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <title></title>
-    <link rel="stylesheet" href="bower_components/ionic-filter-bar/dist/ionic.filter.bar.css">
+
     <link href="bower_components/ionic/release/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/ng-walkthrough/css/ng-walkthrough.css">
-    <link rel="stylesheet" href="lib/ngProgress.css">
+
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
 -->
-
 
 <script src="config.js"></script>
 <!-- ionic/angularjs js -->
@@ -23,16 +21,10 @@
 <!-- cordova script (this will be a 404 during development) -->
 <script src="cordova.js"></script>
 
-<!-- bower_components -->
-<script src="lib/soundcloud/sdk.js"></script>
-<script src="lib/ngprogress.min.js"></script>
+<!-- soundcloud api -->
+<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
 <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
 <script src="bower_components/firebase/firebase.js"></script>
-<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-<script src="bower_components/ionic-filter-bar/dist/ionic.filter.bar.js"></script>
-<script src="bower_components/ng-walkthrough/ng-walkthrough.js"></script>
-<script src="bower_components/ng-walkthrough/ng-walkthrough.tap_icons.js"></script>
-
 
 <!-- your app's js -->
 <script src="app/app.js"></script>
@@ -52,9 +44,6 @@
 <script src="app/menu/menu.controller.js"></script>
 <script src="app/menu/home/home.controller.js"></script>
 
-<script src="app/services/player.service.js"></script>
-<script src="app/services/playlist.service.js"></script>
-<script src="app/services/ss-user.service.js"></script>
 <script src="app/services.js"></script>
 </head>
 <body ng-app="soundstorm" animation="slide-left-right-ios7">
@@ -62,9 +51,9 @@
     The nav bar that will be updated as we navigate between views.
 -->
 <!-- <ion-nav-bar class="bar-stable nav-title-slide-ios7">
-<ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
-Back
-</ion-nav-back-button>
+    <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Back
+    </ion-nav-back-button>
 </ion-nav-bar> -->
 <!--
 The views will be rendered in the <ion-nav-view> directive below
