@@ -1,11 +1,43 @@
 angular.module('soundstorm')
 
-.controller('HomeCtrl', function($rootScope, $scope, $interval, $timeout, $state) {
+.controller('HomeCtrl', function($rootScope,
+    $scope,
+    $interval,
+    $timeout,
+    $state,
+    $ionicFilterBar,
+    $ionicModal,
+    Player,
+    ngProgressFactory
+) {
+    var ngProgress = ngProgressFactory.createInstance();
+
+    progressElem = document.getElementById('ss-progress-bar');
+    ngProgress.setParent(progressElem);
+    progressElem.children[0].style['position']='relative';
+
+    ngProgress.setHeight('4px');
+    ngProgress.setColor('#f50');
+
+    $scope.searchModalHide = true;
+    /**
+    * Search Modal
+    */
+    $ionicModal.fromTemplateUrl('/app/templates/search.modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.sModal = modal;
+    });
+
+
     // <img src="http://placehold.it/200x200">
     // <h2>Core</h2>
     // <p>RL Grime</p>
     // <p>Lorem ipsum dolor sit amet,</p>
     // <p> consectetur adipiscing elit</p>
+    var filterBarInstance;
+
     $scope.homeTitle = "Host Home";
 
     $scope.currentSong = {
@@ -16,9 +48,6 @@ angular.module('soundstorm')
     }
 
     $scope.songNumber = 0;
-
-
-
 
     $scope.votesSkipped = 0;
     $scope.favorited = 1;
@@ -33,106 +62,47 @@ angular.module('soundstorm')
 
 
     var streamTrack = function(track){
-        console.log()
         $scope.currentSong = {
             preview: track.artwork_url,
             title: track.title,
             author: track.user.permalink,
             totalFavorited: 123
         }
-        $scope.totalTime = parseInt(track.duration/1000);
+        $scope.totalTime = track.duration;
 
-        return SC.stream('/tracks/' + track.id).then(function(player){
-            currentPlayer = player;
+        return Player.streamTrack(track, function(player){
+            $scope.isPlaying = player.isPlaying();
+            Player.on('time', function(time){
 
-            console.log(player)
-
-
-            player.play();
-            $scope.isPlaying = currentPlayer.isPlaying();
-
-            player.on('time', function(data){
-
-                var time = parseInt(player.currentTime()/1000);
-                console.log( $scope.progressval)
-
+                ngProgress.set((time/$scope.totalTime)*100);
                 $scope.progressval = time;
                 $scope.$apply()
-            })
-
+            });
         });
     }
 
-    // SC.get('/tracks', {
-    //     q: 'kimsinho'
-    // }).then(function(tracks) {
-    //     console.log(tracks[0]);
-    //     streamTrack(tracks[0])
-    //
-    //     // SC.resolve(tracks[0].permalink_url).then(streamTrack)
-    // });
     $scope.isPlaying;
     $scope.play = function(){
-        if(currentPlayer){
-            if(currentPlayer.isPlaying()){
-                currentPlayer.pause();
-            } else {
-                currentPlayer.play();
-            }
-            $scope.isPlaying = currentPlayer.isPlaying();
+        if(Player.getPlayer()){
+            $scope.isPlaying = Player.togglePlayback();
         } else {
-            SC.get('/tracks', {
-                q: 'daft punk'
-            }).then(function(tracks) {
-                console.log(tracks[0]);
-                streamTrack(tracks[0])
-                // SC.resolve(tracks[0].permalink_url).then(streamTrack)
+            Player.find('Give Life Back To Music')
+            .then(function(track){
+                streamTrack(track[0]);
             });
         }
-
-
         //SC.resolve('https://soundcloud.com/kritand/epic-sax-guy-epic-sax').then(streamTrack);
     }
 
-    $scope.play();
 
-    var soundToggle = true;
-    $scope.soundToggle = soundToggle;
-
-    $scope.mute = function(){
-        if(soundToggle){
-            currentPlayer.setVolume(0);
-            soundToggle = false;
-        } else {
-            currentPlayer.setVolume(1);
-            soundToggle = true;
-        }
-        $scope.soundToggle = soundToggle;
+    $scope.soundToggle = true;
+    $scope.toggleSound = function(){
+        Player.toggleSound(function(soundToggle){
+            $scope.soundToggle = soundToggle;
+        })
     }
 
-    // function startprogress()
-    // {
-    //     $scope.progressval = 0;
-    //
-    //     if ($scope.stopinterval)
-    //     {
-    //         $interval.cancel($scope.stopinterval);
-    //     }
-    //
-    //     $scope.stopinterval = $interval(function() {
-    //         $scope.progressval = $scope.progressval + 1;
-    //         if( $scope.progressval >= 300 ) {
-    //             $interval.cancel($scope.stopinterval);
-    //             // $state.go('second');
-    //             return;
-    //         }
-    //     }, 1000);
-    // }
-    //
-    // startprogress();
-
-
-    $scope.MathFloor = function(num){
+    $scope.MathFloor = function MathFloor(num){
         return Math.floor(num)
     }
 
@@ -172,5 +142,48 @@ angular.module('soundstorm')
         //     $scope.playlist[$scope.songNumber].totalFavorited++;
         // }
         // $scope.currentSong = $scope.playlist[$scope.songNumber];
+    }
+
+
+    /**
+    * Show filter bar
+    */
+    $scope.showFilterBar = function () {
+        $scope.sModal.show().then(function(){
+            filterBarInstance = $ionicFilterBar.show({
+                items: [],
+                debounce: true,
+                delay: 500,
+                container: '.modal',
+                done: function(){
+                    $scope.searchModalHide=false;
+                },
+                update: function(filteredItems, filterText) {
+                    if (filterText) {
+                        console.log(filterText);
+                        //findAndPlay(filterText);
+                        Player.find(filterText)
+                        .then(function(tracks){
+                            console.log(tracks)
+                            $scope.scResults = tracks;
+                            $scope.$apply();
+                        });
+
+                    }
+                },
+                cancel: function(){
+                    $scope.selectSong;
+                    $scope.scResults=null;
+                    $scope.searchModalHide=true;
+                    $scope.sModal.hide()
+                }
+            });
+        })
+
+    }
+
+    $scope.addSong = function(track){
+        streamTrack(track);
+        filterBarInstance();
     }
 });

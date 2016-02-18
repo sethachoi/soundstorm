@@ -1,0 +1,37 @@
+{
+  "name": "soundcloud-audio",
+  "main": "dist/soundcloud-audio.js",
+  "version": "0.1.7",
+  "homepage": "https://github.com/voronianski/soundcloud-audio.js",
+  "description": "Play SoundCloud tracks and playslists in modern browsers with HTML5 Audio API",
+  "keywords": [
+    "soundcloud",
+    "audio",
+    "html5",
+    "sdk",
+    "api",
+    "waveform"
+  ],
+  "authors": [
+    "Dmitri Voronianski <dmitri.voronianski@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "example",
+    "test",
+    "tests",
+    "karma.conf.js"
+  ],
+  "_release": "0.1.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.7",
+    "commit": "fd62c3aa8f8231ff89d2e09e23615d1fb1d605f0"
+  },
+  "_source": "git://github.com/voronianski/soundcloud-audio.js.git",
+  "_target": "^0.1.7",
+  "_originalSource": "soundcloud-audio"
+}
