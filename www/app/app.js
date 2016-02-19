@@ -117,7 +117,7 @@ angular.module('soundstorm', [
         views: {
             'menuContent': {
                 templateUrl: 'app/menu/home/home.html',
-                controller: 'HomeCtrl'
+                controller: 'HomeCtrl as vm'
             }
         }
     })

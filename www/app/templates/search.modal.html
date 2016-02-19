@@ -6,7 +6,7 @@
 <ion-nav-bar class="bar-dark"></ion-nav-bar>
 <ion-content class="has-header">
     <ion-list class="ss-search-list">
-        <ion-item class="item item-button-right" ng-repeat="res in scResults">
+        <ion-item class="item item-button-right" ng-repeat="res in vm.scResults">
             <!-- <img ng-src={{res.artwork_url}}> -->
             {{res.title}}
             <p>
@@ -14,7 +14,7 @@
                 <i class="icon ion-heart padding-left"></i> {{res.likes_count}}
                 <i class="icon ion-person padding-left"></i> {{res.user.permalink}}
             </p>
-            <button class="button button-balanced" ng-click="addSong(res)">
+            <button class="button button-balanced" ng-click="vm.addSong(res)">
                 <i class="icon ion-plus"></i>
             </button>
         </ion-item>

@@ -3,7 +3,7 @@ angular.module('soundstorm')
     console.log('ChannelCtrl started...');
 
 
-        var ref = new Firebase("https://soundstorm.firebaseio.com/channels");
+        var ref = new Firebase("https://soundstorm.firebaseio.com/rooms");
 
         $scope.hostButton = function(){
             $state.go('menu.home');

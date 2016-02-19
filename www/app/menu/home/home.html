@@ -6,10 +6,10 @@
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
 
-    <ion-nav-title>{{homeTitle}}</ion-nav-title>
+    <ion-nav-title>{{vm.title}}</ion-nav-title>
 
     <ion-nav-buttons side="right">
-        <button id="searchbutton" style="margin-right: 16px;" class="button button-clear icon ion-search" ng-click="showFilterBar()"></button>
+        <button id="searchbutton" style="margin-right: 16px;" class="button button-clear icon ion-search" ng-click="vm.showFilterBar()"></button>
         <button id="peoplebutton" menu-toggle="right" class="button button-clear icon ion-ios-people"></button>
     </ion-nav-buttons>
 
@@ -26,15 +26,9 @@
 </ion-nav-buttons>
 <h1 class="title"> Main Nav bar</h1>
 </ion-nav-bar> -->
-<!-- <ion-header-bar class="bar-balanced bar-subheader">
-<label class="item-input-wrapper">
-<i class="icon ion-ios-search placeholder-icon"></i>
-<input type="search" placeholder="Search">
-</label>
-<button class="button button-clear">
-Cancel
-</button>
-</ion-header-bar> -->
+<ion-header-bar class="default-primary-color bar-subheader">
+  <h4 class="title text-primary-color">Room ID: <span>{{vm.roomName}}</span></h4>
+</ion-header-bar>
 
 <!-- <div class="bar bar-header item-input-inset">
 <label class="item-input-wrapper">
@@ -49,9 +43,9 @@ Cancel
 <ion-content class="ss-home-content">
     <section id="ss-help-player-info">
         <div class="item item-thumbnail-left" href="#">
-            <img src={{currentSong.preview}}>
-            <h2 style="white-space: normal;">{{currentSong.title}}</h2>
-            <p>{{currentSong.author}}</p>
+            <img src={{vm.currentSong.preview}}>
+            <h2 style="white-space: normal;">{{vm.currentSong.title}}</h2>
+            <p>{{vm.currentSong.author}}</p>
             <!-- <p>{{currentSong.description}}</p> -->
         </div>
         <div id="ss-progress-bar"></div>
@@ -63,9 +57,9 @@ Cancel
 
 
     <section id="ss-help-player-stats" class="row ss-info" >
-        <div class="col col-33" style="padding-top:0"><span class="ss-player-time">{{ progressval | date: 'mm:ss': 'UTC' }} / {{ totalTime | date: 'mm:ss': 'UTC' }}</span></div>
-        <div class="col"><i class="icon ion-star"><span>{{currentSong.totalFavorited}}</span></i></div>
-        <div class="col"><i class="ion-ios-skipforward-outline"><span>{{votesSkipped}}/{{usersTotal}}</span></i></div>
+        <div class="col col-33" style="padding-top:0"><span class="ss-player-time">{{ vm.progressval | date: 'mm:ss': 'UTC' }} / {{ vm.totalTime | date: 'mm:ss': 'UTC' }}</span></div>
+        <div class="col"><i class="icon ion-star"><span>{{vm.currentSong.totalFavorited}}</span></i></div>
+        <div class="col"><i class="ion-ios-skipforward-outline"><span>{{vm.votesSkipped}}/{{vm.usersTotal}}</span></i></div>
         <div class="col"><i class="ion-ios-people"><span>1</span></i></div>
     </section>
 
@@ -75,13 +69,8 @@ Cancel
         </div>
 
         <div class="ss-upcoming-list list">
-            <div class="item">Daft Punk - Harder, Better, Faster, Stronger</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
-            <div class="item">Lorem Ipsong</div>
+            <div class="item" ng-repeat="track in vm.playlist">{{$index+1}}) <span class="ss-time">{{track.duration | date: 'mm:ss': 'UTC'}}</span> {{track.title}}</div>
+
         </div>
     </section>
 
@@ -92,38 +81,38 @@ Cancel
 </ion-content>
 
 <div id="ss-help-control" class="tabs tabs-icon-top tabs-dark">
-    <a class="tab-item" ng-click="toggleSound()">
-        <div ng-show="soundToggle">
+    <a class="tab-item" ng-click="vm.toggleSound()">
+        <div ng-show="vm.soundToggle">
             <i class="icon ion-volume-mute"></i>
             Mute
         </div>
-        <div ng-show="!soundToggle">
+        <div ng-show="!vm.soundToggle">
             <i class="icon ion-volume-medium"></i>
             Unmute
         </div>
     </a>
-    <a class="tab-item" ng-click="play()">
-        <div id="playbutton" ng-hide="isPlaying">
+    <a class="tab-item" ng-click="vm.play()">
+        <div id="playbutton" ng-hide="vm.isPlaying">
             <i class="icon ion-play"></i>
             Play
         </div>
-        <div ng-show="isPlaying">
+        <div ng-show="vm.isPlaying">
             <i class="icon ion-pause"></i>
             Pause
         </div>
     </a>
-    <a class="tab-item" ng-click="addFavorite()">
-        <div ng-hide="currentSong.favorited">
+    <a class="tab-item" ng-click="vm.addFavorite()">
+        <div ng-hide="vm.currentSong.favorited">
             <i class="icon ion-ios-star-outline"></i>
             Add to Favorite
         </div>
-        <div ng-show="currentSong.favorited">
+        <div ng-show="vm.currentSong.favorited">
             <i class="icon ion-ios-star"></i>
             Remove from Favorite
         </div>
     </a>
 
-    <a class="tab-item" ng-click="voteSkip()">
+    <a class="tab-item" ng-click="vm.voteSkip()">
         <i class="icon ion-ios-skipforward-outline"></i>
         Vote to Skip
     </a>

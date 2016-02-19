@@ -18,9 +18,9 @@
     // }], 'Hello Playlist');
     function Playlist($log, $firebaseArray, ENV, _) {
         return function(playlist, name){
-            playlist = angular.copy(playlist || {});
+            playlist = angular.copy(playlist || []);
             var name = name || '';
-
+            
             //<<<<<<<<<<<<<<<<<<<<<<<<<<  Interface  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
             var Playlist =  {

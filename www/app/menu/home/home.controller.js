@@ -5,7 +5,6 @@
     .controller('HomeCtrl', HomeCtrl);
 
     HomeCtrl.$inject = [
-        '$rootScope',
         '$scope',
         '$interval',
         '$timeout',
@@ -19,7 +18,6 @@
     ];
 
     function HomeCtrl(
-        $rootScope,
         $scope,
         $interval,
         $timeout,
@@ -31,17 +29,26 @@
         ngProgressFactory,
         Room
     ){
+        var vm = this;
+
+        // Playlist Init
+        var Playlist = Room.getPlaylist();
+        vm.playlist = Playlist.getTracks();
+
 
         var ngProgress = ngProgressFactory.createInstance();
 
-        progressElem = document.getElementById('ss-progress-bar');
+        var progressElem = document.getElementById('ss-progress-bar');
         ngProgress.setParent(progressElem);
         progressElem.children[0].style['position']='relative';
 
         ngProgress.setHeight('4px');
         ngProgress.setColor('#f50');
 
-        $scope.searchModalHide = true;
+        vm.searchModalHide = true;
+
+        var sModal;
+
         /**
         * Search Modal
         */
@@ -49,58 +56,58 @@
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function(modal) {
-            $scope.sModal = modal;
+            sModal = modal;
         });
 
         var filterBarInstance;
+        vm.title = "Home"
+        vm.roomName = "cool-cobra-123";
 
-        $scope.homeTitle = "Host Home";
-
-        $scope.currentSong = {
+        vm.currentSong = {
             totalFavorited: 0,
             title: "Nothing is playing.",
             author: "Please wait...."
 
         }
 
-        $scope.songNumber = 0;
+        vm.songNumber = 0;
 
-        $scope.votesSkipped = 0;
-        $scope.favorited = 1;
+        vm.votesSkipped = 0;
+        vm.favorited = 1;
 
 
-        $scope.progressval = 0;
-        $scope.totalTime = 0;
-        $scope.stopinterval = null;
+        vm.progressval = 0;
+        vm.totalTime = 0;
+        vm.stopinterval = null;
 
-        $scope.usersTotal = 4;
+        vm.usersTotal = 4;
         var currentPlayer;
 
 
         var streamTrack = function(track){
-            $scope.currentSong = {
+            vm.currentSong = {
                 preview: track.artwork_url,
                 title: track.title,
                 author: track.user.permalink,
                 totalFavorited: 123
             }
-            $scope.totalTime = track.duration;
+            vm.totalTime = track.duration;
 
             return Player.streamTrack(track, function(player){
-                $scope.isPlaying = player.isPlaying();
+                vm.isPlaying = player.isPlaying();
                 Player.on('time', function(time){
 
-                    ngProgress.set((time/$scope.totalTime)*100);
-                    $scope.progressval = time;
+                    ngProgress.set((time/vm.totalTime)*100);
+                    vm.progressval = time;
                     $scope.$apply()
                 });
             });
         }
 
-        $scope.isPlaying;
-        $scope.play = function(){
+        vm.isPlaying;
+        vm.play = function(){
             if(Player.getPlayer()){
-                $scope.isPlaying = Player.togglePlayback();
+                vm.isPlaying = Player.togglePlayback();
             } else {
                 Player.find('Give Life Back To Music')
                 .then(function(track){
@@ -110,35 +117,35 @@
         }
 
 
-        $scope.soundToggle = true;
-        $scope.toggleSound = function(){
+        vm.soundToggle = true;
+        vm.toggleSound = function(){
             Player.toggleSound(function(soundToggle){
-                $scope.soundToggle = soundToggle;
+                vm.soundToggle = soundToggle;
             })
         }
 
-        $scope.MathFloor = function MathFloor(num){
+        vm.MathFloor = function MathFloor(num){
             return Math.floor(num)
         }
 
 
-        $scope.voteSkip = function(){}
+        vm.voteSkip = function(){}
 
-        $scope.addFavorite = function(){}
+        vm.addFavorite = function(){}
 
 
         /**
         * Show filter bar
         */
-        $scope.showFilterBar = function () {
-            $scope.sModal.show().then(function(){
+        vm.showFilterBar = function () {
+            sModal.show().then(function(){
                 filterBarInstance = $ionicFilterBar.show({
                     items: [],
                     debounce: true,
                     delay: 500,
                     container: '.modal',
                     done: function(){
-                        $scope.searchModalHide=false;
+                        vm.searchModalHide=false;
                     },
                     update: function(filteredItems, filterText) {
                         if (filterText) {
@@ -147,25 +154,28 @@
                             Player.find(filterText)
                             .then(function(tracks){
                                 console.log(tracks)
-                                $scope.scResults = tracks;
+                                vm.scResults = tracks;
                                 $scope.$apply();
                             });
 
                         }
                     },
                     cancel: function(){
-                        $scope.selectSong;
-                        $scope.scResults=null;
-                        $scope.searchModalHide=true;
-                        $scope.sModal.hide()
+                        vm.selectSong;
+                        vm.scResults=null;
+                        vm.searchModalHide=true;
+                        sModal.hide()
                     }
                 });
             })
 
         }
 
-        $scope.addSong = function(track){
-            streamTrack(track);
+        vm.addSong = function(track){
+            vm.playlist = Playlist.addTrack(track);
+            console.log(vm.playlist)
+            
+            // streamTrack(track);
             filterBarInstance();
         }
     }

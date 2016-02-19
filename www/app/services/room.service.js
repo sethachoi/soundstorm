@@ -6,30 +6,25 @@
 
     Room.$inject = ['$log', '$firebaseArray', 'ENV', '_', 'Playlist'];
 
-
     function Room($log, $firebaseArray, ENV, _, Playlist) {
-        var playlist = {};
+        var playlist = Playlist([], 'Default');
+        var roomName = "";
 
-        function room(name){
-            roomName = name;
-            return {
-                'roomName':roomName,
-                'getPlaylist': getCurrentPlaylist,
-                'setPlaylist': setCurrentPlaylist
-            };
-        }
+        return {
+            'roomName':roomName,
+            'getPlaylist': getPlaylist,
+            'setPlaylist': setPlaylist
+        };
 
-        return room;
-
-
-
-
-        function getCurrentPlaylist(){
+        function getPlaylist(){
             return playlist
         }
 
-        function setCurrentPlaylist(currentPlaylist){
+        function setPlaylist(currentPlaylist){
             playlist = Playlist(currentPlaylist);
         }
+
+
+
     }
 })();
