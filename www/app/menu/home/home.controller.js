@@ -61,7 +61,7 @@
 
         var filterBarInstance;
         vm.title = "Home"
-        vm.roomName = "cool-cobra-123";
+        vm.roomName = Room.getName();
 
         vm.currentSong = {
             totalFavorited: 0,

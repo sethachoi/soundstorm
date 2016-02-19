@@ -102,6 +102,11 @@ angular.module('soundstorm', [
         controller: 'JoinCtrl'
     })
 
+    .state('joinFail' , {
+        url: '/joinFail',
+        templateUrl: 'app/joinRoom/joinFailed.html',
+        controller: 'JoinCtrl'
+    })
 
 
 

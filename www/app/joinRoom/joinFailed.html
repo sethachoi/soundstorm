@@ -3,15 +3,15 @@
         <h1 class="title">Join Room Failed!</h1>
     </div>
     <ion-content class="padding has-header">
-        <form action="#/menu/home">
+        <form>
             <div class="row">
             <div class="col text-center">
                 <div class="list list-inset"  id="joinCodeBlock">
                     <h3>Please check the Room Code and try again</h3>
                     <label class="item item-input">
-                        <input type="text" placeholder="Room Code">
+                        <input type="text" placeholder="Room Code" ng-model="roomCode">
                     </label>
-                    <button class="button button-block button-positive">
+                    <button class="button button-block button-positive" ng-click="roomJoin(roomCode)">
                         Submit
                     </button>
                 </div>

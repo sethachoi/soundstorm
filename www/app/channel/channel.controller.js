@@ -9,6 +9,8 @@ angular.module('soundstorm')
 
             $state.go('menu.home');
         };
-
+        $scope.joinButton = function() {
+        	$state.go('joinRoom');
+        }
 
 });
