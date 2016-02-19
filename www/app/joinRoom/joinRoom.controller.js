@@ -9,7 +9,7 @@ angular.module('soundstorm')
         if(roomIndex === -1) {
         	$state.go('joinFail');
         } else {
-        	$state.go('menu.home');
+        	$state.go('menu.home', { id: code, type: 'g' });
         	Room.addUserToRoom(code, User.getUser());
         };
     }

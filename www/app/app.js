@@ -112,7 +112,7 @@ angular.module('soundstorm', [
 
     // Menu
     .state('menu', {
-        url: '/menu',
+        url: '/room/:type/:id',
         templateUrl: 'app/menu/menu.html',
         controller: 'MenuCtrl',
         abstract: true

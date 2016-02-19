@@ -12,6 +12,8 @@
         '$ionicFilterBar',
         '$ionicModal',
         '$firebaseArray',
+        '$firebaseObject',
+        '$stateParams',
         'Player',
         'ngProgressFactory',
         'Room'
@@ -25,50 +27,19 @@
         $ionicFilterBar,
         $ionicModal,
         $firebaseArray,
+        $firebaseObject,
+        $stateParams,
         Player,
         ngProgressFactory,
         Room
+
     ){
-        var vm = this;
+        /******************************************************************
+        * Intialize VM variables
+        *******************************************************************/
+        var vm = this; // The controllr's scope
 
-        // Playlist Init
-        var Playlist = Room.getPlaylist();
-        vm.playlist = Playlist.getTracks();
-
-
-        var ngProgress = ngProgressFactory.createInstance();
-
-        var progressElem = document.getElementById('ss-progress-bar');
-        ngProgress.setParent(progressElem);
-        progressElem.children[0].style['position']='relative';
-
-        ngProgress.setHeight('4px');
-        ngProgress.setColor('#f50');
-
-        vm.searchModalHide = true;
-
-        var sModal;
-
-        /**
-        * Search Modal
-        */
-        $ionicModal.fromTemplateUrl('/app/templates/search.modal.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            sModal = modal;
-        });
-
-        var filterBarInstance;
         vm.title = "Home"
-        vm.roomName = Room.getName();
-
-        vm.currentSong = {
-            totalFavorited: 0,
-            title: "Nothing is playing.",
-            author: "Please wait...."
-
-        }
 
         vm.songNumber = 0;
 
@@ -81,41 +52,132 @@
         vm.stopinterval = null;
 
         vm.usersTotal = 4;
-        var currentPlayer;
 
+        // Progrss bar hacks
+        var ngProgress = ngProgressFactory.createInstance();
+
+        var progressElem = document.getElementById('ss-progress-bar');
+        ngProgress.setParent(progressElem);
+        progressElem.children[0].style['position']='relative';
+
+        ngProgress.setHeight('4px');
+        ngProgress.setColor('#f50');
+
+        vm.searchModalHide = true;
+
+
+
+        // Grab params from URL
+        vm.isHost = ($stateParams.type==='h')? true : false;
+        // vm.isHost = Room.isHost();
+
+
+        // Intialize Room
+        Room.setName($stateParams.id);
+
+        vm.roomName = Room.getName();
+        vm.playlist = Room.getPlaylist();
+        vm.currentSong = Room.getCurrentSong();
+
+
+
+        var unwatch = vm.currentSong.$watch(function() {
+            ngProgress.set((vm.currentSong.time/vm.currentSong.duration)*100);
+            // console.log("data changed!", vm.currentSong);
+        });
+
+
+
+        /******************************************************************
+        * Search Model Setup
+        *******************************************************************/
+        var sModal;
+        var filterBarInstance;
+
+        $ionicModal.fromTemplateUrl('/app/templates/search.modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            sModal = modal;
+        });
+
+
+        /**
+        * Get the next track
+        */
+        function getNextTrack(isFinished){
+            var track = vm.playlist[0];
+            vm.playlist.$remove(track);
+
+            if(track){
+                finished = isFinished;
+                console.log(track)
+                streamTrack(track);
+            }
+        }
+
+        var currentPlayer;
+        var finished = false;
 
         var streamTrack = function(track){
-            vm.currentSong = {
+            var currentSong = {
                 preview: track.artwork_url,
                 title: track.title,
                 author: track.user.permalink,
-                totalFavorited: 123
+                totalFavorited: 123,
+                duration: track.duration,
+                time:0
             }
-            vm.totalTime = track.duration;
+            for( var key in currentSong ){
+                vm.currentSong[key] = currentSong[key];
+            }
+            vm.currentSong.$save();
 
-            return Player.streamTrack(track, function(player){
+            return Player.streamTrack(track, vm, function(player){
                 vm.isPlaying = player.isPlaying();
-                Player.on('time', function(time){
-
-                    ngProgress.set((time/vm.totalTime)*100);
-                    vm.progressval = time;
-                    $scope.$apply()
-                });
             });
         }
 
-        vm.isPlaying;
-        vm.play = function(){
-            if(Player.getPlayer()){
-                vm.isPlaying = Player.togglePlayback();
-            } else {
-                Player.find('Give Life Back To Music')
-                .then(function(track){
-                    streamTrack(track[0]);
-                });
-            }
+        /******************************************************************
+        * Player Events
+        *******************************************************************/
+
+
+        // Player add 'time' event listeners
+        Player.on('time', function(time){
+            vm.currentSong.time = time;
+            vm.currentSong.$save();
+        });
+
+
+        // Player add 'finish' event listeners
+        Player.on('finish', function(){
+            console.log('song finished')
+
+            vm.isPlaying = false;
+            getNextTrack(true);// finished = true
+            $scope.$apply()
+        });
+
+
+        /******************************************************************
+        * Player Controls
+        *******************************************************************/
+
+
+        vm.addSong = function(track){
+            vm.playlist.$add(track);
+            filterBarInstance();
         }
 
+        vm.play = function(){
+            var p = Player.getPlayer();
+            if(p && !finished){
+                vm.isPlaying = Player.togglePlayback();
+            } else {
+                getNextTrack(false);// finished = false
+            }
+        }
 
         vm.soundToggle = true;
         vm.toggleSound = function(){
@@ -127,7 +189,6 @@
         vm.MathFloor = function MathFloor(num){
             return Math.floor(num)
         }
-
 
         vm.voteSkip = function(){}
 
@@ -171,12 +232,6 @@
 
         }
 
-        vm.addSong = function(track){
-            vm.playlist = Playlist.addTrack(track);
-            console.log(vm.playlist)
-            
-            // streamTrack(track);
-            filterBarInstance();
-        }
-    }
+
+    }// END function HomeCtrl(){}
 })();

@@ -57,7 +57,7 @@ Cancel
 
 
     <section id="ss-help-player-stats" class="row ss-info" >
-        <div class="col col-33" style="padding-top:0"><span class="ss-player-time">{{ vm.progressval | date: 'mm:ss': 'UTC' }} / {{ vm.totalTime | date: 'mm:ss': 'UTC' }}</span></div>
+        <div class="col col-33" style="padding-top:0"><span class="ss-player-time">{{ vm.currentSong.time | date: 'mm:ss': 'UTC' }} / {{ vm.currentSong.duration | date: 'mm:ss': 'UTC' }}</span></div>
         <div class="col"><i class="icon ion-star"><span>{{vm.currentSong.totalFavorited}}</span></i></div>
         <div class="col"><i class="ion-ios-skipforward-outline"><span>{{vm.votesSkipped}}/{{vm.usersTotal}}</span></i></div>
         <div class="col"><i class="ion-ios-people"><span>1</span></i></div>
@@ -69,7 +69,7 @@ Cancel
         </div>
 
         <div class="ss-upcoming-list list">
-            <div class="item" ng-repeat="track in vm.playlist">{{$index+1}}) <span class="ss-time">{{track.duration | date: 'mm:ss': 'UTC'}}</span> {{track.title}}</div>
+            <div class="item" ng-repeat="track in vm.playlist">{{$index+1}}) <span class="ss-time">{{vm.currentSong.duration | date: 'mm:ss': 'UTC'}}</span> {{track.title}}</div>
 
         </div>
     </section>
@@ -81,7 +81,7 @@ Cancel
 </ion-content>
 
 <div id="ss-help-control" class="tabs tabs-icon-top tabs-dark">
-    <a class="tab-item" ng-click="vm.toggleSound()">
+    <a ng-show="vm.isHost" class="tab-item" ng-click="vm.toggleSound()">
         <div ng-show="vm.soundToggle">
             <i class="icon ion-volume-mute"></i>
             Mute
@@ -91,7 +91,7 @@ Cancel
             Unmute
         </div>
     </a>
-    <a class="tab-item" ng-click="vm.play()">
+    <a ng-show="vm.isHost" class="tab-item" ng-click="vm.play()">
         <div id="playbutton" ng-hide="vm.isPlaying">
             <i class="icon ion-play"></i>
             Play

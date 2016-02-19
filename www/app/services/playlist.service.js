@@ -17,10 +17,10 @@
     //     name:'song4'
     // }], 'Hello Playlist');
     function Playlist($log, $firebaseArray, ENV, _) {
-        return function(playlist, name){
+        return function(playlist, name, room){
             playlist = angular.copy(playlist || []);
             var name = name || '';
-            
+
             //<<<<<<<<<<<<<<<<<<<<<<<<<<  Interface  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
             var Playlist =  {
@@ -28,7 +28,8 @@
                 'getTracks': getTracks,
                 'addTrack': addTrack,
                 'removeTrack': removeTrack,
-                'reorderTrack': reorderTrack
+                'reorderTrack': reorderTrack,
+                'getNextTrack': getNextTrack
             };
 
             return Playlist;
@@ -61,6 +62,7 @@
                 return playlist;
             }
 
+
             /**
             * Reorder Playlist
             * @param {Number} fromIndex The index of the element you want to move
@@ -71,6 +73,14 @@
                 playlist.splice(fromIndex, 1)
                 playlist.splice(toIndex, 0, item)
                 return playlist;
+            }
+
+            /**
+            * Get nextSong
+            * @param {Number} index The index of the element where you want to remove
+            */
+            function getNextTrack(){
+                return playlist.shift();
             }
         }
     }

@@ -2,11 +2,12 @@ angular.module('soundstorm')
 .factory('Player', function($log, $location, $cookies, ENV, Playlist) {
     "use strict";
     var soundToggle = true;
-
+    var MAX_VOLUME = 0.5;
     var currentPlayer;
     var timeListenerCallback = function(){};
-
-    function streamTrack(track, cb){
+    var finishListenerCallback = function(){};
+    var finished = false;
+    function streamTrack(track, vm, cb){
         // console.log()
         // $scope.currentSong = {
         //     preview: track.artwork_url,
@@ -18,9 +19,10 @@ angular.module('soundstorm')
 
         return SC.stream('/tracks/' + track.id)
         .then(function(player){
+            console.log('now playing...', player)
             currentPlayer = player;
             player.play();
-            player.setVolume(0.1);
+            player.setVolume(MAX_VOLUME);
             registerListener(player);
             cb(player);
         });
@@ -29,6 +31,10 @@ angular.module('soundstorm')
     function registerListener(player){
         player.on('time', function(data){
             timeListenerCallback(currentPlayer.currentTime());
+        })
+        player.on('finish', function(data){
+            player.seek(0);
+            finishListenerCallback();
         })
     }
 
@@ -46,7 +52,7 @@ angular.module('soundstorm')
                 currentPlayer.setVolume(0);
                 soundToggle = false;
             } else {
-                currentPlayer.setVolume(0.1);
+                currentPlayer.setVolume(MAX_VOLUME);
                 soundToggle = true;
             }
         }
@@ -70,6 +76,11 @@ angular.module('soundstorm')
     var events = {
         'time' : function(cb){
             timeListenerCallback = cb;
+            finished = false;
+        },
+        'finish' : function(cb){
+            finishListenerCallback = cb;
+            finished = true;
         }
     };
 

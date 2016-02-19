@@ -24,7 +24,7 @@ angular.module('soundstorm')
     ]
 
     function generateName(){
-        return pick(adjs) + '-' + pick(nouns) + '-' + rndNum(10000,0);
+        return pick(adjs) + '-' + pick(nouns) + '-' + rndNum(100,0);
     }
 
     function pick(list){

@@ -1,12 +1,12 @@
 angular.module('soundstorm')
 
-.controller('MenuCtrl', function($scope, $interval, $state, $ionicSideMenuDelegate, User, Room) {
-    console.log('MenuCtrl')
+.controller('MenuCtrl', function($scope, $interval, $state, $ionicSideMenuDelegate,$stateParams, User, Room) {
+    console.log($stateParams)
 
     var user = User.getUser();
 
     $scope.username = user.username;
-    $scope.roomID = Room.getName();
+    $scope.roomId = $stateParams.id;
 
     $scope.logout = function(){
         $state.go('login');
