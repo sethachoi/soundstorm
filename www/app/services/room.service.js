@@ -16,18 +16,11 @@
 
         return {
             'roomName':roomName,
-            'getPlaylist': getCurrentPlaylist,
-            'setPlaylist': setCurrentPlaylist,
+            'getPlaylist': getPlaylist,
+            'setPlaylist': setPlaylist,
             'createRoom': createRoom,
             'getName': getName,
             'doesRoomExist' : doesRoomExist
-        };
-
-
-        return {
-            'roomName':roomName,
-            'getPlaylist': getPlaylist,
-            'setPlaylist': setPlaylist
         };
 
         function getName() {
