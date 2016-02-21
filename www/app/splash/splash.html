@@ -4,30 +4,37 @@
     <h1 class="title">SoundStorm</h1>
 </div> -->
 <ion-content class="ss-content">
-        <div class="ss-splash-title text-center">
-            <h1>SoundStorm</h1>
-            <p>Changing the way you share music.</p>
-        </div>
+    <div class="ss-splash-title text-center">
+        <h1>SoundStorm</h1>
+        <p>Changing the way you share music.</p>
+    </div>
 
 
 
 
 
-    <form role="form" class="padding">
+    <form role="form" class="padding" style="max-width: 400px; margin-left: auto; margin-right: auto;">
+
         <div class="col text-center">
-            <a class="button button-positive " href="#/login" disabled>
+            <a class="button button-calm block" ui-sref="learn">
                 Learn More
+            </a>
+        </div>
+        <p class="subtitle fancy"><span>OR</span></p>
+        <div class="col text-center">
+            <a class="button button-positive block" ui-sref="login">
+                Sign In
             </a>
         </div>
 
         <!-- <div class="ss-splash-or text-center">
         <div><span class="line-center"> OR </span></div>
     </div> -->
-    <p class="subtitle fancy"><span>OR</span></p>
+
 
     <div class="col text-center">
-        <a id="startbutton" class="button ss-start-button" href="#/login">
-            Start Now
+        <a id="startbutton" class="button button-positive block" ui-sref="register">
+            Register
         </a>
     </div>
 </form>

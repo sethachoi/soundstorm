@@ -14,7 +14,7 @@
                 <i class="icon ion-heart padding-left"></i> {{res.likes_count}}
                 <i class="icon ion-person padding-left"></i> {{res.user.permalink}}
             </p>
-            <button class="button button-balanced" ng-click="vm.addSong(res)">
+            <button ng-hide="selected" class="button button-balanced" ng-click="vm.addSong(res, $index);">
                 <i class="icon ion-plus"></i>
             </button>
         </ion-item>

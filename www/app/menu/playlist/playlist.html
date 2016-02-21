@@ -1,0 +1,36 @@
+<ion-view title="Currently Playing">
+
+    <ion-nav-buttons side="left">
+        <!-- Toggle left side menu -->
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="vm.editToggle()">Edit</button>
+    </ion-nav-buttons>
+
+    <div id="player"></div>
+
+
+    <ion-content class="padding">
+        <ion-list show-delete="vm.shouldShowDelete" show-reorder="vm.shouldShowReorder" can-swipe="vm.listCanSwipe">
+            <ion-item ng-repeat="item in vm.playlist" class="item-thumbnail-left">
+
+                <img ng-src="{{item.artwork_url}}">
+                <h2>{{item.title}}</h2>
+                <p>{{item.duration | date: 'mm:ss': 'UTC' }}</p>
+                <ion-option-button class="button-positive" ng-click="vm.share(item)">
+                    Share
+                </ion-option-button>
+                <ion-option-button class="button-info" ng-click="vm.edit(item)">
+                    Edit
+                </ion-option-button>
+                <ion-delete-button class="ion-minus-circled" ng-click="vm.playlist.splice($index, 1)">
+                </ion-delete-button>
+                <ion-reorder-button class="ion-navicon" on-reorder="vm.reorderItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

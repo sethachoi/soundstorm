@@ -79,8 +79,6 @@
         vm.playlist = Room.getPlaylist();
         vm.currentSong = Room.getCurrentSong();
 
-
-
         var unwatch = vm.currentSong.$watch(function() {
             ngProgress.set((vm.currentSong.time/vm.currentSong.duration)*100);
             // console.log("data changed!", vm.currentSong);
@@ -108,16 +106,15 @@
         function getNextTrack(isFinished){
             var track = vm.playlist[0];
             vm.playlist.$remove(track);
-
+            console.log('getNextTrack', track)
             if(track){
                 finished = isFinished;
-                console.log(track)
                 streamTrack(track);
             }
         }
 
         var currentPlayer;
-        var finished = false;
+        var finished = true;
 
         var streamTrack = function(track){
             var currentSong = {
@@ -129,13 +126,28 @@
                 time:0
             }
             for( var key in currentSong ){
-                vm.currentSong[key] = currentSong[key];
+                vm.currentSong[key] = (typeof currentSong[key] === 'undefined') ? null : currentSong[key];
             }
             vm.currentSong.$save();
 
             return Player.streamTrack(track, vm, function(player){
                 vm.isPlaying = player.isPlaying();
             });
+        }
+
+        function clearCurrentSong(){
+            var currentSong = {
+                preview: "",
+                title: "Nothing is playing...",
+                author: "",
+                totalFavorited: 0,
+                duration: 0,
+                time:0
+            }
+            for( var key in currentSong ){
+                vm.currentSong[key] = currentSong[key];
+            }
+            return vm.currentSong.$save();
         }
 
         /******************************************************************
@@ -152,23 +164,18 @@
 
         // Player add 'finish' event listeners
         Player.on('finish', function(){
-            console.log('song finished')
-
             vm.isPlaying = false;
-            getNextTrack(true);// finished = true
-            $scope.$apply()
+            ngProgress.set(0);
+            console.log('finished...')
+            clearCurrentSong().then(function(){
+                getNextTrack(true);// finished = true
+            })
         });
 
 
         /******************************************************************
         * Player Controls
         *******************************************************************/
-
-
-        vm.addSong = function(track){
-            vm.playlist.$add(track);
-            filterBarInstance();
-        }
 
         vm.play = function(){
             var p = Player.getPlayer();
@@ -190,10 +197,22 @@
             return Math.floor(num)
         }
 
-        vm.voteSkip = function(){}
+        vm.voteSkip = function(){
+            getNextTrack(true);
+        }
 
         vm.addFavorite = function(){}
 
+        vm.addSong = function(track, index){
+            vm.playlist.$add(track)
+            .then(function(){
+                if(finished){
+                    getNextTrack(false);
+                }
+            });
+            vm.scResults.splice(index, 1);
+            // filterBarInstance();
+        }
 
         /**
         * Show filter bar

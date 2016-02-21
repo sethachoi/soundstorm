@@ -1,0 +1,61 @@
+<ion-view view-title="Learn More">
+    <ion-nav-bar class="bar-dark">
+
+        <ion-nav-buttons side="left">
+            <button class="button button-clear no-animation" ng-click="startApp()" ng-show="!slideIndex">
+                Skip Intro
+            </button>
+            <button class="button button-clear no-animation"ng-click="previous()" ng-show="slideIndex > 0">
+                Back
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button class="button  button-clear no-animation" ng-click="next()" ng-show="slideIndex != 3">
+                Next
+            </button>
+            <button class="button button-clear no-animation" ng-click="startApp()" ng-show="slideIndex == 3">
+                Finish
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+
+    <ion-content class="ss-slider-box has-header">
+        <ion-slide-box on-slide-changed="slideChanged(index)">
+            <ion-slide>
+                <div style="padding-top: 80px;">
+                <h3>Thank you for using SoundStorm!</h3>
+                <p>
+                    It's really easy to share music! Let us show you.
+                </p>
+            </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="ss-screenshot">
+                    <img src="img/homescreen.png">
+                </div>
+                <p>
+                    To share music simply host a room.
+                </p>
+
+            </ion-slide>
+            <ion-slide>
+                <div class="ss-screenshot">
+                    <img src="img/joincode.png">
+                </div>
+                <p>
+                    Now anyone you know can join. <br>
+                    Just have them enter the Room ID.
+                </p>
+            </ion-slide>
+
+            <ion-slide>
+                <div class="ss-screenshot padding-bottom">
+                    <img src="img/addsong.png">
+                </div>
+                <p class="padding-top">Now add a song and you're done!</p>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+
+</ion-view>

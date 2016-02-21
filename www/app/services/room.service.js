@@ -4,10 +4,11 @@
     .module('soundstorm')
     .factory('Room', Room);
 
-    Room.$inject = ['$log', '$firebaseObject', '$firebaseArray', 'ENV', '_', 'Playlist', 'User'];
+    Room.$inject = ['$log', '$firebaseObject', '$firebaseArray', 'ENV', '_', 'User'];
 
-    function Room($log, $firebaseObject, $firebaseArray, ENV, _, Playlist, User) {
-        var playlist = Playlist([], 'Default');
+    function Room($log, $firebaseObject, $firebaseArray, ENV, _, User) {
+
+        var nameCallback = [];
         var roomName = "";
         var owner = "";
         var users = [];
@@ -17,6 +18,7 @@
         var roomsArr = $firebaseArray(_ref);
 
         return {
+            'addNameListener': addNameListener,
             'getPlaylist': getPlaylist,
             'getCurrentSong': getCurrentSong,
             'createRoom': createRoom,
@@ -26,11 +28,24 @@
             'addUserToRoom' : addUserToRoom
         };
 
+        function addNameListener(cb){
+            nameCallback.push(cb);
+        }
+
+        //Call Helper
+        function broadcastNameEvent(name){
+            for(var i = 0; i < nameCallback.length; i++){
+                var cb = nameCallback[i];
+                cb(name);
+            }
+        }
+
         function getName() {
             return roomName;
         }
         function setName(name) {
-             roomName = name;
+            broadcastNameEvent(name);
+            roomName = name;
         }
 
         function getPlaylist(){

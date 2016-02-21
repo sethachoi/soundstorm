@@ -2,28 +2,33 @@ angular.module('soundstorm')
 
 .controller('MenuCtrl', function($scope, $interval, $state, $ionicSideMenuDelegate,$stateParams, User, Room) {
     console.log($stateParams)
-
+    var vm = this;
     var user = User.getUser();
 
-    $scope.username = user.username;
-    $scope.roomId = $stateParams.id;
 
-    $scope.logout = function(){
+    vm.username = user.username;
+    vm.roomName = Room.getName();
+
+    Room.addNameListener(function(name){
+        vm.roomName = name;
+    })
+
+    vm.logout = function(){
         $state.go('login');
         console.log('logout')
     }
 
-    $scope.help = function(){
-        $scope.helpHomeSearch = true;
+    vm.help = function(){
+        vm.helpHomeSearch = true;
     }
 
-    $scope.getHelpHomeCurrentUser = function(){
+    vm.getHelpHomeCurrentUser = function(){
         $ionicSideMenuDelegate.toggleRight();
-        $scope.helpHomeCurrentUser = true;
+        vm.helpHomeCurrentUser = true;
     }
 
-    $scope.toggleLeftHelp = function(){
+    vm.toggleLeftHelp = function(){
         $ionicSideMenuDelegate.toggleLeft();
-        $scope.helpHPlaylist = true;
+        vm.helpHPlaylist = true;
     }
 });

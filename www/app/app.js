@@ -33,11 +33,11 @@ angular.module('soundstorm', [
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicFilterBarConfigProvider) {
+.config(function($stateProvider, $locationProvider, $urlRouterProvider, $ionicFilterBarConfigProvider) {
 
     /*
-     * ionicFilterBarConfigProvider settings
-     */
+    * ionicFilterBarConfigProvider settings
+    */
 
     // $ionicFilterBarConfigProvider.theme('calm');
     // $ionicFilterBarConfigProvider.clear('ion-close');
@@ -65,6 +65,11 @@ angular.module('soundstorm', [
         templateUrl: 'app/splash/splash.html',
         controller: 'SplashCtrl'
     })
+    .state('learn', {
+        url: '/learn',
+        templateUrl: 'app/splash/learn.html',
+        controller: 'LearnCtrl'
+    })
 
     .state('channel', {
         url: '/channel',
@@ -84,126 +89,145 @@ angular.module('soundstorm', [
         controller: 'CallCtrl'
     })
 
-/*
+    /*
     .state('playlist', {
-        url: '/playlist',
-        templateUrl: 'app/templates/playlist.html',
-        controller: 'ListCtrl'
-    })
+    url: '/playlist',
+    templateUrl: 'app/templates/playlist.html',
+    controller: 'ListCtrl'
+})
 */
 
-    .state('hostRoom', {
-        url: '/hostRoom',
-        templateUrl: 'app/hostRoom/hostRoom.html',
-        controller: 'HostCtrl'
-    })
+.state('hostRoom', {
+    url: '/hostRoom',
+    templateUrl: 'app/hostRoom/hostRoom.html',
+    controller: 'HostCtrl'
+})
 
-    .state('joinRoom', {
-        url: '/joinRoom',
-        templateUrl: 'app/joinRoom/joinRoom.html',
-        controller: 'JoinCtrl'
-    })
+.state('joinRoom', {
+    url: '/joinRoom',
+    templateUrl: 'app/joinRoom/joinRoom.html',
+    controller: 'JoinCtrl'
+})
 
-    .state('joinFail' , {
-        url: '/joinFail',
-        templateUrl: 'app/joinRoom/joinFailed.html',
-        controller: 'JoinCtrl'
-    })
+.state('joinFail' , {
+    url: '/joinFail',
+    templateUrl: 'app/joinRoom/joinFailed.html',
+    controller: 'JoinCtrl'
+})
 
 
 
-    // Menu
-    .state('menu', {
-        url: '/room/:type/:id',
-        templateUrl: 'app/menu/menu.html',
-        controller: 'MenuCtrl',
-        abstract: true
-    })
-    .state('menu.home', {
-        url: '/home',
-        views: {
-            'menuContent': {
-                templateUrl: 'app/menu/home/home.html',
-                controller: 'HomeCtrl as vm'
-            }
+// Menu
+.state('menu', {
+    templateUrl: 'app/menu/menu.html',
+    controller: 'MenuCtrl as vm',
+    abstract: true
+})
+// substates under the menu state
+.state('menu.home', {
+    url: '/:type/:id/home',
+    views: {
+        'menuContent': {
+            templateUrl: 'app/menu/home/home.html',
+            controller: 'HomeCtrl as vm'
         }
-    })
-    .state('menu.about', {
-        url: '/about',
-        views: {
-            'menuContent': {
-                templateUrl: 'app/menu/about/about.html',
-                controller: 'AboutCtrl'
-            }
+    }
+})
+.state('menu.about', {
+    url: '/about',
+    views: {
+        'menuContent': {
+            templateUrl: 'app/menu/about/about.html',
+            controller: 'AboutCtrl'
         }
-    })
-    .state('menu.team', {
-        url: '/team',
-        views: {
-            'menuContent': {
-                templateUrl: 'app/menu/about/team.html',
-                controller: 'TeamCtrl'
-            }
+    }
+})
+.state('menu.team', {
+    url: '/team',
+    views: {
+        'menuContent': {
+            templateUrl: 'app/menu/about/team.html',
+            controller: 'TeamCtrl'
         }
-    })
+    }
+})
+.state('menu.playlists', {
+    url: '/p',
+    views: {
+        'menuContent': {
+            templateUrl: 'app/menu/playlist/playlists.html',
+            controller: 'PlaylistsCtrl as vm'
+        }
+    }
+})
+.state('menu.playlist', {
+    url: '/p/:playlist',
+    views: {
+        'menuContent': {
+            templateUrl: 'app/menu/playlist/playlist.html',
+            controller: 'PlaylistCtrl as vm'
+        }
+    }
+});
 
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-        url: "/tab",
-        abstract: true,
-        templateUrl: "app/templates/tabs.html"
-    })
+// setup an abstract state for the tabs directive
+// .state('tab', {
+//     url: "/tab",
+//     abstract: true,
+//     templateUrl: "app/templates/tabs.html"
+// })
+//
+// // Each tab has its own nav history stack:
+//
+// .state('tab.dash', {
+//     url: '/dash',
+//     views: {
+//         'tab-dash': {
+//             templateUrl: 'app/templates/tab-dash.html',
+//             controller: 'DashCtrl'
+//         }
+//     }
+// })
+// .state('tab.search', {
+//     url: '/search',
+//     views: {
+//         'tab-search': {
+//             templateUrl: 'app/templates/tab-search.html',
+//             controller: 'SearchCtrl'
+//         }
+//     }
+// })
+// .state('tab.friends', {
+//     url: '/friends',
+//     views: {
+//         'tab-friends': {
+//             templateUrl: 'app/templates/tab-friends.html',
+//             controller: 'FriendsCtrl'
+//         }
+//     }
+// })
+// .state('tab.friend-detail', {
+//     url: '/friend/:friendId',
+//     views: {
+//         'tab-friends': {
+//             templateUrl: 'app/templates/friend-detail.html',
+//             controller: 'FriendDetailCtrl'
+//         }
+//     }
+// })
+//
+// .state('tab.account', {
+//     url: '/account',
+//     views: {
+//         'tab-account': {
+//             templateUrl: 'app/templates/tab-account.html',
+//             controller: 'AccountCtrl'
+//         }
+//     }
+// });
 
-    // Each tab has its own nav history stack:
+// if none of the above states are matched, use this as the fallback
+$urlRouterProvider.otherwise('/');
 
-    .state('tab.dash', {
-        url: '/dash',
-        views: {
-            'tab-dash': {
-                templateUrl: 'app/templates/tab-dash.html',
-                controller: 'DashCtrl'
-            }
-        }
-    })
-    .state('tab.search', {
-        url: '/search',
-        views: {
-            'tab-search': {
-                templateUrl: 'app/templates/tab-search.html',
-                controller: 'SearchCtrl'
-            }
-        }
-    })
-    .state('tab.friends', {
-        url: '/friends',
-        views: {
-            'tab-friends': {
-                templateUrl: 'app/templates/tab-friends.html',
-                controller: 'FriendsCtrl'
-            }
-        }
-    })
-    .state('tab.friend-detail', {
-        url: '/friend/:friendId',
-        views: {
-            'tab-friends': {
-                templateUrl: 'app/templates/friend-detail.html',
-                controller: 'FriendDetailCtrl'
-            }
-        }
-    })
-
-    .state('tab.account', {
-        url: '/account',
-        views: {
-            'tab-account': {
-                templateUrl: 'app/templates/tab-account.html',
-                controller: 'AccountCtrl'
-            }
-        }
-    });
-
-    // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/');
 
 })

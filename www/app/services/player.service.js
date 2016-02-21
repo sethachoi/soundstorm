@@ -1,5 +1,5 @@
 angular.module('soundstorm')
-.factory('Player', function($log, $location, $cookies, ENV, Playlist) {
+.factory('Player', function($log, $location, $cookies, ENV) {
     "use strict";
     var soundToggle = true;
     var MAX_VOLUME = 0.5;
@@ -22,9 +22,12 @@ angular.module('soundstorm')
             console.log('now playing...', player)
             currentPlayer = player;
             player.play();
+
             player.setVolume(MAX_VOLUME);
             registerListener(player);
             cb(player);
+        }).catch(function(err){
+            console.log('err', err);
         });
     }
 

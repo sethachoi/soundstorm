@@ -8,7 +8,7 @@
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #727272; }
 .divider-color         { border-color: #B6B6B6; }
-
+.ss-error-text { color: red; }
 
 /* Empty. Add your own CSS if you like */
 @media (min-width:700px) and (orientation: landscape){
@@ -91,13 +91,18 @@ h1, h2, h3, h4, h5, .ss-upcoming-title > h5, .ss-sidebar-info, .ss-sidebar-info 
 background-color: #22242a;
 }*/
 
-.ss-upcoming-list .item {
-	font-size: 14px;
+
+.ss-upcoming-empty {
+	font-size: 18px;
 	padding: 8px;
 }
 
+.ss-upcoming-empty p {
+	color: white;
+}
+
 .ss-upcoming-list .ss-time {
-	color: #727272;
+	color: #FF5722;
 }
 .ss-search-list .item {
 	font-size: 14px;
@@ -105,9 +110,14 @@ background-color: #22242a;
 	padding-bottom: 8px;
 	padding-top: 8px;
 }
-.ss-upcoming-list .item{
-	font-size: 12px;
-	color: #727785;
+
+.ss-upcoming-list .item {
+	font-size: 16px;
+	padding: 8px;
+}
+.ss-upcoming-list .item {
+	font-size: 14px;
+	color: white;
 	border-color: #727785;
 	background-color: #22242a;
 
@@ -117,6 +127,9 @@ background-color: #22242a;
 .ss-upcoming-title {
 	padding-left: 8px;
 	background-color: #22242a;
+	border-bottom-width: 2px;
+	border-bottom-color: #727785;
+	border-bottom-style: double;
 }
 
 
@@ -161,9 +174,8 @@ background-color: #22242a;
 	z-index: 1;
 
 	display: block;
-	background-image: url('http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_527bf56961712_1.JPG');
-	width: 1200px;
-	height: 800px;
+	background-image: url('/img/lights-bg.jpeg');
+	height: inherit;
 
 	-webkit-filter: blur(5px);
 	-moz-filter: blur(5px);
@@ -177,7 +189,7 @@ background-color: #22242a;
 	left: 0;
 	right: 0;
 	z-index: 9999;
-	background-color: rgba(170, 170, 170, 0.5);
+	/*background-color: rgba(170, 170, 170, 0.3);*/
 }
 
 .ss-img-responsive {
@@ -246,6 +258,7 @@ background-color: #22242a;
 
 
 .fancy {
+	color: white;
 	padding-top: 25px;
 	padding-bottom: 10px;
 	line-height: 0.5;
@@ -261,7 +274,7 @@ background-color: #22242a;
 	content: "";
 	position: absolute;
 	height: 5px;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid white;
 	/*border-top: 1px solid white;*/
 	top: 0;
 	width: 30px;

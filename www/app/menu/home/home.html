@@ -27,7 +27,7 @@
 <h1 class="title"> Main Nav bar</h1>
 </ion-nav-bar> -->
 <ion-header-bar class="default-primary-color bar-subheader">
-  <h4 class="title text-primary-color">Room ID: <span>{{vm.roomName}}</span></h4>
+    <h4 class="title text-primary-color">Room ID: <span>{{vm.roomName}}</span></h4>
 </ion-header-bar>
 
 <!-- <div class="bar bar-header item-input-inset">
@@ -44,35 +44,46 @@ Cancel
     <section id="ss-help-player-info">
         <div class="item item-thumbnail-left" href="#">
             <img src={{vm.currentSong.preview}}>
-            <h2 style="white-space: normal;">{{vm.currentSong.title}}</h2>
-            <p>{{vm.currentSong.author}}</p>
+            <h2 style="white-space: normal;" ng-show="vm.currentSong.title">{{vm.currentSong.title}}</h2>
+            <h2 style="white-space: normal;" ng-hide="vm.currentSong.title">Nothing is playing...</h2>
+            <p ng-show="vm.currentSong.author">{{vm.currentSong.author}}</p>
+            <p ng-hide="vm.currentSong.author"></p>
             <!-- <p>{{currentSong.description}}</p> -->
         </div>
         <div id="ss-progress-bar"></div>
         <!-- <div class="row ss-player" href="#">
-            <progress id="progressbar" max="{{MathFloor(totalTime)}}" value="{{ MathFloor(progressval) }}"> </progress>
+        <progress id="progressbar" max="{{MathFloor(totalTime)}}" value="{{ MathFloor(progressval) }}"> </progress>
 
-        </div> -->
-    </section>
+    </div> -->
+</section>
 
 
-    <section id="ss-help-player-stats" class="row ss-info" >
-        <div class="col col-33" style="padding-top:0"><span class="ss-player-time">{{ vm.currentSong.time | date: 'mm:ss': 'UTC' }} / {{ vm.currentSong.duration | date: 'mm:ss': 'UTC' }}</span></div>
-        <div class="col"><i class="icon ion-star"><span>{{vm.currentSong.totalFavorited}}</span></i></div>
-        <div class="col"><i class="ion-ios-skipforward-outline"><span>{{vm.votesSkipped}}/{{vm.usersTotal}}</span></i></div>
-        <div class="col"><i class="ion-ios-people"><span>1</span></i></div>
-    </section>
+<section id="ss-help-player-stats" class="row ss-info" >
+    <div class="col col-33" style="padding-top:0">
+        <span class="ss-player-time" ng-show="vm.currentSong.time"=>{{ vm.currentSong.time | date: 'mm:ss': 'UTC' }} / {{ vm.currentSong.duration | date: 'mm:ss': 'UTC' }}</span>
+        <span class="ss-player-time" ng-hide="vm.currentSong.time">00:00 / 00:00</span>
+    </div>
+    <div class="col"><i class="icon ion-star">
+        <span ng-show="vm.currentSong.totalFavorited">{{vm.currentSong.totalFavorited}}</span>
+        <span ng-hide="vm.currentSong.totalFavorited">0</span>
+    </i></div>
+    <div class="col"><i class="ion-ios-skipforward-outline"><span>{{vm.votesSkipped}}/{{vm.usersTotal}}</span></i></div>
+    <div class="col"><i class="ion-ios-people"><span>1</span></i></div>
+</section>
 
-    <section id="ss-help-playlist">
-        <div class="row ss-upcoming-title">
-            <h5>Upcoming</h5>
+<section id="ss-help-playlist">
+    <div class="row ss-upcoming-title">
+        <h5>Upcoming</h5>
+    </div>
+
+    <div class="ss-upcoming-list list padding-bottom">
+        <div class="ss-upcoming-empty " ng-show="vm.playlist.length < 1">
+            <p>The playlist is empty.</p>
+            <p>Use the search icon (<i class="icon ion-search"></i>) to add a song.</p>
         </div>
-
-        <div class="ss-upcoming-list list">
-            <div class="item" ng-repeat="track in vm.playlist">{{$index+1}}) <span class="ss-time">{{vm.currentSong.duration | date: 'mm:ss': 'UTC'}}</span> {{track.title}}</div>
-
-        </div>
-    </section>
+        <div class="item" ng-repeat="track in vm.playlist">{{$index+1}}) <span class="ss-time">{{track.duration | date: 'mm:ss': 'UTC'}}</span> {{track.title}}</div>
+    </div>
+</section>
 
 
 
@@ -113,7 +124,7 @@ Cancel
     </a>
 
     <a class="tab-item" ng-click="vm.voteSkip()">
-        <i class="icon ion-ios-skipforward-outline"></i>
+        <i class="icon ion-ios-skipforward"></i>
         Vote to Skip
     </a>
 </div>

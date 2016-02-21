@@ -20,13 +20,13 @@
     <ion-content class="">
         <ion-list class="ss-sidebar">
             <ion-item class="item ss-sidebar-info">
-                Hello, {{username}}
-                <p>Room ID: <span>{{roomId}}</span></p>
+                Hello, {{vm.username}}
+                <p>Room ID: <span>{{vm.roomName}}</span></p>
             </ion-item>
         <ion-item class="item-icon-left" href="#/menu/home" menu-close >
             <i class="icon ion-home"></i> Home
         </ion-item>
-        <ion-item id="helphplaylist" class="item-icon-left ss-button" href="#/menu/playlist" menu-close >
+        <ion-item id="helphplaylist" class="item-icon-left ss-button" ui-sref="menu.playlists" menu-close >
             <i class="icon ion-ios-list-outline"></i> Playlist
         </ion-item>
         <ion-item id="helphfavorites" class="item-icon-left ss-button disabled">
@@ -37,14 +37,14 @@
         <ion-item id="helphsettings" class="item-icon-left ss-button disabled">
             <i class="icon ion-settings"></i> Settings
         </ion-item>
-        <ion-item class="item-icon-left ss-button" menu-close ng-click="help()">
+        <ion-item class="item-icon-left ss-button" menu-close ng-click="vm.help()">
             <i class="icon ion-help"></i> Help
         </ion-item>
-        <ion-item class="item-icon-left" menu-close href="#/menu/about">
+        <ion-item class="item-icon-left" menu-close ui-sref="menu.about">
             <i class="icon ion-information-circled"></i> About
         </ion-item>
         <ion-item class="item-divider ss-item-empty "></ion-item>
-        <ion-item id="helphlogout" class="item-icon-left" menu-close ng-click="logout()">
+        <ion-item id="helphlogout" class="item-icon-left" menu-close ng-click="vm.logout()">
             <i class="icon ion-android-exit"></i> Logout
         </ion-item>
 
@@ -78,7 +78,7 @@
             <ion-item class="item-avatar">
                 <img src="img/Israel.jpg">
                 <h2>Israel Cruz</h2>
-                <p>Playlists: 15 Favorites: 40</p>
+                <p>Playlists: 30 Favorites: 50</p>
             </ion-item>
 
             <ion-item class="item-avatar">

@@ -1,12 +1,14 @@
 angular.module('soundstorm')
-.factory('User', function($log, $location, $cookies, ENV, $firebaseObject) {
+.factory('User', function($log, $location, $cookies, $firebaseObject, $firebaseAuth, ENV) {
     var username = "Anonymous";
     var token = "scrublord";
-    var usersRef = "https://soundstorm.firebaseio.com/users/";
-    var thisUsersRef = new Firebase(usersRef);
-    var users = $firebaseObject(thisUsersRef);
+    var ref = new Firebase(ENV.FIREBASE_URL);
+    var users = $firebaseObject(ref.child('users'));
 
     return {
+        firebaseAuth : function() {
+            return $firebaseAuth(ref);
+        },
         getUser: function() {
             return {
                 'username': username,
@@ -14,16 +16,24 @@ angular.module('soundstorm')
             }
         },
         setUsername: function(uname){
-            username = uname;
-            token = Math.random().toString(36).substr(2, 8);
-            users[token] = {
-                'username' : username
-            };
-            users.$save().then(function(thisUsersRef) {
-                thisUsersRef.key() === users.$id;
-            }, function(error) {
-                console.log("Error:", error);
-            });
+            if(uname === undefined || uname === null) {
+                throw 'Username is either undefined or null.'
+            }
+
+            var authObj = $firebaseAuth(ref);
+
+            return authObj.$authAnonymously()
+            .then(function(authData) {
+                console.log("Logged in as:", authData.uid);
+                token = authData.uid;
+                username = uname;
+                users[token] = {
+                    'username' : username
+                };
+
+                return users.$save()
+            })
+
         },
         checkToken: function() {
             return token;
