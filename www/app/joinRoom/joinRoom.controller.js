@@ -5,12 +5,14 @@ angular.module('soundstorm')
     $scope.roomJoin = function(code){
         //User.setUsername(name);
         //$state.go('channel');
-        var roomIndex = Room.doesRoomExist(code);
-        if(roomIndex === -1) {
-        	$state.go('joinFail');
-        } else {
-        	$state.go('menu.home', { id: code, type: 'g' });
-        	Room.addUserToRoom(code, User.getUser());
-        };
+        Room.doesRoomExist(code)
+        .then(function(roomIndex){
+            if(roomIndex === -1) {
+                $state.go('joinFail');
+            } else {
+                $state.go('menu.home', { id: code, type: 'g' });
+                Room.addUserToRoom(code, User.getUser());
+            };
+        });
     }
 })

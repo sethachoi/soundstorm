@@ -17,7 +17,7 @@ angular.module('soundstorm', [
     'underscore'
 ])
 .constant('ENV', window.config)
-.run(function($ionicPlatform, $rootScope, $location, $state, ENV, Auth) {
+.run(function($log, $ionicPlatform, $rootScope, $location, $state, ENV, Auth, Room) {
     console.log(ENV)
 
     $ionicPlatform.ready(function() {
@@ -31,29 +31,30 @@ angular.module('soundstorm', [
             StatusBar.styleDefault();
         }
     });
+
+
+    $rootScope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams){
+        $log.info('$stateChangeStart', toState, fromState);
+        if(toParams && toParams.id){
+            // Room.doesRoomExist(toParams.id)
+            // .then(function(result){
+            //     if(result < 0) {
+            //         event.preventDefault();
+            //         $log.error('Room does not exist:',toParams.id)
+            //         $state.go('errorInvalidRoom');
+            //     }
+            // })
+
+
+
+        }
+        //  $state.go('splash')
+        // do something
+    })
 })
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ionicFilterBarConfigProvider) {
-
-    /*
-    * ionicFilterBarConfigProvider settings
-    */
-
-    // $ionicFilterBarConfigProvider.theme('calm');
-    // $ionicFilterBarConfigProvider.clear('ion-close');
-    // $ionicFilterBarConfigProvider.search('ion-search');
-    // $ionicFilterBarConfigProvider.backdrop(false);
-    // $ionicFilterBarConfigProvider.transition('horizontal');
-    // $ionicFilterBarConfigProvider.placeholder('Filter');
-    // $ionicFilterBarConfigProvider.close('ion-android-close')
-
-
-
-
-
-
-
-
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
     // Set up the various states which the app can be in.
@@ -89,145 +90,107 @@ angular.module('soundstorm', [
         controller: 'CallCtrl'
     })
 
-    /*
-    .state('playlist', {
-    url: '/playlist',
-    templateUrl: 'app/templates/playlist.html',
-    controller: 'ListCtrl'
-})
-*/
 
-.state('hostRoom', {
-    url: '/hostRoom',
-    templateUrl: 'app/hostRoom/hostRoom.html',
-    controller: 'HostCtrl'
-})
 
-.state('joinRoom', {
-    url: '/joinRoom',
-    templateUrl: 'app/joinRoom/joinRoom.html',
-    controller: 'JoinCtrl'
-})
+    .state('hostRoom', {
+        url: '/hostRoom',
+        templateUrl: 'app/hostRoom/hostRoom.html',
+        controller: 'HostCtrl'
+    })
 
-.state('joinFail' , {
-    url: '/joinFail',
-    templateUrl: 'app/joinRoom/joinFailed.html',
-    controller: 'JoinCtrl'
-})
+    .state('joinRoom', {
+        url: '/joinRoom',
+        templateUrl: 'app/joinRoom/joinRoom.html',
+        controller: 'JoinCtrl'
+    })
+
+    .state('joinFail' , {
+        url: '/joinFail',
+        templateUrl: 'app/joinRoom/joinFailed.html',
+        controller: 'JoinCtrl'
+    })
 
 
 
-// Menu
-.state('menu', {
-    templateUrl: 'app/menu/menu.html',
-    controller: 'MenuCtrl as vm',
-    abstract: true
-})
-// substates under the menu state
-.state('menu.home', {
-    url: '/:type/:id/home',
-    views: {
-        'menuContent': {
-            templateUrl: 'app/menu/home/home.html',
-            controller: 'HomeCtrl as vm'
+    // Menu
+    .state('menu', {
+        templateUrl: 'app/menu/menu.html',
+        controller: 'MenuCtrl as vm',
+        abstract: true
+    })
+    // substates under the menu state
+    .state('menu.home', {
+        resolve:{
+            checkIfTheRoomExists: function($log, $q, $timeout, $state, $stateParams, Room){
+                $log.info('Checking if room exists...');
+                var deferred = $q.defer();
+                Room.doesRoomExist($stateParams.id)
+                .then(function(result){
+                    if(result < 0) {
+                        console.error('Room does not exist:',$stateParams.id)
+                        $state.go('errorInvalidRoom');
+                        deferred.reject();
+                    } else {
+                        deferred.resolve('Hello!');
+                    }
+                })
+                return deferred.promise
+            }
+        },
+        url: '/:type/:id/home',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/menu/home/home.html',
+                controller: 'HomeCtrl as vm'
+            }
         }
-    }
-})
-.state('menu.about', {
-    url: '/about',
-    views: {
-        'menuContent': {
-            templateUrl: 'app/menu/about/about.html',
-            controller: 'AboutCtrl'
+    })
+    .state('menu.about', {
+        url: '/about',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/menu/about/about.html',
+                controller: 'AboutCtrl'
+            }
         }
-    }
-})
-.state('menu.team', {
-    url: '/team',
-    views: {
-        'menuContent': {
-            templateUrl: 'app/menu/about/team.html',
-            controller: 'TeamCtrl'
+    })
+    .state('menu.team', {
+        url: '/team',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/menu/about/team.html',
+                controller: 'TeamCtrl'
+            }
         }
-    }
-})
-.state('menu.playlists', {
-    url: '/p',
-    views: {
-        'menuContent': {
-            templateUrl: 'app/menu/playlist/playlists.html',
-            controller: 'PlaylistsCtrl as vm'
+    })
+    .state('menu.playlists', {
+        url: '/p',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/menu/playlist/playlists.html',
+                controller: 'PlaylistsCtrl as vm'
+            }
         }
-    }
-})
-.state('menu.playlist', {
-    url: '/p/:playlist',
-    views: {
-        'menuContent': {
-            templateUrl: 'app/menu/playlist/playlist.html',
-            controller: 'PlaylistCtrl as vm'
+    })
+    .state('menu.playlist', {
+        url: '/p/:playlist',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/menu/playlist/playlist.html',
+                controller: 'PlaylistCtrl as vm'
+            }
         }
-    }
-});
+    })
 
-// setup an abstract state for the tabs directive
-// .state('tab', {
-//     url: "/tab",
-//     abstract: true,
-//     templateUrl: "app/templates/tabs.html"
-// })
-//
-// // Each tab has its own nav history stack:
-//
-// .state('tab.dash', {
-//     url: '/dash',
-//     views: {
-//         'tab-dash': {
-//             templateUrl: 'app/templates/tab-dash.html',
-//             controller: 'DashCtrl'
-//         }
-//     }
-// })
-// .state('tab.search', {
-//     url: '/search',
-//     views: {
-//         'tab-search': {
-//             templateUrl: 'app/templates/tab-search.html',
-//             controller: 'SearchCtrl'
-//         }
-//     }
-// })
-// .state('tab.friends', {
-//     url: '/friends',
-//     views: {
-//         'tab-friends': {
-//             templateUrl: 'app/templates/tab-friends.html',
-//             controller: 'FriendsCtrl'
-//         }
-//     }
-// })
-// .state('tab.friend-detail', {
-//     url: '/friend/:friendId',
-//     views: {
-//         'tab-friends': {
-//             templateUrl: 'app/templates/friend-detail.html',
-//             controller: 'FriendDetailCtrl'
-//         }
-//     }
-// })
-//
-// .state('tab.account', {
-//     url: '/account',
-//     views: {
-//         'tab-account': {
-//             templateUrl: 'app/templates/tab-account.html',
-//             controller: 'AccountCtrl'
-//         }
-//     }
-// });
+    // Error States
 
-// if none of the above states are matched, use this as the fallback
-$urlRouterProvider.otherwise('/');
+    .state('errorInvalidRoom', {
+        url: '/error-invalid-room',
+        templateUrl: 'app/error/room-does-not-exist.html'
+    });
+
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/');
 
 
 })

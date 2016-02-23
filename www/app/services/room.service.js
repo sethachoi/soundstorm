@@ -4,14 +4,16 @@
     .module('soundstorm')
     .factory('Room', Room);
 
-    Room.$inject = ['$log', '$firebaseObject', '$firebaseArray', 'ENV', '_', 'User'];
+    Room.$inject = ['$log', '$firebaseObject', '$firebaseArray','$cookies', 'ENV', '_', 'User'];
 
-    function Room($log, $firebaseObject, $firebaseArray, ENV, _, User) {
+    function Room($log, $firebaseObject, $firebaseArray, $cookies, ENV, _, User) {
 
         var nameCallback = [];
-        var roomName = "";
+        var roomName = $cookies.get('roomName') || "";
         var owner = "";
         var users = [];
+
+        $log.info('Current roomName:', roomName);
 
         var _ref = new Firebase(ENV.FIREBASE_URL).child('rooms');
         var rooms = $firebaseObject(_ref);
@@ -23,6 +25,7 @@
             'getCurrentSong': getCurrentSong,
             'createRoom': createRoom,
             'getName': getName,
+            'findAndSetName': findAndSetName,
             'setName': setName,
             'doesRoomExist' : doesRoomExist,
             'addUserToRoom' : addUserToRoom
@@ -43,7 +46,16 @@
         function getName() {
             return roomName;
         }
+
+        function findAndSetName(name) {
+            var p = doesRoomExist(name)
+            // $log.debug('findAndSetName', p)
+            //setName(name)
+        }
+
         function setName(name) {
+            $log.debug('setName', name)
+            $cookies.put('roomName', name);
             broadcastNameEvent(name);
             roomName = name;
         }
@@ -61,7 +73,7 @@
         // }
 
         function createRoom(name) {
-            roomName = name;
+            setName(name);
             owner = User.getUser();
             users = [User.getUser()];
             /* sample track struct
@@ -71,8 +83,8 @@
             'length' : '3:15'}];
             */
 
-            rooms[roomName] = {
-                'name' : roomName,
+            rooms[name] = {
+                'name' : name,
                 'owner' : owner,
                 'playlist' : [],
                 'users' : users
@@ -81,9 +93,11 @@
         }
 
         function doesRoomExist(code) {
-            var res = roomsArr.$indexFor(code);
-            console.log('doesRoomExist', res);
-            return res;
+            return roomsArr.$loaded()
+            .then(function(data){
+                // $log.info('loaded', data)
+                return roomsArr.$indexFor(code);
+            });
         }
 
         function addUserToRoom(roomCode, userObj) {

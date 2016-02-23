@@ -73,7 +73,7 @@
 
 
         // Intialize Room
-        Room.setName($stateParams.id);
+        // Room.findAndSetName($stateParams.id);
 
         vm.roomName = Room.getName();
         vm.playlist = Room.getPlaylist();
