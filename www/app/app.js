@@ -14,10 +14,12 @@ angular.module('soundstorm', [
     'jett.ionic.filter.bar',
     'ng-walkthrough',
     'ngProgress',
-    'underscore'
+    'underscore',
+    'alexhgian.angular-cloud'
 ])
 .constant('ENV', window.config)
-.run(function($log, $ionicPlatform, $rootScope, $location, $state, ENV, Auth, Room) {
+.run(function($log, $ionicPlatform, $rootScope, $location, $state, ENV, Auth, Room, SC) {
+    console.log('angularSC',SC)
     console.log(ENV)
 
     $ionicPlatform.ready(function() {
