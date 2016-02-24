@@ -1,24 +1,27 @@
 angular.module('soundstorm')
-    .controller('LoginCtrl', function($scope, $window, $state, ENV, User) {
+    .controller('LoginCtrl', function($scope, $state, ENV, Auth, User, SC) {
 
         function testConnection(){
             SC.get('/me')
                 .then(function(data){
                     console.log('inviteCallback() Auth success!');
-                    return User.setUsername(data.username);
+                    User
+                        .setUsername(data.username)
+                        .then(function(){
+                            console.log('setUsername Success!');
+                            $state.go('channel');
+                        });
                 })
                 .catch(function(data){
                     console.log('inviteCallback() Auth failed!')
                     // TODO: Add some error thing
                 })
-                .then(function(){
-                    console.log('setUsername Success!');
-                    $state.go('channel');
-                })
+
         }
-        $window.inviteCallback = function() {
+
+        Auth.initCallback(function() {
             testConnection();
-        }
+        });
 
         $scope.scLogin = function() {
             SC.connect().then(function(){

@@ -1,71 +1,50 @@
-(() => {
+(function(){
     'use strict';
-    angular.module('soundstorm')
-    .factory('User', User);
+    angular
+        .module('soundstorm')
+        .factory('Auth', Auth);
 
+    function Auth($log, $location, $window, ENV, SC) {
+        console.log('Auth factory starting...');
 
-    function User($log, $location, $cookies, $firebaseObject, $firebaseAuth, ENV) {
-        var userCookie = $cookies.getObject('userData')
-        $log.info('Getting userData from cookies:', userCookie);
+        var initCB = function(){};
 
-        var username = userCookie.username || "Anonymous";
-        var token =  userCookie.token || "scrublord";
-        var ref = new Firebase(ENV.FIREBASE_URL);
-        var users = $firebaseObject(ref.child('users'));
+        var options = {
+            client_id: ENV.SOUNDCLOUD_CLIENT_ID,
+            redirect_uri: ENV.SOUNDCLOUD_CALLBACK_URL
+        };
+
+        SC.initialize(options);
+
+        // Interface
+        $window.initializeCallback = initializeCallback;
 
         return {
-            firebaseAuth : function() {
-                return $firebaseAuth(ref);
-            },
-            getUser: function() {
-                return {
-                    'username': username,
-                    'token' : token
-                }
-            },
-            setUsername: function(uname){
-                if(uname === undefined || uname === null) {
-                    throw 'Username is either undefined or null.'
-                }
-
-                var authObj = $firebaseAuth(ref);
-
-
-                var savePromise = authObj.$authAnonymously()
-                .then(function(authData) {
-                    console.log("Logged in as:", authData.uid);
-                    token = authData.uid;
-                    username = uname;
-                    users[token] = {
-                        'username' : username
-                    };
-                    return users.$save()
-                });
-
-
-                savePromise.then(function(user){
-                    $log.info('user.$save()');
-
-                    $cookies.putObject('userData', {
-                        'username': username,
-                        'token': token
-                    })
-
-                }).catch(function(err){
-                    console.error('user.$save()', err);
-                });
-
-                return savePromise;
-
-            },
-            checkToken: function() {
-                return token;
-            },
-            checkName: function() {
-                return username;
-            }
+            'initCallback': initCallback,
+            'initCaller': initCaller
         }
+
+        // Definition
+        function initializeCallback(opts) {
+            options = {
+                oauth_token: opts.oauth_token || null
+            };
+
+            SC.initialize(options);
+            initCB();
+        }
+
+        function initCallback(cb){
+            initCB = cb;
+        }
+
+        function initCaller(opts){
+            window.opener.initializeCallback(opts);
+        }
+
     }
+
+
 
 
 })();

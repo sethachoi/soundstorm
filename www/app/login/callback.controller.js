@@ -6,7 +6,7 @@ angular.module('soundstorm')
     var rehash = re.exec(prehash);
 
     if(rehash && rehash[1]){
-        Auth.initialize({oauth_token: rehash[1]});
+        Auth.initCaller({oauth_token: rehash[1]});
         // SC.get('/me').then(function(data) {
         //     console.log('me', data);
         // }).catch(function(err){

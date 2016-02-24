@@ -6,6 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('soundstorm', [
+    'alexhgian.angular-cloud',
     'ionic',
     'soundstorm.controllers',
     'soundstorm.services',
@@ -14,12 +15,10 @@ angular.module('soundstorm', [
     'jett.ionic.filter.bar',
     'ng-walkthrough',
     'ngProgress',
-    'underscore',
-    'alexhgian.angular-cloud'
+    'underscore'
 ])
 .constant('ENV', window.config)
 .run(function($log, $ionicPlatform, $rootScope, $location, $state, ENV, Auth, Room, SC) {
-    console.log('angularSC',SC)
     console.log(ENV)
 
     $ionicPlatform.ready(function() {

@@ -1,5 +1,5 @@
 angular.module('soundstorm')
-.factory('Player', function($log, $location, $cookies, ENV) {
+.factory('Player', function($log, $location, $cookies, ENV, SC) {
     "use strict";
     var soundToggle = true;
     var MAX_VOLUME = 0.5;
