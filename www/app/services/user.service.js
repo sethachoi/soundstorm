@@ -5,7 +5,7 @@
 
 
     function User($log, $location, $cookies, $firebaseObject, $firebaseAuth, ENV) {
-        var userCookie = $cookies.getObject('userData')
+        var userCookie = $cookies.getObject('userData') || {};
         $log.info('Getting userData from cookies:', userCookie);
 
         var username = userCookie.username || "Anonymous";
