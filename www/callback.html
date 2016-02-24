@@ -5,15 +5,15 @@
 <body>
     <b style="text-align: center;">This popup should automatically close in a few seconds</b>
     <script>
-    window.onload = function(){
-        var re = /\?.*/;
+    window.onload = function() {
+
+        var re = /access_token=([\d\w-]*)/;
         url = window.location.href;
         results = re.exec(url);
-        window.location.href = "/#/callback"+results[0];
+        console.log(results)
+        window.opener.initializeCallback({oauth_token: results[1]});
+        setTimeout(window.close, 2000);
     }
-
-
-
     </script>
 </body>
 </html>

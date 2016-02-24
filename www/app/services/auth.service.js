@@ -20,8 +20,7 @@
         $window.initializeCallback = initializeCallback;
 
         return {
-            'initCallback': initCallback,
-            'initCaller': initCaller
+            'initCallback': initCallback
         }
 
         // Definition
@@ -36,10 +35,6 @@
 
         function initCallback(cb){
             initCB = cb;
-        }
-
-        function initCaller(opts){
-            window.opener.initializeCallback(opts);
         }
 
     }
