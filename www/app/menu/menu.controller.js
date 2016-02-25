@@ -4,7 +4,6 @@ angular.module('soundstorm')
     // console.log($stateParams)
     var vm = this;
     var user = User.getUser();
-
     vm.username = user.username;
     vm.roomName = Room.getName();
 

@@ -45,7 +45,7 @@
         *******************************************************************/
         var vm = this; // The controllr's scope
 
-        vm.title = "Home"
+        vm.title = "Home";
 
         vm.songNumber = 0;
 
