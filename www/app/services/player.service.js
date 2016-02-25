@@ -51,22 +51,19 @@ angular.module('soundstorm')
 ////////////////////////
 //this is the cluster fuck
     function faveChecker(trackid) {
-        SC.get();
+        // SC.get();
         //return $.when(getInfo(trackid)).then(isFaved);
+        return SC.get('me/favorites/' + trackid);
     }
 
-    function getInfo(trackid) {
-        var dataDef = new jQuery.Deferred();
-        SC.get('/tracks/' + trackid, function() {
-            dataDef.resolve(data);
-            console.log(dataDef);
-        });
-        console.log("testing fave check " + trackid);
+    function getTrackById(trackid) {
+        // SC.get('/tracks/' + trackid);
+        // console.log("testing fave check " + trackid);
         //var isit = SC.get('/tracks/' + trackid);
         //var isin = isit.user_favorite;
         //console.log(isit);
 
-        return dataDef;
+        return SC.get('/tracks/' + trackid);
     }
 
     function isFaved(dataD) {
@@ -130,6 +127,6 @@ angular.module('soundstorm')
         'on': on,
         'isFaved': isFaved,
         'faveChecker': faveChecker,
-        'getInfo': getInfo
+        'getTrackById': getTrackById
     }
 });

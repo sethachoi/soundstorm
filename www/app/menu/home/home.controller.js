@@ -5,6 +5,7 @@
     .controller('HomeCtrl', HomeCtrl);
 
     HomeCtrl.$inject = [
+        '$log',
         '$scope',
         '$interval',
         '$timeout',
@@ -16,10 +17,12 @@
         '$stateParams',
         'Player',
         'ngProgressFactory',
-        'Room'
+        'Room',
+        'SC'
     ];
 
     function HomeCtrl(
+        $log,
         $scope,
         $interval,
         $timeout,
@@ -86,6 +89,15 @@
         });
 
 
+        Player.faveChecker(vm.currentSong.id)
+        .then(function(data){
+            $log.info('faveChecker', data)
+            vm.currSongFaved = true;
+        })
+        .catch(function(err){
+            $log.error('faveChecker', err)
+            vm.currSongFaved = false;
+        });
 
         /******************************************************************
         * Search Model Setup
@@ -128,7 +140,16 @@
                 id: track.id
             }
 
-            vm.currSongFaved = Player.faveChecker(track.id);
+            Player.faveChecker(track.id)
+            .then(function(data){
+                $log.info('faveChecker', data)
+                vm.currSongFaved = true;
+            })
+            .catch(function(err){
+                $log.error('faveChecker', err)
+                vm.currSongFaved = false;
+            });
+
             console.log("testing stuff");
             console.log(vm.currSongFaved);
             console.log(currentSong);
@@ -136,7 +157,7 @@
             $('#ss-help-player-info').css({
                 "background-image":"url("+track.artwork_url+")"
             });
-            
+
             for( var key in currentSong ){
                 vm.currentSong[key] = (typeof currentSong[key] === 'undefined') ? null : currentSong[key];
             }
@@ -214,13 +235,21 @@
             getNextTrack(true);
         }
 
+
         vm.addFavorite = function(){
+            $log.info('addFavorite ...')
             if(!vm.currSongFaved) {
-                SC.put('/me/favorites/' + vm.currentSong.id);
-                vm.currSongFaved = true;
+                $log.info('addFavorite add',vm.currentSong.id)
+                SC.put('/me/favorites/' + vm.currentSong.id)
+                .then(function(){
+                    vm.currSongFaved = true;
+                });
+
             } else {
-                SC.delete('/me/favorites/' + vm.currentSong.id);
-                vm.currSongFaved = false;
+                $log.info('addFavorite remove',vm.currentSong.id)
+                SC.delete('/me/favorites/' + vm.currentSong.id).then(function(){
+                    vm.currSongFaved = false;
+                });
             }
             //make a popup
         }
@@ -230,7 +259,7 @@
             .then(function(){
                 if(finished){
                     getNextTrack(false);
-                } 
+                }
             });
             vm.scResults.splice(index, 1);
             // filterBarInstance();
