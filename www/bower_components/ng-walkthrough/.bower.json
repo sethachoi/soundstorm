@@ -1,6 +1,6 @@
 {
   "name": "ng-walkthrough",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "https://github.com/souly1/ng-walkthrough",
   "authors": [
     "Ophir Stern <souly01@gmail.com>"
@@ -13,8 +13,7 @@
   "devDependencies": {
     "showdown": "0.3.1",
     "angular-mocks": "1.4.3",
-    "jquery": "^2.0",
-    "jasmine-core": "^2.1",
+    "jquery": "~2.2.1",
     "jasmine-jquery": "^2.0.6",
     "angular-touch": "1.4.3",
     "angular-animate": "1.4.3",
@@ -45,13 +44,13 @@
     "test",
     "tests"
   ],
-  "_release": "0.4.1",
+  "_release": "0.4.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.4.1",
-    "commit": "9b808be2c22f1b3ad0356e3f7c7f5338d6a8480e"
+    "tag": "v0.4.2",
+    "commit": "a5c6e23b2151aa372b1a39f33816771506a0fb7a"
   },
   "_source": "git://github.com/souly1/ng-walkthrough.git",
-  "_target": "~0.4.1",
+  "_target": "^0.4.1",
   "_originalSource": "ng-walkthrough"
 }
