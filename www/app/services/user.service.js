@@ -10,6 +10,7 @@
 
         var username;// = userCookie.username || "Anonymous";
         var token;// =  userCookie.token || "scrublord";
+        var SCLoggedIn = false;
 
         if(userCookie) {
             username = userCookie.username;
@@ -71,6 +72,12 @@
             },
             checkName: function() {
                 return username;
+            },
+            setLoggedIn: function(boolval) {
+                SCLoggedIn = boolval;
+            },
+            checkLoggedIn: function() {
+                return SCLoggedIn;
             }
         }
     }

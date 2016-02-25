@@ -68,6 +68,11 @@
             return $firebaseObject(_ref.child(roomName).child('currentSong'));
 
         }
+
+        function joinGetCurrentSong(roomCode){
+            return $firebaseObject(_ref.child(roomCode).child('currentSong'));
+
+        }
         // function setPlaylist(currentPlaylist){
         //     playlist = Playlist(currentPlaylist);
         // }

@@ -48,6 +48,32 @@ angular.module('soundstorm')
         })
     }
 
+////////////////////////
+//this is the cluster fuck
+    function faveChecker(trackid) {
+        SC.get();
+        //return $.when(getInfo(trackid)).then(isFaved);
+    }
+
+    function getInfo(trackid) {
+        var dataDef = new jQuery.Deferred();
+        SC.get('/tracks/' + trackid, function() {
+            dataDef.resolve(data);
+            console.log(dataDef);
+        });
+        console.log("testing fave check " + trackid);
+        //var isit = SC.get('/tracks/' + trackid);
+        //var isin = isit.user_favorite;
+        //console.log(isit);
+
+        return dataDef;
+    }
+
+    function isFaved(dataD) {
+        console.log(dataD);
+        return false;
+    }
+//////////////////////
 
     function toggleSound(cb){
         if(currentPlayer){
@@ -101,6 +127,9 @@ angular.module('soundstorm')
         'toggleSound': toggleSound,
         'streamTrack': streamTrack,
         'find': find,
-        'on': on
+        'on': on,
+        'isFaved': isFaved,
+        'faveChecker': faveChecker,
+        'getInfo': getInfo
     }
 });

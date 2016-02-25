@@ -1,5 +1,5 @@
 angular.module('soundstorm')
-.controller('JoinCtrl', function($scope, Room, User, $state) {
+.controller('JoinCtrl', function($scope, Room, User, $state, Player) {
     console.log('JoinCtrl started...');
 
     $scope.roomJoin = function(code){
@@ -10,7 +10,7 @@ angular.module('soundstorm')
             if(roomIndex === -1) {
                 $state.go('joinFail');
             } else {
-                $state.go('menu.home', { id: code, type: 'g' });
+                $state.go('menu.home', { id: code, type: 'g', faved: Player.faveChecker(Room.joinGetCurrentSong(code).id) });
                 Room.addUserToRoom(code, User.getUser());
             };
         });

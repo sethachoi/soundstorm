@@ -31,7 +31,8 @@
         $stateParams,
         Player,
         ngProgressFactory,
-        Room
+        Room,
+        SC
 
     ){
         /******************************************************************
@@ -65,7 +66,7 @@
 
         vm.searchModalHide = true;
 
-
+        vm.currSongFaved = $stateParams.faved;
 
         // Grab params from URL
         vm.isHost = ($stateParams.type==='h')? true : false;
@@ -106,7 +107,7 @@
         function getNextTrack(isFinished){
             var track = vm.playlist[0];
             vm.playlist.$remove(track);
-            console.log('getNextTrack', track)
+            console.log('getNextTrack', track);
             if(track){
                 finished = isFinished;
                 streamTrack(track);
@@ -121,10 +122,15 @@
                 preview: track.artwork_url,
                 title: track.title,
                 author: track.user.permalink,
-                totalFavorited: 123,
+                totalFavorited: track.favoritings_count,
                 duration: track.duration,
-                time:0
+                time:0,
+                id: track.id
             }
+
+            vm.currSongFaved = Player.faveChecker(track.id);
+            console.log("testing stuff");
+            console.log(vm.currSongFaved);
             console.log(currentSong);
 
             $('#ss-help-player-info').css({
@@ -148,7 +154,8 @@
                 author: "",
                 totalFavorited: 0,
                 duration: 0,
-                time:0
+                time:0,
+                id: ""
             }
             for( var key in currentSong ){
                 vm.currentSong[key] = currentSong[key];
@@ -207,14 +214,23 @@
             getNextTrack(true);
         }
 
-        vm.addFavorite = function(){}
+        vm.addFavorite = function(){
+            if(!vm.currSongFaved) {
+                SC.put('/me/favorites/' + vm.currentSong.id);
+                vm.currSongFaved = true;
+            } else {
+                SC.delete('/me/favorites/' + vm.currentSong.id);
+                vm.currSongFaved = false;
+            }
+            //make a popup
+        }
 
         vm.addSong = function(track, index){
             vm.playlist.$add(track)
             .then(function(){
                 if(finished){
                     getNextTrack(false);
-                }
+                } 
             });
             vm.scResults.splice(index, 1);
             // filterBarInstance();
