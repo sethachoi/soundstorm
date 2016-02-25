@@ -287,3 +287,24 @@ background-color: #22242a;
 	left: 100%;
 	margin-left: 15px;
 }
+
+#ss-help-player-info {
+	background-size: 100%;
+	background-position: 0% 50%;
+}
+
+#playerInfo {
+	background-color: rgba(0,0,0,0.2);
+}
+
+#playerInfo h2{
+	color: white;
+}
+
+#playerInfo img{
+	border: 1px solid white;
+}
+
+#playerInfo p {
+	color: white;
+}

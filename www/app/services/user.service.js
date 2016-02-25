@@ -8,8 +8,16 @@
         var userCookie = $cookies.getObject('userData') || {};
         $log.info('Getting userData from cookies:', userCookie);
 
-        var username = userCookie.username || "Anonymous";
-        var token =  userCookie.token || "scrublord";
+        var username;// = userCookie.username || "Anonymous";
+        var token;// =  userCookie.token || "scrublord";
+
+        if(userCookie) {
+            username = userCookie.username;
+            token = userCookie.token;
+        } else {
+            username = "Anonymous";
+            token = "scrublord";
+        }
         var ref = new Firebase(ENV.FIREBASE_URL);
         var users = $firebaseObject(ref.child('users'));
 
