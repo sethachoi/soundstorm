@@ -125,6 +125,12 @@
                 duration: track.duration,
                 time:0
             }
+            console.log(currentSong);
+
+            $('#ss-help-player-info').css({
+                "background-image":"url("+track.artwork_url+")"
+            });
+            
             for( var key in currentSong ){
                 vm.currentSong[key] = (typeof currentSong[key] === 'undefined') ? null : currentSong[key];
             }

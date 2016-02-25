@@ -103,7 +103,7 @@
         function addUserToRoom(roomCode, userObj) {
             //TODO: add more data sync stuff
             roomName = roomCode;
-            return $firebaseArray(_ref.child(roomCode)).$add(userObj);
+            return $firebaseArray(_ref.child(roomCode).child('users')).$add(userObj);
         }
     }
 })();
