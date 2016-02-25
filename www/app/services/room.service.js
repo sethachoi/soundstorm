@@ -28,7 +28,8 @@
             'findAndSetName': findAndSetName,
             'setName': setName,
             'doesRoomExist' : doesRoomExist,
-            'addUserToRoom' : addUserToRoom
+            'addUserToRoom' : addUserToRoom,
+            'joinGetCurrentSong' : joinGetCurrentSong
         };
 
         function addNameListener(cb){
@@ -70,7 +71,7 @@
         }
 
         function joinGetCurrentSong(roomCode){
-            return $firebaseObject(_ref.child(roomCode).child('currentSong'));
+            return $firebaseObject(_ref.child(roomCode).child('currentSong')).id;
 
         }
         // function setPlaylist(currentPlaylist){

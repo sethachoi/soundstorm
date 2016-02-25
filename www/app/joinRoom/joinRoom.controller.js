@@ -10,7 +10,18 @@ angular.module('soundstorm')
             if(roomIndex === -1) {
                 $state.go('joinFail');
             } else {
-                $state.go('menu.home', { id: code, type: 'g', faved: Player.faveChecker(Room.joinGetCurrentSong(code).id) });
+                var favrit;
+                console.log(Room.joinGetCurrentSong(code));
+                Player.faveChecker(Room.joinGetCurrentSong(code))
+                .then(function(data){
+                    $log.info('faveChecker', data)
+                    favrit = true;
+                })
+                .catch(function(err){
+                    $log.error('faveChecker', err)
+                    favrit = false;
+                });
+                $state.go('menu.home', { id: code, type: 'g', faved: favrit });
                 Room.addUserToRoom(code, User.getUser());
             };
         });

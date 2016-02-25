@@ -48,8 +48,6 @@ angular.module('soundstorm')
         })
     }
 
-////////////////////////
-//this is the cluster fuck
     function faveChecker(trackid) {
         // SC.get();
         //return $.when(getInfo(trackid)).then(isFaved);
@@ -66,11 +64,6 @@ angular.module('soundstorm')
         return SC.get('/tracks/' + trackid);
     }
 
-    function isFaved(dataD) {
-        console.log(dataD);
-        return false;
-    }
-//////////////////////
 
     function toggleSound(cb){
         if(currentPlayer){
@@ -125,7 +118,6 @@ angular.module('soundstorm')
         'streamTrack': streamTrack,
         'find': find,
         'on': on,
-        'isFaved': isFaved,
         'faveChecker': faveChecker,
         'getTrackById': getTrackById
     }
