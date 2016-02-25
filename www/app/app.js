@@ -85,14 +85,6 @@ angular.module('soundstorm', [
         controller: 'LoginCtrl'
     })
 
-    .state('callback', {
-        url: '/callback',
-        templateUrl: 'app/login/callback.html',
-        controller: 'CallCtrl'
-    })
-
-
-
     .state('hostRoom', {
         url: '/hostRoom',
         templateUrl: 'app/hostRoom/hostRoom.html',
