@@ -119,6 +119,6 @@ angular.module('soundstorm')
         'find': find,
         'on': on,
         'faveChecker': faveChecker,
-        'getTrackById': getTrackById
+        'getTrackById': getTrackById,
     }
 });

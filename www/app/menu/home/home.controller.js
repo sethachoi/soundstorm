@@ -243,11 +243,18 @@
                 SC.put('/me/favorites/' + vm.currentSong.id)
                 .then(function(){
                     vm.currSongFaved = true;
+                })
+                .catch(function(){
+                    vm.currSongFaved = false;
                 });
 
             } else {
                 $log.info('addFavorite remove',vm.currentSong.id)
-                SC.delete('/me/favorites/' + vm.currentSong.id).then(function(){
+                SC.delete('/me/favorites/' + vm.currentSong.id)
+                .then(function(){
+                    vm.currSongFaved = false;
+                })
+                .catch(function(){
                     vm.currSongFaved = false;
                 });
             }
@@ -257,7 +264,7 @@
         vm.addSong = function(track, index){
             vm.playlist.$add(track)
             .then(function(){
-                if(finished){
+                if(finished && vm.isHost){
                     getNextTrack(false);
                 }
             });
