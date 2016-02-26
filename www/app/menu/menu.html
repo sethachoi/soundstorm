@@ -23,7 +23,7 @@
                 Hello, {{vm.username}}
                 <p>Room ID: <span>{{vm.roomName}}</span></p>
             </ion-item>
-        <ion-item class="item-icon-left" href="#/menu/home" menu-close >
+        <ion-item class="item-icon-left" ng-click="vm.goHome()" menu-close >
             <i class="icon ion-home"></i> Home
         </ion-item>
         <ion-item id="helphplaylist" class="item-icon-left ss-button" ui-sref="menu.playlists" menu-close >
@@ -40,9 +40,9 @@
         <ion-item class="item-icon-left ss-button" menu-close ng-click="vm.help()">
             <i class="icon ion-help"></i> Help
         </ion-item>
-        <ion-item class="item-icon-left" menu-close ui-sref="menu.about">
-            <i class="icon ion-information-circled"></i> About
-        </ion-item>
+        <!--<ion-item class="item-icon-left" menu-close ui-sref="menu.about">-->
+            <!--<i class="icon ion-information-circled"></i> About-->
+        <!--</ion-item>-->
         <ion-item class="item-divider ss-item-empty "></ion-item>
         <ion-item id="helphlogout" class="item-icon-left" menu-close ng-click="vm.logout()">
             <i class="icon ion-android-exit"></i> Logout

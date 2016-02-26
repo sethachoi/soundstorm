@@ -85,6 +85,7 @@
         }
 
         function createRoom(name) {
+            User.setHost(true);
             setName(name);
             owner = User.getUser();
             users = [User.getUser()];

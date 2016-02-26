@@ -76,6 +76,7 @@
 
         // Grab params from URL
         vm.isHost = ($stateParams.type==='h')? true : false;
+        User.setHost(vm.isHost);
         // vm.isHost = Room.isHost();
 
 

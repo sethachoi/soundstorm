@@ -5,6 +5,7 @@
 
 
     function User($log, $location, $cookies, $firebaseObject, $firebaseAuth, ENV) {
+        var isHost = $cookies.get('isHost');
         var userCookie = $cookies.getObject('userData') || {};
         $log.info('Getting userData from cookies:', userCookie);
 
@@ -85,6 +86,13 @@
             },
             getFaved: function() {
                 return faved;
+            },
+            isHost: function(){
+              return isHost;
+            },
+            setHost: function(b){
+                isHost = b;
+                $cookies.put('isHost', b);
             }
         }
     }
