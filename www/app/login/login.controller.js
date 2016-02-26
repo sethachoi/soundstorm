@@ -5,6 +5,7 @@ angular.module('soundstorm')
             SC.get('/me')
                 .then(function(data){
                     console.log('inviteCallback() Auth success!');
+                    User.setLoggedIn(true);
                     User
                         .setUsername(data.username)
                         .then(function(){

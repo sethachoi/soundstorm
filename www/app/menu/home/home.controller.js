@@ -5,6 +5,7 @@
     .controller('HomeCtrl', HomeCtrl);
 
     HomeCtrl.$inject = [
+        '$log',
         '$scope',
         '$interval',
         '$timeout',
@@ -16,10 +17,13 @@
         '$stateParams',
         'Player',
         'ngProgressFactory',
-        'Room'
+        'Room',
+        'SC',
+        'User'
     ];
 
     function HomeCtrl(
+        $log,
         $scope,
         $interval,
         $timeout,
@@ -31,7 +35,9 @@
         $stateParams,
         Player,
         ngProgressFactory,
-        Room
+        Room,
+        SC,
+        User
 
     ){
         /******************************************************************
@@ -65,7 +71,8 @@
 
         vm.searchModalHide = true;
 
-
+        vm.currSongFaved = User.getFaved();
+        console.log(vm.currSongFaved);
 
         // Grab params from URL
         vm.isHost = ($stateParams.type==='h')? true : false;
@@ -78,12 +85,16 @@
         vm.roomName = Room.getName();
         vm.playlist = Room.getPlaylist();
         vm.currentSong = Room.getCurrentSong();
+        Room.getSongFromRoom(vm.roomName)
+        .then(function(data) {
+            vm.currentSong = data;
+        });
+        
 
         var unwatch = vm.currentSong.$watch(function() {
             ngProgress.set((vm.currentSong.time/vm.currentSong.duration)*100);
             // console.log("data changed!", vm.currentSong);
         });
-
 
 
         /******************************************************************
@@ -100,13 +111,30 @@
         });
 
 
+        function checkFavorite(song) { 
+            Player.faveChecker(song.id)
+            .then(function(data){
+                //$log.info('faveChecker', data)
+                vm.currSongFaved = true;
+                User.setFaved(true);
+                console.log("faved is true");
+            })
+            .catch(function(err){
+                //$log.error('faveChecker', err)
+                vm.currSongFaved = false;
+                User.setFaved(false);
+                console.log("faved is false");
+            });
+        }
+
         /**
         * Get the next track
         */
         function getNextTrack(isFinished){
             var track = vm.playlist[0];
+            checkFavorite(track);
             vm.playlist.$remove(track);
-            console.log('getNextTrack', track)
+            console.log('getNextTrack', track);
             if(track){
                 finished = isFinished;
                 streamTrack(track);
@@ -121,16 +149,20 @@
                 preview: track.artwork_url,
                 title: track.title,
                 author: track.user.permalink,
-                totalFavorited: 123,
+                totalFavorited: track.favoritings_count,
                 duration: track.duration,
-                time:0
+                time:0,
+                id: track.id
             }
+
+            console.log("testing stuff");
+            console.log(vm.currSongFaved);
             console.log(currentSong);
 
             $('#ss-help-player-info').css({
                 "background-image":"url("+track.artwork_url+")"
             });
-            
+
             for( var key in currentSong ){
                 vm.currentSong[key] = (typeof currentSong[key] === 'undefined') ? null : currentSong[key];
             }
@@ -148,7 +180,8 @@
                 author: "",
                 totalFavorited: 0,
                 duration: 0,
-                time:0
+                time:0,
+                id: ""
             }
             for( var key in currentSong ){
                 vm.currentSong[key] = currentSong[key];
@@ -207,12 +240,36 @@
             getNextTrack(true);
         }
 
-        vm.addFavorite = function(){}
+
+        vm.addFavorite = function(){
+            $log.info('addFavorite ...')
+            if(!vm.currSongFaved) {
+                $log.info('addFavorite add',vm.currentSong.id)
+                SC.put('/me/favorites/' + vm.currentSong.id)
+                .then(function(){
+                    vm.currSongFaved = true;
+                })
+                .catch(function(){
+                    vm.currSongFaved = false;
+                });
+
+            } else {
+                $log.info('addFavorite remove',vm.currentSong.id)
+                SC.delete('/me/favorites/' + vm.currentSong.id)
+                .then(function(){
+                    vm.currSongFaved = false;
+                })
+                .catch(function(){
+                    vm.currSongFaved = false;
+                });
+            }
+            //make a popup
+        }
 
         vm.addSong = function(track, index){
             vm.playlist.$add(track)
             .then(function(){
-                if(finished){
+                if(finished && vm.isHost){
                     getNextTrack(false);
                 }
             });

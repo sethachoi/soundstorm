@@ -48,6 +48,14 @@ angular.module('soundstorm')
         })
     }
 
+    function faveChecker(trackid) {
+        return SC.get('me/favorites/' + trackid);
+    }
+
+    function getTrackById(trackid) {
+        return SC.get('/tracks/' + trackid);
+    }
+
 
     function toggleSound(cb){
         if(currentPlayer){
@@ -101,6 +109,8 @@ angular.module('soundstorm')
         'toggleSound': toggleSound,
         'streamTrack': streamTrack,
         'find': find,
-        'on': on
+        'on': on,
+        'faveChecker': faveChecker,
+        'getTrackById': getTrackById,
     }
 });
