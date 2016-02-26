@@ -78,7 +78,7 @@
         vm.isHost = ($stateParams.type==='h')? true : false;
         User.setHost(vm.isHost);
         // vm.isHost = Room.isHost();
-
+        vm.isGuest = !User.checkLoggedIn();
 
         // Intialize Room
         // Room.findAndSetName($stateParams.id);
