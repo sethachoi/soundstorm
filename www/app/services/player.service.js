@@ -49,18 +49,10 @@ angular.module('soundstorm')
     }
 
     function faveChecker(trackid) {
-        // SC.get();
-        //return $.when(getInfo(trackid)).then(isFaved);
         return SC.get('me/favorites/' + trackid);
     }
 
     function getTrackById(trackid) {
-        // SC.get('/tracks/' + trackid);
-        // console.log("testing fave check " + trackid);
-        //var isit = SC.get('/tracks/' + trackid);
-        //var isin = isit.user_favorite;
-        //console.log(isit);
-
         return SC.get('/tracks/' + trackid);
     }
 

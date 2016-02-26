@@ -18,7 +18,8 @@
         'Player',
         'ngProgressFactory',
         'Room',
-        'SC'
+        'SC',
+        'User'
     ];
 
     function HomeCtrl(
@@ -35,7 +36,8 @@
         Player,
         ngProgressFactory,
         Room,
-        SC
+        SC,
+        User
 
     ){
         /******************************************************************
@@ -69,7 +71,8 @@
 
         vm.searchModalHide = true;
 
-        vm.currSongFaved = $stateParams.faved;
+        vm.currSongFaved = User.getFaved();
+        console.log(vm.currSongFaved);
 
         // Grab params from URL
         vm.isHost = ($stateParams.type==='h')? true : false;
@@ -82,22 +85,17 @@
         vm.roomName = Room.getName();
         vm.playlist = Room.getPlaylist();
         vm.currentSong = Room.getCurrentSong();
+        Room.getSongFromRoom(vm.roomName)
+        .then(function(data) {
+            vm.currentSong = data;
+        });
+        
 
         var unwatch = vm.currentSong.$watch(function() {
             ngProgress.set((vm.currentSong.time/vm.currentSong.duration)*100);
             // console.log("data changed!", vm.currentSong);
         });
 
-
-        Player.faveChecker(vm.currentSong.id)
-        .then(function(data){
-            $log.info('faveChecker', data)
-            vm.currSongFaved = true;
-        })
-        .catch(function(err){
-            $log.error('faveChecker', err)
-            vm.currSongFaved = false;
-        });
 
         /******************************************************************
         * Search Model Setup
@@ -113,11 +111,28 @@
         });
 
 
+        function checkFavorite(song) { 
+            Player.faveChecker(song.id)
+            .then(function(data){
+                //$log.info('faveChecker', data)
+                vm.currSongFaved = true;
+                User.setFaved(true);
+                console.log("faved is true");
+            })
+            .catch(function(err){
+                //$log.error('faveChecker', err)
+                vm.currSongFaved = false;
+                User.setFaved(false);
+                console.log("faved is false");
+            });
+        }
+
         /**
         * Get the next track
         */
         function getNextTrack(isFinished){
             var track = vm.playlist[0];
+            checkFavorite(track);
             vm.playlist.$remove(track);
             console.log('getNextTrack', track);
             if(track){
@@ -139,16 +154,6 @@
                 time:0,
                 id: track.id
             }
-
-            Player.faveChecker(track.id)
-            .then(function(data){
-                $log.info('faveChecker', data)
-                vm.currSongFaved = true;
-            })
-            .catch(function(err){
-                $log.error('faveChecker', err)
-                vm.currSongFaved = false;
-            });
 
             console.log("testing stuff");
             console.log(vm.currSongFaved);

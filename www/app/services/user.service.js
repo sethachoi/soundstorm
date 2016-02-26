@@ -11,6 +11,7 @@
         var username;// = userCookie.username || "Anonymous";
         var token;// =  userCookie.token || "scrublord";
         var SCLoggedIn = false;
+        var faved = false;
 
         if(userCookie) {
             username = userCookie.username;
@@ -78,6 +79,12 @@
             },
             checkLoggedIn: function() {
                 return SCLoggedIn;
+            },
+            setFaved: function(boolval) {
+                faved = boolval;
+            },
+            getFaved: function() {
+                return faved;
             }
         }
     }

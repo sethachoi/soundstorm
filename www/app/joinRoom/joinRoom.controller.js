@@ -1,5 +1,5 @@
 angular.module('soundstorm')
-.controller('JoinCtrl', function($scope, Room, User, $state, Player) {
+.controller('JoinCtrl', function($scope, Room, User, $state, Player, $firebaseObject) {
     console.log('JoinCtrl started...');
 
     $scope.roomJoin = function(code){
@@ -11,18 +11,29 @@ angular.module('soundstorm')
                 $state.go('joinFail');
             } else {
                 var favrit;
-                console.log(Room.joinGetCurrentSong(code));
-                Player.faveChecker(Room.joinGetCurrentSong(code))
+                var song;
+                Room.getSongFromRoom(code)
                 .then(function(data){
-                    $log.info('faveChecker', data)
-                    favrit = true;
-                })
-                .catch(function(err){
-                    $log.error('faveChecker', err)
-                    favrit = false;
+                    song = data;
+                    Player.faveChecker(song.id)
+                    .then(function(data){
+                        favrit = true;
+                        User.setFaved(favrit);
+                        $state.go('menu.home', { id: code, type: 'g'});
+                        Room.addUserToRoom(code, User.getUser());
+                    })
+                    .catch(function(err){
+                        //$log.error('faveChecker', err)
+                        favrit = false;
+                        User.setFaved(favrit);
+                        $state.go('menu.home', { id: code, type: 'g', faved: favrit });
+                        Room.addUserToRoom(code, User.getUser());
+                    });
                 });
-                $state.go('menu.home', { id: code, type: 'g', faved: favrit });
-                Room.addUserToRoom(code, User.getUser());
+                
+                console.log(song);
+                
+
             };
         });
     }

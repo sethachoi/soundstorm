@@ -9,7 +9,7 @@ angular.module('soundstorm')
         var name = NameGenerator();
         Room.createRoom(name)
         .then(function(data){
-            $state.go('menu.home',{ id: name, type: 'h', faved: false });
+            $state.go('menu.home',{ id: name, type: 'h'});
         })
         .catch(function(err){
             $log.error('CreateRoom Error', err);

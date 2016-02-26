@@ -18,6 +18,7 @@
         var _ref = new Firebase(ENV.FIREBASE_URL).child('rooms');
         var rooms = $firebaseObject(_ref);
         var roomsArr = $firebaseArray(_ref);
+        var currSong;
 
         return {
             'addNameListener': addNameListener,
@@ -29,7 +30,7 @@
             'setName': setName,
             'doesRoomExist' : doesRoomExist,
             'addUserToRoom' : addUserToRoom,
-            'joinGetCurrentSong' : joinGetCurrentSong
+            'getSongFromRoom' : getSongFromRoom
         };
 
         function addNameListener(cb){
@@ -70,13 +71,18 @@
 
         }
 
-        function joinGetCurrentSong(roomCode){
-            return $firebaseObject(_ref.child(roomCode).child('currentSong')).id;
+        //used when you can't have the song be async
+        function getSongFromRoom(roomCode){
 
+            var song = $firebaseObject(_ref.child(roomCode).child('currentSong'));
+            return song.$loaded()
+            .then(function(data) {
+                return data;
+              })
+              .catch(function(error) {
+                console.error("Error:", error);
+              });
         }
-        // function setPlaylist(currentPlaylist){
-        //     playlist = Playlist(currentPlaylist);
-        // }
 
         function createRoom(name) {
             setName(name);
