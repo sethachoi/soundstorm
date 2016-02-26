@@ -12,7 +12,7 @@
         results = re.exec(url);
         console.log(results)
         window.opener.initializeCallback({oauth_token: results[1]});
-        setTimeout(window.close, 2000);
+        setTimeout(window.close, 100);
     }
     </script>
 </body>

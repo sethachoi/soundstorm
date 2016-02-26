@@ -18,5 +18,9 @@ angular.module('soundstorm')
     $scope.joinButton = function() {
         $state.go('joinRoom');
     }
+    $scope.help = function(){
+        $scope.help1=true;
+    }
+
 
 });

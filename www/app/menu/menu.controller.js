@@ -12,8 +12,8 @@ angular.module('soundstorm')
     })
 
     vm.logout = function(){
-        $state.go('login');
-        console.log('logout')
+        $state.go('logout');
+        //console.log('logout')
     }
 
     vm.help = function(){
