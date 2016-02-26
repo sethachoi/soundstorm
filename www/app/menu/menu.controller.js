@@ -29,4 +29,8 @@ angular.module('soundstorm')
         $ionicSideMenuDelegate.toggleLeft();
         vm.helpHPlaylist = true;
     }
+
+    vm.goHome = function(){
+        $state.go('menu.home', { id: vm.roomName, type: (User.isHost())? 'h':'g'})
+    }
 });

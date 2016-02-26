@@ -16,7 +16,8 @@
         '$stateParams',
         'Player',
         'ngProgressFactory',
-        'Room'
+        'Room',
+        'User'
     ];
 
     function HomeCtrl(
@@ -31,7 +32,8 @@
         $stateParams,
         Player,
         ngProgressFactory,
-        Room
+        Room,
+        User
 
     ){
         /******************************************************************
@@ -69,6 +71,7 @@
 
         // Grab params from URL
         vm.isHost = ($stateParams.type==='h')? true : false;
+        User.setHost(vm.isHost);
         // vm.isHost = Room.isHost();
 
 
