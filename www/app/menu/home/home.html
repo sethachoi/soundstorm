@@ -112,7 +112,7 @@ Cancel
             Pause
         </div>
     </a>
-    <a class="tab-item" ng-click="vm.addFavorite()">
+    <a class="tab-item" ng-click="vm.addFavorite()" ng-disabled="vm.isGuest">
         <div ng-hide="vm.currSongFaved">
             <i class="icon ion-ios-star-outline"></i>
             Add to Favorite
