@@ -7,14 +7,15 @@
 
     //TestCtrl.$inject = ['$log', '$firebaseObject', '$firebaseArray','$cookies', 'ENV', '_', 'User'];
 
-    function PlaylistsCtrl($log, $stateParams, Playlist, Room){
+    function PlaylistsCtrl($log, $stateParams, Auth, Playlist, Room){
         console.log($stateParams);
 
         var vm = this;
-        Playlist.getPlaylist().then(function(data){
-            $log.info('playlist', data)
-            vm.playlist = data;
-        });
+        Playlist.getPlaylist()
+            .then(function(data){
+                $log.info('playlist', data)
+                vm.playlist = data;
+            });
 
 
         vm.playPlaylist = function(playlist){
