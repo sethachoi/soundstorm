@@ -63,6 +63,7 @@ angular.module('soundstorm')
     }
 
     function getTrackById(trackid) {
+        if(!trackid) return null;
         return SC.get('/tracks/' + trackid);
     }
 

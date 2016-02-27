@@ -34,6 +34,12 @@
 		text-align: center;
 	}
 }
+
+/*.ss-pl-item  > .item-complex {*/
+	/*padding: 0;*/
+/*}*/
+
+
 .ss-indigo {
 	background-color: #536DFE;
 }
@@ -161,7 +167,7 @@ background-color: #22242a;
 }
 .ss-info span {
 	margin-left: 2px;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .ss-info .ss-player-time {

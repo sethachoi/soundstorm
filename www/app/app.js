@@ -61,6 +61,11 @@ angular.module('soundstorm', [
         // Set up the various states which the app can be in.
         // Each state's controller can be found in controllers.js
         $stateProvider
+            .state('test', {
+                url: '/test/:playlistId',
+                templateUrl: 'app/test/test.html',
+                controller: 'TestCtrl as vm'
+            })
 
             .state('splash', {
                 url: '/',
