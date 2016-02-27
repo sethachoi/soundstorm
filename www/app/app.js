@@ -18,8 +18,8 @@ angular.module('soundstorm', [
         'underscore'
     ])
     .constant('ENV', window.config)
-    .run(function($log, $ionicPlatform, $rootScope, $location, $state, ENV, Auth, Room, SC) {
-        console.log(ENV)
+    .run(function($log, $ionicPlatform, $rootScope, $location, $state, $cookies, ENV, Auth, Room, SC) {
+        console.log($cookies.get('SC_OAUTH_TOKEN'));
 
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -177,7 +177,10 @@ angular.module('soundstorm', [
 
             .state('logout', {
                 url: '/logout',
-                controller: function($window, $state) {
+                controller: function($window, $state, Room, User, Auth) {
+                    Room.logout();
+                    User.logout();
+                    Auth.logout();
                     $window.location.href="/logout.html";
                     //$state.go('login');
                 }

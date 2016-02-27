@@ -33,11 +33,21 @@ angular.module('soundstorm')
 
     function registerListener(player){
         player.on('time', function(data){
+            if(!currentPlayer) return null;
             timeListenerCallback(currentPlayer.currentTime());
         })
         player.on('finish', function(data){
             player.seek(0);
             finishListenerCallback();
+        })
+        player.on('seek', function(data){
+            console.log('seek', data)
+        })
+        player.on('buffering_start', function(data){
+            console.log('buffering_start', data)
+        })
+        player.on('buffering_end', function(data){
+            console.log('buffering_end', data)
         })
     }
 
@@ -100,6 +110,20 @@ angular.module('soundstorm')
         eventListener(cb);
     };
 
+    function stop(){
+        if(currentPlayer && currentPlayer.options){
+            currentPlayer.seek(currentPlayer.options.duration);
+            currentPlayer=null;
+        }
+    }
+
+    function seek(time){
+        if(!currentPlayer){ return null }
+        console.log('seeking:', time)
+        setTimeout(function(){
+            currentPlayer.seek(time)
+        }, 1000);
+    }
 
     return {
         'getPlayer': function(){
@@ -112,5 +136,7 @@ angular.module('soundstorm')
         'on': on,
         'faveChecker': faveChecker,
         'getTrackById': getTrackById,
+        'stop': stop,
+        'seek': seek
     }
 });

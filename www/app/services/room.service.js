@@ -30,7 +30,8 @@
             'setName': setName,
             'doesRoomExist' : doesRoomExist,
             'addUserToRoom' : addUserToRoom,
-            'getSongFromRoom' : getSongFromRoom
+            'getSongFromRoom' : getSongFromRoom,
+            'logout': logout
         };
 
         function addNameListener(cb){
@@ -117,6 +118,10 @@
             //TODO: add more data sync stuff
             roomName = roomCode;
             return $firebaseArray(_ref.child(roomCode).child('users')).$add(userObj);
+        }
+
+        function logout(){
+            $cookies.put('roomName', null);
         }
     }
 })();

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular.module('soundstorm')
-    .factory('User', User);
+        .factory('User', User);
 
 
     function User($log, $location, $cookies, $firebaseObject, $firebaseAuth, ENV) {
@@ -43,15 +43,15 @@
 
 
                 var savePromise = authObj.$authAnonymously()
-                .then(function(authData) {
-                    console.log("Logged in as:", authData.uid);
-                    token = authData.uid;
-                    username = uname;
-                    users[token] = {
-                        'username' : username
-                    };
-                    return users.$save()
-                });
+                    .then(function(authData) {
+                        console.log("Logged in as:", authData.uid);
+                        token = authData.uid;
+                        username = uname;
+                        users[token] = {
+                            'username' : username
+                        };
+                        return users.$save()
+                    });
 
 
                 savePromise.then(function(user){
@@ -88,11 +88,15 @@
                 return faved;
             },
             isHost: function(){
-              return isHost;
+                return isHost;
             },
             setHost: function(b){
                 isHost = b;
                 $cookies.put('isHost', b);
+            },
+            logout: function(){
+                $cookies.put('isHost', null);
+                $cookies.putObject('userData', {});
             }
         }
     }
