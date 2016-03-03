@@ -3,8 +3,12 @@
     <!-- <div class="bar bar-header bar-dark">
     <h1 class="title">SoundStorm</h1>
 </div> -->
+
 <ion-content class="ss-content">
     <div class="ss-splash-title text-center">
+        <div class="ss-screenshot">
+            <img src="img/stormiconwhite2.png">
+        </div>
         <h1>SoundStorm</h1>
         <p>Changing the way you share music.</p>
     </div>
@@ -16,14 +20,16 @@
     <form role="form" class="padding" style="max-width: 400px; margin-left: auto; margin-right: auto;">
 
         <div class="col text-center">
-            <a class="button button-calm block" ui-sref="learn">
-                Learn More
+            <h3 class="splashH3">New to SoundStorm? Click here:</h3>
+            <a class="button button-calm block" ui-sref="learn" ng-click=vm.learn()>
+                What is this?
             </a>
         </div>
         <p class="subtitle fancy"><span>OR</span></p>
         <div class="col text-center">
-            <a class="button button-positive block" ui-sref="login">
-                Sign In
+            <h3 class="splashH3">Ready to share music with your buddies?</h3>
+            <a class="button button-positive block" ui-sref="login" ng-click="vm.login()">
+                Get Started!
             </a>
         </div>
 

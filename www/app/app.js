@@ -19,6 +19,7 @@ angular.module('soundstorm', [
     ])
     .constant('ENV', window.config)
     .run(function($log, $ionicPlatform, $rootScope, $location, $state, $cookies, ENV, Auth, Room, SC) {
+        mixpanel.track("App is ready");
         console.log($cookies.get('SC_OAUTH_TOKEN'));
 
         $ionicPlatform.ready(function() {
@@ -61,11 +62,16 @@ angular.module('soundstorm', [
         // Set up the various states which the app can be in.
         // Each state's controller can be found in controllers.js
         $stateProvider
+            .state('test', {
+                url: '/test/:playlistId',
+                templateUrl: 'app/test/test.html',
+                controller: 'TestCtrl as vm'
+            })
 
             .state('splash', {
                 url: '/',
                 templateUrl: 'app/splash/splash.html',
-                controller: 'SplashCtrl'
+                controller: 'SplashCtrl as vm'
             })
             .state('learn', {
                 url: '/learn',

@@ -34,6 +34,12 @@
 		text-align: center;
 	}
 }
+
+/*.ss-pl-item  > .item-complex {*/
+	/*padding: 0;*/
+/*}*/
+
+
 .ss-indigo {
 	background-color: #536DFE;
 }
@@ -161,7 +167,7 @@ background-color: #22242a;
 }
 .ss-info span {
 	margin-left: 2px;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .ss-info .ss-player-time {
@@ -206,7 +212,7 @@ background-color: #22242a;
 
 .ss-splash-title {
 	/*background: rgba(170, 170, 170, 0.5);*/
-	margin-top: 20%;
+	margin-top: 5%;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-radius: 8px;
@@ -293,6 +299,10 @@ background-color: #22242a;
 .fancy span:after {
 	left: 100%;
 	margin-left: 15px;
+}
+
+.splashH3 {
+	color: white;
 }
 
 #ss-help-player-info {

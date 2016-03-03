@@ -1,50 +1,41 @@
-<ion-view title="Select a Playlist">
+<ion-view title="Currently Playing">
 
-    <ion-nav-bar>
-        <ion-nav-buttons side="left">
-            <!-- Toggle left side menu -->
-            <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-        </ion-nav-buttons>
-    </ion-nav-bar>
-
-    <ion-nav-buttons side="right">
-        <button class="button button-clear button-positive" ng-click="editToggle()">Edit</button>
+    <ion-nav-buttons side="left">
+        <!-- Toggle left side menu -->
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
 
-        <div id="player"></div>
+
+    <ion-nav-buttons side="right">
+        <!--<button class="button button-clear" ng-click="vm.editToggle()">Edit</button>-->
+    </ion-nav-buttons>
+
+    <div id="player"></div>
 
 
-    <ion-content class="padding">
+    <ion-content class="">
+        <ion-list show-delete="vm.shouldShowDelete" show-reorder="vm.shouldShowReorder" can-swipe="vm.listCanSwipe">
+            <ion-item ng-repeat="item in vm.playlist" class="item-thumbnail-left ss-pl-item">
 
-            <a class="item item-thumbnail-left" href="#/p/1">
-              <img src="http://i.imgur.com/ECFTw3J.jpg">
-              <h2>Party Playlist</h2>
-              <p>58 tracks</p>
-            </a>
+                <img ng-src="{{item.tracks[0].artwork_url||item.tracks[1].artwork_url}}">
+                <h2>{{item.title}}</h2>
+                <p>{{item.duration | date: 'HH:mm:ss': 'UTC' }}</p>
 
-            <a class="item item-thumbnail-left" href="#/playlist">
-              <img src="http://i.imgur.com/n8McQ1A.jpg">
-              <h2>Dance Playlist</h2>
-              <p>243 tracks</p>
-            </a>
+                <button style="float: right;" ng-hide="selected" class="button button-balanced" ng-click="vm.playPlaylist(item);">
+                    <i class="icon ion-play"></i>
+                </button>
 
-            <a class="item item-thumbnail-left" href="#/playlist">
-              <img src="http://i.imgur.com/XkmSW3g.jpg">
-              <h2>Vocaloid Playlist</h2>
-              <p>6 tracks</p>
-            </a>
+                <ion-option-button class="button-positive" ng-click="vm.share(item)">
+                    Share
+                </ion-option-button>
+                <ion-option-button class="button-info" ng-click="vm.edit(item)">
+                    Edit
+                </ion-option-button>
+                <ion-delete-button class="ion-minus-circled" ng-click="vm.playlist.splice($index, 1)">
+                </ion-delete-button>
+                <ion-reorder-button class="ion-navicon" on-reorder="vm.reorderItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
 
-            <a class="item item-thumbnail-left" href="#/playlist">
-              <img src="http://i.imgur.com/bnvRSTz.jpg">
-              <h2>Roadtrip Playlist</h2>
-              <p>22 tracks</p>
-            </a>
-
-            <a class="item item-thumbnail-left" href="#/playlist">
-              <img src="http://i.imgur.com/2HngoyU.jpg">
-              <h2>Trippy Playlist</h2>
-              <p>31 tracks</p>
-            </a>
-
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
