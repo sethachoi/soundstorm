@@ -32,7 +32,8 @@
             'doesRoomExist' : doesRoomExist,
             'addUserToRoom' : addUserToRoom,
             'getSongFromRoom' : getSongFromRoom,
-            'logout': logout
+            'logout': logout,
+            'userCount': userCount
         };
 
         function addNameListener(cb){
@@ -130,6 +131,19 @@
 
         function logout(){
             $cookies.put('roomName', null);
+        }
+
+        function userCount() {
+            var users = $firebaseArray(_ref.child(roomName).child('users'));
+            return users.$loaded()
+                .then(function(data){
+                    console.log(data);
+                    console.log(data.length);
+                    return data.length;
+                })
+                .catch(function(error){
+                    console.log(error);
+                });
         }
     }
 })();

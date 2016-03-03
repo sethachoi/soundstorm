@@ -67,7 +67,7 @@ Cancel
         <span ng-show="vm.currentSong.totalFavorited">{{vm.currentSong.totalFavorited}}</span>
         <span ng-hide="vm.currentSong.totalFavorited">0</span>
     </i></div>
-    <div class="col"><i class="ion-ios-skipforward-outline"><span>{{vm.votesSkipped}}/{{vm.usersTotal}}</span></i></div>
+    <div class="col"><i class="ion-ios-skipforward-outline"><span>{{vm.votesSkipped}}/{{vm.skipsNeeded}}</span></i></div>
     <!--<div class="col"><i class="ion-ios-people"><span>1</span></i></div>-->
 </section>
 
@@ -123,7 +123,7 @@ Cancel
         </div>
     </a>
 
-    <a class="tab-item" ng-click="vm.voteSkip()">
+    <a class="tab-item" ng-click="vm.voteSkip()" ng-disabled="vm.userVoted">
         <i class="icon ion-ios-skipforward"></i>
         Vote to Skip
     </a>
