@@ -52,12 +52,15 @@
         vm.votesSkipped = 0;
         vm.favorited = 1;
 
+        vm.userCanVote = true;
 
         vm.progressval = 0;
         vm.totalTime = 0;
         vm.stopinterval = null;
 
-        vm.usersTotal = 4;
+        vm.usersTotal = 1;
+        updateUserCount();
+        vm.skipsNeeded = Math.floor(vm.usersTotal/2) + 1;
 
         // Progrss bar hacks
         var ngProgress = ngProgressFactory.createInstance();
@@ -143,6 +146,10 @@
          */
         function getNextTrack(isFinished){
             var track = vm.playlist[0];
+
+            //arbitrarily putting voteskip update stuff with get next track
+            updateVoteInfo();
+
             vm.playlist.$remove(track);
             console.log('getNextTrack', track);
             if(track){
@@ -153,6 +160,19 @@
                 clearCurrentSong();
                 Player.stop();
             }
+        }
+
+        function updateUserCount() {
+            Room.userCount().then(function(number){
+                vm.usersTotal = number;
+            });
+        }
+
+        function updateVoteInfo(){
+            updateUserCount();
+            vm.skipsNeeded = Math.floor(vm.usersTotal/2) + 1;
+            vm.votesSkipped = 0;
+            vm.userVoted = false;
         }
 
 
@@ -258,7 +278,12 @@
         }
 
         vm.voteSkip = function(){
-            getNextTrack(false);
+            //getNextTrack(false);
+            vm.userVoted = true;
+            vm.votesSkipped += 1;
+            if(vm.votesSkipped >= vm.skipsNeeded) {
+                getNextTrack(false);
+            }
         }
 
 
