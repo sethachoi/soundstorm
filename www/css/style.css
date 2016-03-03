@@ -301,6 +301,10 @@ background-color: #22242a;
 	margin-left: 15px;
 }
 
+.splashH3 {
+	color: white;
+}
+
 #ss-help-player-info {
 	background-size: 100%;
 	background-position: 0% 50%;
