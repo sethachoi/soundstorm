@@ -302,6 +302,7 @@
          * Show filter bar
          */
         vm.showFilterBar = function () {
+            mixpanel.track('search bar')
             sModal.show().then(function(){
                 filterBarInstance = $ionicFilterBar.show({
                     items: [],
@@ -334,7 +335,11 @@
             })
 
         }
-
+        ///////////////////////////// listeners
+        vm.clickedPlayerStats = function(){
+            console.log('clickedPlayerStats')
+            mixpanel.track('clickedPlayerStats')
+        }
 
     }// END function HomeCtrl(){}
 })();

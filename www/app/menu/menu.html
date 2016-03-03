@@ -129,12 +129,12 @@ icon=""
 main-caption="A user that has joined the channel. If they are logged in it will display the number of their playlists and favorites."
 is-active="vm.helpHomeCurrentUser"
 use-button=true
-on-walkthrough-hide="vm.toggleLeftHelp()">
+on-walkthrough-hide="vm.toggleRight(); vm.ssHPlayerInfo=true">
 </walkthrough>
 
 
 
-<walkthrough
+<!-- <walkthrough
 is-round=false
 walkthrough-type="transparency"
 focus-element-id="helphplaylist"
@@ -144,42 +144,8 @@ main-caption="This allows you to manage your song playlist. It allows you to add
 is-active="vm.helpHPlaylist"
 use-button=true
 on-walkthrough-hide="vm.helpHFavorites=true;">
-</walkthrough>
+</walkthrough> -->
 
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="helphfavorites"
-icon=""
- force-caption-location="BOTTOM"
-main-caption="The list of songs that you've favorited. (Currently not implemented)"
-is-active="vm.helpHFavorites"
-use-button=true
-on-walkthrough-hide="vm.helpHSettings=true">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="helphsettings"
-icon=""
- force-caption-location="BOTTOM"
-main-caption="Access your channel's settings. (Currently not implemented)"
-is-active="vm.helpHSettings"
-use-button=true
-on-walkthrough-hide="vm.helpHLogout=true">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="helphlogout"
-icon=""
-main-caption="Tap this to logout which makes us sad :("
-is-active="vm.helpHLogout"
-use-button=true
-on-walkthrough-hide="vm.helpHPlayerInfo=true;">
-</walkthrough>
 
 <walkthrough
 is-round=false
@@ -201,18 +167,7 @@ icon=""
 main-caption="Displays how many user favorited the current song and how many people voted to skip."
 is-active="vm.helpHPlayerStats"
 use-button=true
-on-walkthrough-hide="vm.helpHPlayerPlaylist=true;">
-</walkthrough>
-
-<walkthrough
-is-round=false
-walkthrough-type="transparency"
-focus-element-id="ss-help-playlist"
-icon=""
-main-caption="The a preview playlist of upcoming songs."
-is-active="vm.helpHPlayerPlaylist"
-use-button=true
-on-walkthrough-hide="vm.helpHControl=true;">
+on-walkthrough-hide="vm.helpHPlayerCtrl=true;">
 </walkthrough>
 
 <walkthrough
@@ -220,8 +175,43 @@ is-round=false
 walkthrough-type="transparency"
 focus-element-id="ss-help-control"
 icon=""
-main-caption="The controls for the player. Hosts have two extra controls allowing them to play/pause or mute/unmute"
-is-active="vm.helpHControl"
+main-caption="The music and participation options."
+is-active="vm.helpHPlayerCtrl"
 use-button=true
-on-walkthrough-hide="">
+on-walkthrough-hide="vm.helpHControl=true;">
 </walkthrough>
+
+<!-- <walkthrough
+is-round=false
+walkthrough-type="transparency"
+focus-element-id="helphfavorites"
+icon=""
+ force-caption-location="BOTTOM"
+main-caption="The list of songs that you've favorited. (Currently not implemented)"
+is-active="vm.helpHFavorites"
+use-button=true
+on-walkthrough-hide="vm.helpHSettings=true">
+</walkthrough> -->
+
+<!-- <walkthrough
+is-round=false
+walkthrough-type="transparency"
+focus-element-id="helphsettings"
+icon=""
+ force-caption-location="BOTTOM"
+main-caption="Access your channel's settings. (Currently not implemented)"
+is-active="vm.helpHSettings"
+use-button=true
+on-walkthrough-hide="vm.helpHLogout=true">
+</walkthrough> -->
+
+<!-- <walkthrough
+is-round=false
+walkthrough-type="transparency"
+focus-element-id="helphlogout"
+icon=""
+main-caption="Tap this to logout which makes us sad :("
+is-active="vm.helpHLogout"
+use-button=true
+on-walkthrough-hide="vm.helpHPlayerInfo=true;">
+</walkthrough> -->

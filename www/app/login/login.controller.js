@@ -5,7 +5,7 @@ angular.module('soundstorm')
             SC.get('/me')
                 .then(function(data){
                     console.log('inviteCallback() Auth success!');
-                    
+
                     User
                         .setUsername(data.username)
                         .then(function(){
@@ -26,6 +26,7 @@ angular.module('soundstorm')
         });
 
         $scope.scLogin = function() {
+                mixpanel.track("SoundCloud Login");
             SC.connect().then(function(){
                 testConnection();
             });
@@ -34,6 +35,7 @@ angular.module('soundstorm')
             nameError: false
         }
         $scope.guestLogin = function(name){
+            mixpanel.track("GuestLogin Login");
             User.setUsername(name)
                 .then(function(userData) {
                     // myRef.key() === users.$id;

@@ -17,12 +17,16 @@ angular.module('soundstorm')
     }
 
     vm.help = function(){
+        mixpanel.track('click help, sidebar')
         vm.helpHomeSearch = true;
     }
 
     vm.getHelpHomeCurrentUser = function(){
         $ionicSideMenuDelegate.toggleRight();
         vm.helpHomeCurrentUser = true;
+    }
+    vm.toggleRight = function(){
+        $ionicSideMenuDelegate.toggleRight();
     }
 
     vm.toggleLeftHelp = function(){

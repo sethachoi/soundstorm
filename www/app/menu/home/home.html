@@ -58,7 +58,7 @@ Cancel
 </section>
 
 
-<section id="ss-help-player-stats" class="row ss-info" >
+<section id="ss-help-player-stats" class="row ss-info" ng-click="vm.clickedPlayerStats()">
     <div class="col col-33" style="padding-top:0">
         <span class="ss-player-time" ng-show="vm.currentSong.time"=>{{ vm.currentSong.time | date: 'mm:ss': 'UTC' }} / {{ vm.currentSong.duration | date: 'mm:ss': 'UTC' }}</span>
         <span class="ss-player-time" ng-hide="vm.currentSong.time">00:00 / 00:00</span>
