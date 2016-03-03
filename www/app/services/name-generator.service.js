@@ -1,5 +1,6 @@
 angular.module('soundstorm')
 .factory('NameGenerator', function($log, $location, $cookies, ENV) {
+  /*
     var adjs = [
       "autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark",
       "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter",
@@ -10,7 +11,7 @@ angular.module('soundstorm')
       "wandering", "withered", "wild", "black", "young", "holy", "solitary",
       "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine",
       "polished", "ancient", "purple", "lively", "nameless"
-    ]
+    ]*/
     var nouns = [
       "waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning",
       "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter",
@@ -24,7 +25,7 @@ angular.module('soundstorm')
     ]
 
     function generateName(){
-        return pick(adjs) + '-' + pick(nouns) + '-' + rndNum(100,0);
+        return pick(nouns) + rndNum(100,0);
     }
 
     function pick(list){
