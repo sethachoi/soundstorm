@@ -9,9 +9,9 @@
     <ion-content class="padding has-header">
         <!-- <h1>Channel</h1> -->
         <form >
-            <div class="row row-center">
+            <div class="row row-center" id="channelBlock">
                 <div class="col">
-                    <p>What would you like to do?</p>
+                    <h3>What would you like to do?</h3>
                     <button id="hostButton" class="button button-block button-balanced" ng-click="hostButton()">
                         Host Channel
                     </button>
@@ -19,21 +19,24 @@
                     <button id="joinButton" class="button button-block button-positive" ng-click="joinButton()">
                         Join Channel
                     </button>
+                    <div class="padding-top">
 
+                    </div>
+
+                    <button class="button button-block button-calm" ng-click="help()">
+                        <i class="icon ion-help"></i>
+                        Help Me
+                    </button>
                 </div>
             </div>
-            <pre>{{data}}</pre>
+
         </form>
     </ion-content>
 
-    <div class="tabs tabs-icon-top tabs-dark">
+    <!--<div class="tabs tabs-icon-top tabs-dark">-->
 
 
-        <a class="tab-item" ng-click="help1=true;">
-            <i class="icon ion-help"></i>
-            Help Me
-        </a>
-    </div>
+    <!--</div>-->
 </ion-view>
 
 <walkthrough
@@ -54,7 +57,7 @@ walkthrough-type="transparency"
 focus-element-id="joinButton"
 icon=""
  force-caption-location="BOTTOM"
-main-caption="Join Channel allows you to join a existing room someone else created. (Currently not available)"
+main-caption="(Warning: Features are still in experimental) Join Channel allows you to join a existing room someone else created."
 is-active="help2"
 use-button=true>
 </walkthrough>

@@ -58,7 +58,7 @@ Cancel
 </section>
 
 
-<section id="ss-help-player-stats" class="row ss-info" >
+<section id="ss-help-player-stats" class="row ss-info" ng-click="vm.clickedPlayerStats()">
     <div class="col col-33" style="padding-top:0">
         <span class="ss-player-time" ng-show="vm.currentSong.time"=>{{ vm.currentSong.time | date: 'mm:ss': 'UTC' }} / {{ vm.currentSong.duration | date: 'mm:ss': 'UTC' }}</span>
         <span class="ss-player-time" ng-hide="vm.currentSong.time">00:00 / 00:00</span>
@@ -67,8 +67,8 @@ Cancel
         <span ng-show="vm.currentSong.totalFavorited">{{vm.currentSong.totalFavorited}}</span>
         <span ng-hide="vm.currentSong.totalFavorited">0</span>
     </i></div>
-    <div class="col"><i class="ion-ios-skipforward-outline"><span>{{vm.votesSkipped}}/{{vm.usersTotal}}</span></i></div>
-    <div class="col"><i class="ion-ios-people"><span>1</span></i></div>
+    <div class="col"><i class="ion-ios-skipforward-outline"><span>{{vm.votesSkipped}}/{{vm.skipsNeeded}}</span></i></div>
+    <!--<div class="col"><i class="ion-ios-people"><span>1</span></i></div>-->
 </section>
 
 <section id="ss-help-playlist">
@@ -112,7 +112,7 @@ Cancel
             Pause
         </div>
     </a>
-    <a class="tab-item" ng-click="vm.addFavorite()">
+    <a class="tab-item" ng-click="vm.addFavorite()" ng-disabled="vm.isGuest">
         <div ng-hide="vm.currSongFaved">
             <i class="icon ion-ios-star-outline"></i>
             Add to Favorite
@@ -123,7 +123,7 @@ Cancel
         </div>
     </a>
 
-    <a class="tab-item" ng-click="vm.voteSkip()">
+    <a class="tab-item" ng-click="vm.voteSkip()" ng-disabled="vm.userVoted">
         <i class="icon ion-ios-skipforward"></i>
         Vote to Skip
     </a>

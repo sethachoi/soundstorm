@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Logout</title>
+    <link href="bower_components/ionic/release/css/ionic.css" rel="stylesheet">
+</head>
+<body style="height: inherit;">
+
+<div class="bar bar-header bar-balanced">
+    <h1 class="title">Logging out...</h1>
+</div>
+<ion-content class="padding has-header">
+    <div class="text-center" style="
+    padding-top: 50px;
+    height: 100%;
+    background-color: #EBEBE9;">
+        <img src="/img/catgirl.jpg">
+    </div>
+</ion-content>
+
+
+<script>
+    window.onload = function() {
+        setTimeout(function(){
+            window.location.href="/#/login";
+        }, 100);
+//
+    }
+</script>
+</body>
+</html>

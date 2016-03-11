@@ -3,6 +3,7 @@ angular.module('soundstorm')
     console.log('ChannelCtrl started...');
 
     $scope.hostButton = function(){
+        mixpanel.track('hostButton')
         var num = Math.random().toString(36).substr(2, 6);
         var str = num.toUpperCase();
 
@@ -16,7 +17,13 @@ angular.module('soundstorm')
         });
     };
     $scope.joinButton = function() {
+        mixpanel.track('joinRoom')
         $state.go('joinRoom');
     }
+    $scope.help = function(){
+        mixpanel.track('clicked help button, channel screen')
+        $scope.help1=true;
+    }
+
 
 });

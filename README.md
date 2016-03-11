@@ -1,15 +1,11 @@
 SoundStorm
 ===================
 
-A one-click Ionic app template for Heroku
-
 ## Deploying locally
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
 
 ```sh
-git clone git@github.com:driftyco/ionic-heroku-button.git # or clone your own fork
-cd ionic-heroku-button
 npm install
 npm start
 ```

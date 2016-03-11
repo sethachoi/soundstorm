@@ -1,8 +1,8 @@
 (function(){
     'use strict';
     angular
-    .module('soundstorm')
-    .controller('HomeCtrl', HomeCtrl);
+        .module('soundstorm')
+        .controller('HomeCtrl', HomeCtrl);
 
     HomeCtrl.$inject = [
         '$log',
@@ -41,8 +41,8 @@
 
     ){
         /******************************************************************
-        * Intialize VM variables
-        *******************************************************************/
+         * Intialize VM variables
+         *******************************************************************/
         var vm = this; // The controllr's scope
 
         vm.title = "Home";
@@ -52,12 +52,15 @@
         vm.votesSkipped = 0;
         vm.favorited = 1;
 
+        vm.userCanVote = true;
 
         vm.progressval = 0;
         vm.totalTime = 0;
         vm.stopinterval = null;
 
-        vm.usersTotal = 4;
+        vm.usersTotal = 1;
+        updateUserCount();
+        vm.skipsNeeded = Math.floor(vm.usersTotal/2) + 1;
 
         // Progrss bar hacks
         var ngProgress = ngProgressFactory.createInstance();
@@ -72,12 +75,13 @@
         vm.searchModalHide = true;
 
         vm.currSongFaved = User.getFaved();
-        console.log(vm.currSongFaved);
+        //console.log(vm.currSongFaved);
 
         // Grab params from URL
         vm.isHost = ($stateParams.type==='h')? true : false;
+        User.setHost(vm.isHost);
         // vm.isHost = Room.isHost();
-
+        vm.isGuest = !User.checkLoggedIn();
 
         // Intialize Room
         // Room.findAndSetName($stateParams.id);
@@ -86,10 +90,20 @@
         vm.playlist = Room.getPlaylist();
         vm.currentSong = Room.getCurrentSong();
         Room.getSongFromRoom(vm.roomName)
-        .then(function(data) {
-            vm.currentSong = data;
-        });
-        
+            .then(function(data) {
+                vm.currentSong = data;
+
+                if(vm.isHost){
+                    Player.getTrackById(data.id)
+                        .then(function(track){
+                            console.log('getTrackById', track)
+                            streamTrack(track).then(function () {
+                                Player.seek(data.time)
+                            });
+                        })
+                }
+            });
+
 
         var unwatch = vm.currentSong.$watch(function() {
             ngProgress.set((vm.currentSong.time/vm.currentSong.duration)*100);
@@ -98,8 +112,8 @@
 
 
         /******************************************************************
-        * Search Model Setup
-        *******************************************************************/
+         * Search Model Setup
+         *******************************************************************/
         var sModal;
         var filterBarInstance;
 
@@ -111,35 +125,57 @@
         });
 
 
-        function checkFavorite(song) { 
+        function checkFavorite(song) {
             Player.faveChecker(song.id)
-            .then(function(data){
-                //$log.info('faveChecker', data)
-                vm.currSongFaved = true;
-                User.setFaved(true);
-                console.log("faved is true");
-            })
-            .catch(function(err){
-                //$log.error('faveChecker', err)
-                vm.currSongFaved = false;
-                User.setFaved(false);
-                console.log("faved is false");
-            });
+                .then(function(data){
+                    //$log.info('faveChecker', data)
+                    vm.currSongFaved = true;
+                    User.setFaved(true);
+                    console.log("faved is true");
+                })
+                .catch(function(err){
+                    //$log.error('faveChecker', err)
+                    vm.currSongFaved = false;
+                    User.setFaved(false);
+                    console.log("faved is false");
+                });
         }
 
         /**
-        * Get the next track
-        */
+         * Get the next track
+         */
         function getNextTrack(isFinished){
             var track = vm.playlist[0];
-            checkFavorite(track);
+
+            //arbitrarily putting voteskip update stuff with get next track
+            updateVoteInfo();
+
             vm.playlist.$remove(track);
             console.log('getNextTrack', track);
             if(track){
                 finished = isFinished;
+                checkFavorite(track);
                 streamTrack(track);
+            } else if(!isFinished){
+                clearCurrentSong();
+                Player.stop();
             }
         }
+
+        function updateUserCount() {
+            Room.userCount().then(function(number){
+                vm.usersTotal = number;
+            });
+        }
+
+        function updateVoteInfo(){
+            updateUserCount();
+            vm.skipsNeeded = Math.floor(vm.usersTotal/2) + 1;
+            vm.votesSkipped = 0;
+            vm.userVoted = false;
+        }
+
+
 
         var currentPlayer;
         var finished = true;
@@ -149,19 +185,18 @@
                 preview: track.artwork_url,
                 title: track.title,
                 author: track.user.permalink,
-                totalFavorited: track.favoritings_count,
+                totalFavorited: track.likes_count || track.favoritings_count,
                 duration: track.duration,
-                time:0,
                 id: track.id
             }
 
-            console.log("testing stuff");
-            console.log(vm.currSongFaved);
-            console.log(currentSong);
+            //console.log("testing stuff");
+            console.log('streamTrack currentSong', currentSong);
 
             $('#ss-help-player-info').css({
                 "background-image":"url("+track.artwork_url+")"
             });
+
 
             for( var key in currentSong ){
                 vm.currentSong[key] = (typeof currentSong[key] === 'undefined') ? null : currentSong[key];
@@ -170,10 +205,16 @@
 
             return Player.streamTrack(track, vm, function(player){
                 vm.isPlaying = player.isPlaying();
+                finished = false;
+                //$scope.apply();
             });
         }
 
         function clearCurrentSong(){
+            $('#ss-help-player-info').css({
+                "background-image": "url()"
+            });
+
             var currentSong = {
                 preview: "",
                 title: "Nothing is playing...",
@@ -190,11 +231,11 @@
         }
 
         /******************************************************************
-        * Player Events
-        *******************************************************************/
+         * Player Events
+         *******************************************************************/
 
 
-        // Player add 'time' event listeners
+            // Player add 'time' event listeners
         Player.on('time', function(time){
             vm.currentSong.time = time;
             vm.currentSong.$save();
@@ -207,14 +248,14 @@
             ngProgress.set(0);
             console.log('finished...')
             clearCurrentSong().then(function(){
-                getNextTrack(true);// finished = true
+                getNextTrack(true);
             })
         });
 
 
         /******************************************************************
-        * Player Controls
-        *******************************************************************/
+         * Player Controls
+         *******************************************************************/
 
         vm.play = function(){
             var p = Player.getPlayer();
@@ -237,7 +278,12 @@
         }
 
         vm.voteSkip = function(){
-            getNextTrack(true);
+            //getNextTrack(false);
+            vm.userVoted = true;
+            vm.votesSkipped += 1;
+            if(vm.votesSkipped >= vm.skipsNeeded) {
+                getNextTrack(false);
+            }
         }
 
 
@@ -246,41 +292,42 @@
             if(!vm.currSongFaved) {
                 $log.info('addFavorite add',vm.currentSong.id)
                 SC.put('/me/favorites/' + vm.currentSong.id)
-                .then(function(){
-                    vm.currSongFaved = true;
-                })
-                .catch(function(){
-                    vm.currSongFaved = false;
-                });
+                    .then(function(){
+                        vm.currSongFaved = true;
+                    })
+                    .catch(function(){
+                        vm.currSongFaved = false;
+                    });
 
             } else {
                 $log.info('addFavorite remove',vm.currentSong.id)
                 SC.delete('/me/favorites/' + vm.currentSong.id)
-                .then(function(){
-                    vm.currSongFaved = false;
-                })
-                .catch(function(){
-                    vm.currSongFaved = false;
-                });
+                    .then(function(){
+                        vm.currSongFaved = false;
+                    })
+                    .catch(function(){
+                        vm.currSongFaved = false;
+                    });
             }
             //make a popup
         }
 
         vm.addSong = function(track, index){
             vm.playlist.$add(track)
-            .then(function(){
-                if(finished && vm.isHost){
-                    getNextTrack(false);
-                }
-            });
+                .then(function(){
+                    if(finished && vm.isHost){
+                        getNextTrack(false);
+                    }
+                });
             vm.scResults.splice(index, 1);
             // filterBarInstance();
         }
 
         /**
-        * Show filter bar
-        */
+         * Show filter bar
+         */
         vm.showFilterBar = function () {
+            mixpanel.track('search bar')
             sModal.show().then(function(){
                 filterBarInstance = $ionicFilterBar.show({
                     items: [],
@@ -295,11 +342,11 @@
                             console.log(filterText);
                             //findAndPlay(filterText);
                             Player.find(filterText)
-                            .then(function(tracks){
-                                console.log(tracks)
-                                vm.scResults = tracks;
-                                $scope.$apply();
-                            });
+                                .then(function(tracks){
+                                    console.log(tracks)
+                                    vm.scResults = tracks;
+                                    $scope.$apply();
+                                });
 
                         }
                     },
@@ -313,7 +360,11 @@
             })
 
         }
-
+        ///////////////////////////// listeners
+        vm.clickedPlayerStats = function(){
+            console.log('clickedPlayerStats')
+            mixpanel.track('clickedPlayerStats')
+        }
 
     }// END function HomeCtrl(){}
 })();

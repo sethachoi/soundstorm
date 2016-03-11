@@ -12,11 +12,12 @@ angular.module('soundstorm')
     })
 
     vm.logout = function(){
-        $state.go('login');
-        console.log('logout')
+        $state.go('logout');
+        //console.log('logout')
     }
 
     vm.help = function(){
+        mixpanel.track('click help, sidebar')
         vm.helpHomeSearch = true;
     }
 
@@ -24,9 +25,16 @@ angular.module('soundstorm')
         $ionicSideMenuDelegate.toggleRight();
         vm.helpHomeCurrentUser = true;
     }
+    vm.toggleRight = function(){
+        $ionicSideMenuDelegate.toggleRight();
+    }
 
     vm.toggleLeftHelp = function(){
         $ionicSideMenuDelegate.toggleLeft();
         vm.helpHPlaylist = true;
+    }
+
+    vm.goHome = function(){
+        $state.go('menu.home', { id: vm.roomName, type: (User.isHost())? 'h':'g'})
     }
 });

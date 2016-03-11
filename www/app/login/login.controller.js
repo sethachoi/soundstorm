@@ -5,12 +5,13 @@ angular.module('soundstorm')
             SC.get('/me')
                 .then(function(data){
                     console.log('inviteCallback() Auth success!');
-                    User.setLoggedIn(true);
+
                     User
                         .setUsername(data.username)
                         .then(function(){
                             console.log('setUsername Success!');
                             $state.go('channel');
+                            User.setLoggedIn(true);
                         });
                 })
                 .catch(function(data){
@@ -25,6 +26,7 @@ angular.module('soundstorm')
         });
 
         $scope.scLogin = function() {
+                mixpanel.track("SoundCloud Login");
             SC.connect().then(function(){
                 testConnection();
             });
@@ -33,11 +35,13 @@ angular.module('soundstorm')
             nameError: false
         }
         $scope.guestLogin = function(name){
+            mixpanel.track("GuestLogin Login");
             User.setUsername(name)
                 .then(function(userData) {
                     // myRef.key() === users.$id;
                     $scope.vm.nameError=false;
                     console.log(userData)
+                    User.setLoggedIn(false);
                     $state.go('channel');
                 }).catch(function(error) {
                 $scope.vm.nameError=true;
